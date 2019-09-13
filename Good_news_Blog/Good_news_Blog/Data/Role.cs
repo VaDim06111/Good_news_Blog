@@ -7,9 +7,9 @@ namespace Good_news_Blog.Data
 {
     public class Role
     {
-        public Guid Id { get; set; }
+        public Guid RoleId { get; set; }
         public string Name { get; set; }
 
-        public List<User> Users { get; set; }
+        public IEnumerable<UserRole> UserRoles { get; set; }
     }
 }
