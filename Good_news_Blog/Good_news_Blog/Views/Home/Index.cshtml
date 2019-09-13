@@ -1,8 +1,10 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-<h1>Index</h1>
 
-<div>
-    First page
-</div>
+    <div class="media-left">
+        <ul class="nav nav-pills nav-stacked">
+            <li role="presentation" class="active"><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+            <li role="presentation"><a asp-area="" asp-controller="News" asp-action="AddNews">Add News</a></li>
+        </ul>        
+    </div>

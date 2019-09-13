@@ -1,0 +1,47 @@
+﻿
+@{
+    ViewData["Title"] = "AddNews";
+}
+
+<h2>Add News</h2>
+
+<form method="post" action="SaveNews" class="nav nav-stacked">
+    <ul class="nav nav-stacked">
+        <li class="col-lg-2">
+            <label>Input Title</label>
+            <input type="text" name="title" />
+        </li>
+
+        <li class="col-lg-2">
+            <label>Input Text</label>
+            <input type="text" name="text" />
+        </li>
+
+        <li class=" col-lg-2">
+            <label>Input Source</label>
+            <input type="text" name="source" />
+        </li>
+
+        <li class="col-lg-2">
+            <label>Input Date</label>
+            <input type="datetime" name="date" />
+        </li>
+
+        <li class="col-lg-2">
+            <label>Input Index of Positive</label>
+            <input type="number" name="index" />
+        </li>
+    </ul>
+    <br />
+    <button type="submit" class="btn-lg">Add News</button>
+</form>
+
+
+
+
+
+
+
+
+
+
