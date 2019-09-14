@@ -5,14 +5,21 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Good_news_Blog.Models;
+using Good_news_Blog.Data;
 
 namespace Good_news_Blog.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private ApplicationDbContext db;
+        public HomeController(ApplicationDbContext context)
         {
-            return View();
+            db = context;
+        }
+
+        public IActionResult Index()
+        {           
+            return View(db.News.ToList());
         }
 
         public IActionResult About()

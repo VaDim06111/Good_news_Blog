@@ -25,10 +25,10 @@ namespace Good_news_Blog.Controllers
         {
             return View();
         }
-
+       
         [HttpPost]
         public async Task<IActionResult> SaveNews()
-        {
+        {            
             string title = Request.Form.FirstOrDefault(p => p.Key == "title").Value;
             string text = Request.Form.FirstOrDefault(p => p.Key == "text").Value;
             string source = Request.Form.FirstOrDefault(p => p.Key == "source").Value;
