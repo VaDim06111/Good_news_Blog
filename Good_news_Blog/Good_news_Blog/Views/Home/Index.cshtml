@@ -6,15 +6,15 @@
 
 <div class="card-deck">
 
-    @foreach(var news in Model)
+    @foreach (var news in Model)
     {
         <div class="card col-md-4" style="width: 35rem; margin: 15px">
             <img src="~/images/fon.jpg" width="290" height="180" class="card-img-top" alt="image">
             <div class="card-body">
                 <h4 class="card-title">@news.Title</h4>
                 <p class="card-text">@news.Text.Substring(0, news.Text.Length < 145 ? news.Text.Length : 145) ...</p>
-                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                <a href="#" class="btn btn-primary">Read more</a>
+                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>                
+                <a asp-controller="Home" asp-action="ReadMore" asp-route-id="@news.Id" class="btn btn-primary">Read more</a>
             </div>
         </div>
     }

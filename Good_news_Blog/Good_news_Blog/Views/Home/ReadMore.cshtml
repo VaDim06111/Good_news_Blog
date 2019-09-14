@@ -1,0 +1,18 @@
+﻿@model Good_news_Blog.Data.News
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+<div class="card" style="margin: 15px;">
+    <img src="~/images/fon.jpg" class="card-img-top" height="500" alt="image">
+    <div class="card-body">
+        <div class="row">
+            <h3 class="card-title col-md-9">@Model.Title</h3>
+            <span class="glyphicon glyphicon-star col-md-3 " style="font-size: 20px; margin-top:15px"> @Model.IndexOfPositive</span>
+        </div>        
+        <p class="card-text">@Model.Text</p>
+        <p class="card-text">Source: @Model.Source</p>
+        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+    </div>
+</div>
+

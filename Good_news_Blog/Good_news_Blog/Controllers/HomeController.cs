@@ -18,7 +18,7 @@ namespace Good_news_Blog.Controllers
         }
 
         public IActionResult Index()
-        {           
+        {
             return View(db.News.ToList());
         }
 
@@ -39,6 +39,12 @@ namespace Good_news_Blog.Controllers
         public IActionResult Privacy()
         {
             return View();
+        }
+
+        public IActionResult ReadMore(Guid id)
+        {
+            var news = db.News.Where(p => p.Id.Equals(id)).FirstOrDefault();
+            return View(news);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
