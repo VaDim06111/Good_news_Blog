@@ -27,27 +27,17 @@ namespace Good_news_Blog.Controllers
         }
        
         [HttpPost]
-        public async Task<IActionResult> SaveNews()
-        {            
-            string title = Request.Form.FirstOrDefault(p => p.Key == "title").Value;
-            string text = Request.Form.FirstOrDefault(p => p.Key == "text").Value;
-            string source = Request.Form.FirstOrDefault(p => p.Key == "source").Value;
-            var date = Request.Form.FirstOrDefault(p => p.Key == "date").Value;
-            string index = Request.Form.FirstOrDefault(p => p.Key == "index").Value;
-
-            var news = new News()
+        public async Task<IActionResult> SaveNews(News news)
+        {
+            if (ModelState.IsValid)
             {
-                Title = title,
-                Text = text,
-                Source = source,
-                Date = Convert.ToDateTime(date),
-                IndexOfPositive = Convert.ToByte(index)
-            };
+                db.News.Add(news);
+                await db.SaveChangesAsync();
 
-            db.News.Add(news);
-            await db.SaveChangesAsync();
-
-            return RedirectToAction("NewsAdded", "News");
+                return RedirectToAction("NewsAdded", "News");
+            }
+            else
+                return RedirectToAction("Error", "Home");
         }
     }
 }
