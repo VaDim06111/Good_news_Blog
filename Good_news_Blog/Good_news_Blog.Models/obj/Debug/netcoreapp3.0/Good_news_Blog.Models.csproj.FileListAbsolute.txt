@@ -1,0 +1,10 @@
+F:\Visual Studio 2019\Projects\Good_news_Blog\Good_news_Blog\Good_news_Blog.Models\bin\Debug\netcoreapp3.0\Good_news_Blog.Models.deps.json
+F:\Visual Studio 2019\Projects\Good_news_Blog\Good_news_Blog\Good_news_Blog.Models\bin\Debug\netcoreapp3.0\Good_news_Blog.Models.dll
+F:\Visual Studio 2019\Projects\Good_news_Blog\Good_news_Blog\Good_news_Blog.Models\obj\Debug\netcoreapp3.0\Good_news_Blog.Models.csprojAssemblyReference.cache
+F:\Visual Studio 2019\Projects\Good_news_Blog\Good_news_Blog\Good_news_Blog.Models\obj\Debug\netcoreapp3.0\Good_news_Blog.Models.AssemblyInfoInputs.cache
+F:\Visual Studio 2019\Projects\Good_news_Blog\Good_news_Blog\Good_news_Blog.Models\obj\Debug\netcoreapp3.0\Good_news_Blog.Models.AssemblyInfo.cs
+F:\Visual Studio 2019\Projects\Good_news_Blog\Good_news_Blog\Good_news_Blog.Models\bin\Debug\netcoreapp3.0\Good_news_Blog.Models.runtimeconfig.json
+F:\Visual Studio 2019\Projects\Good_news_Blog\Good_news_Blog\Good_news_Blog.Models\bin\Debug\netcoreapp3.0\Good_news_Blog.Models.runtimeconfig.dev.json
+F:\Visual Studio 2019\Projects\Good_news_Blog\Good_news_Blog\Good_news_Blog.Models\bin\Debug\netcoreapp3.0\Good_news_Blog.Models.pdb
+F:\Visual Studio 2019\Projects\Good_news_Blog\Good_news_Blog\Good_news_Blog.Models\obj\Debug\netcoreapp3.0\Good_news_Blog.Models.dll
+F:\Visual Studio 2019\Projects\Good_news_Blog\Good_news_Blog\Good_news_Blog.Models\obj\Debug\netcoreapp3.0\Good_news_Blog.Models.pdb

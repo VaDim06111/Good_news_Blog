@@ -42,11 +42,13 @@
 
     <div class="container body-content">
         @RenderBody()
-        <hr />
-        <footer>
-            <p>Copyright 2019 &copy; Good news Blog</p>
-        </footer>
+       
     </div>
+    @*navbar-fixed-bottom*@
+    @*<footer class="col-12 page-footer" style="height:50px; padding-bottom:10px; padding-top:10px; margin-top:10px; color:#fff; background: #333333;">
+        <p class="footer-copyright text-center py-3">Copyright 2019 &copy; Good news Blog</p>
+    </footer>*@
+
 
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
@@ -60,7 +62,7 @@
                 crossorigin="anonymous"
                 integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT">
         </script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
                 asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
                 asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
                 crossorigin="anonymous"

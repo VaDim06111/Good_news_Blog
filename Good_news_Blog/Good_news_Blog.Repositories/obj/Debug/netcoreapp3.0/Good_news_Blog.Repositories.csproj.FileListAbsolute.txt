@@ -1,0 +1,13 @@
+F:\Visual Studio 2019\Projects\Good_news_Blog\Good_news_Blog\Good_news_Blog.Repositories\bin\Debug\netcoreapp3.0\Good_news_Blog.Repositories.deps.json
+F:\Visual Studio 2019\Projects\Good_news_Blog\Good_news_Blog\Good_news_Blog.Repositories\bin\Debug\netcoreapp3.0\Good_news_Blog.Repositories.dll
+F:\Visual Studio 2019\Projects\Good_news_Blog\Good_news_Blog\Good_news_Blog.Repositories\obj\Debug\netcoreapp3.0\Good_news_Blog.Repositories.csprojAssemblyReference.cache
+F:\Visual Studio 2019\Projects\Good_news_Blog\Good_news_Blog\Good_news_Blog.Repositories\obj\Debug\netcoreapp3.0\Good_news_Blog.Repositories.AssemblyInfoInputs.cache
+F:\Visual Studio 2019\Projects\Good_news_Blog\Good_news_Blog\Good_news_Blog.Repositories\obj\Debug\netcoreapp3.0\Good_news_Blog.Repositories.AssemblyInfo.cs
+F:\Visual Studio 2019\Projects\Good_news_Blog\Good_news_Blog\Good_news_Blog.Repositories\bin\Debug\netcoreapp3.0\Good_news_Blog.Repositories.runtimeconfig.json
+F:\Visual Studio 2019\Projects\Good_news_Blog\Good_news_Blog\Good_news_Blog.Repositories\bin\Debug\netcoreapp3.0\Good_news_Blog.Repositories.runtimeconfig.dev.json
+F:\Visual Studio 2019\Projects\Good_news_Blog\Good_news_Blog\Good_news_Blog.Repositories\bin\Debug\netcoreapp3.0\Good_news_Blog.Repositories.pdb
+F:\Visual Studio 2019\Projects\Good_news_Blog\Good_news_Blog\Good_news_Blog.Repositories\bin\Debug\netcoreapp3.0\Good_news_Blog.Models.dll
+F:\Visual Studio 2019\Projects\Good_news_Blog\Good_news_Blog\Good_news_Blog.Repositories\bin\Debug\netcoreapp3.0\Good_news_Blog.Models.pdb
+F:\Visual Studio 2019\Projects\Good_news_Blog\Good_news_Blog\Good_news_Blog.Repositories\obj\Debug\netcoreapp3.0\Good_news_Blog.Repositories.csproj.CopyComplete
+F:\Visual Studio 2019\Projects\Good_news_Blog\Good_news_Blog\Good_news_Blog.Repositories\obj\Debug\netcoreapp3.0\Good_news_Blog.Repositories.dll
+F:\Visual Studio 2019\Projects\Good_news_Blog\Good_news_Blog\Good_news_Blog.Repositories\obj\Debug\netcoreapp3.0\Good_news_Blog.Repositories.pdb
