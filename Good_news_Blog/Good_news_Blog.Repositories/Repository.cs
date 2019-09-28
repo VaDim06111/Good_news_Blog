@@ -1,5 +1,4 @@
-﻿using Good_news_Blog.Models;
-using Good_news_Blog.Models.Data;
+﻿using Good_news_Blog.Data;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -31,9 +30,19 @@ namespace Good_news_Blog.Repositories
             _table.Remove(existing);
         }
 
+        public T FirstOrDefault(IEnumerable<T> obj)
+        {
+            return obj.FirstOrDefault();
+        }
+
         public IEnumerable<T> GetAll()
         {
             return _table.ToList();
+        }
+
+        public async Task<IEnumerable<T>> GetAllAsync()
+        {
+            return await _table.ToListAsync();
         }
 
         public T GetById(object id)
@@ -41,9 +50,34 @@ namespace Good_news_Blog.Repositories
             return _table.Find(id);
         }
 
-        public void Insert(T obj)
+        public async Task<T> GetByIdAsync(object id)
+        {
+            return await _table.FindAsync(id);
+        }
+
+        public void Add(T obj)
         {
             _table.Add(obj);
+        }
+
+        public async Task AddAsync(T obj)
+        {
+            await _table.AddAsync(obj);
+        }
+
+        public void AddRange(IEnumerable<T> objects)
+        {
+            _table.AddRange(objects);
+        }
+
+        public async Task AddRangeAsync(IEnumerable<T> objects)
+        {
+            await _table.AddRangeAsync(objects);
+        }
+
+        public List<T> ToList()
+        {
+            return _table.ToList();
         }
 
         public void Update(T obj)
@@ -51,5 +85,10 @@ namespace Good_news_Blog.Repositories
             _table.Attach(obj);
             _context.Entry(obj).State = EntityState.Modified;
         }
+
+        public IEnumerable<T> Where(Func<T,bool> predicate)
+        {
+            return _table.Where(predicate);
+        }                   
     }
 }

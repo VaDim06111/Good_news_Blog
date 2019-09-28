@@ -1,4 +1,4 @@
-﻿using Good_news_Blog.Models;
+﻿using Good_news_Blog.Data;
 using System;
 using System.Collections.Generic;
 using System.Text;

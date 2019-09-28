@@ -22,6 +22,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Good_news_Blog.Data\Good_news_Blog.Data.csproj" />
+    <ProjectReference Include="..\Good_news_Blog.Repositories\Good_news_Blog.Repositories.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="System.Configuration" />
   </ItemGroup>
 

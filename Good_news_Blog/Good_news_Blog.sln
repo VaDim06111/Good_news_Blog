@@ -5,6 +5,10 @@ VisualStudioVersion = 16.0.29102.190
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Good_news_Blog", "Good_news_Blog\Good_news_Blog.csproj", "{44E6E0CF-A619-4A2B-B766-F407B33B7B8A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Good_news_Blog.Data", "Good_news_Blog.Data\Good_news_Blog.Data.csproj", "{04106B24-BBDA-46D9-B6D6-FD405722FEA7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Good_news_Blog.Repositories", "Good_news_Blog.Repositories\Good_news_Blog.Repositories.csproj", "{A11E682D-9AF6-45D6-99AA-1A9FAEE984DD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{44E6E0CF-A619-4A2B-B766-F407B33B7B8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{44E6E0CF-A619-4A2B-B766-F407B33B7B8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{44E6E0CF-A619-4A2B-B766-F407B33B7B8A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04106B24-BBDA-46D9-B6D6-FD405722FEA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04106B24-BBDA-46D9-B6D6-FD405722FEA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04106B24-BBDA-46D9-B6D6-FD405722FEA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04106B24-BBDA-46D9-B6D6-FD405722FEA7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A11E682D-9AF6-45D6-99AA-1A9FAEE984DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A11E682D-9AF6-45D6-99AA-1A9FAEE984DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A11E682D-9AF6-45D6-99AA-1A9FAEE984DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A11E682D-9AF6-45D6-99AA-1A9FAEE984DD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

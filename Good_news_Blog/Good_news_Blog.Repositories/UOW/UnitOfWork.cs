@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Good_news_Blog.Data;
+using System;
 using System.Collections.Generic;
 using System.Text;
-using Good_news_Blog.Models;
+using System.Threading.Tasks;
 
-namespace Good_news_Blog.Repositories.UOW
+namespace Good_news_Blog.Repositories
 {
     public class UnitOfWork : IUnitOfWork
     {
@@ -59,6 +60,11 @@ namespace Good_news_Blog.Repositories.UOW
         public void Save()
         {
             _context.SaveChanges();
+        }
+
+        public async Task SaveAsync()
+        {
+            await _context.SaveChangesAsync();
         }
     }
 }

@@ -1,9 +1,10 @@
-﻿using Good_news_Blog.Models;
+﻿using Good_news_Blog.Data;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
-namespace Good_news_Blog.Repositories.UOW
+namespace Good_news_Blog.Repositories
 {
     public interface IUnitOfWork : IDisposable
     {
@@ -13,5 +14,6 @@ namespace Good_news_Blog.Repositories.UOW
         IRepository<UserRole> UserRoles { get; }      
 
         void Save();
+        Task SaveAsync();
     }
 }

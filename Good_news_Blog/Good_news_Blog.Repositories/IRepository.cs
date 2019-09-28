@@ -1,5 +1,4 @@
-﻿using Good_news_Blog.Models.Data;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,11 +8,18 @@ namespace Good_news_Blog.Repositories
     public interface IRepository<T> where T : class
     {
         IEnumerable<T> GetAll();
+        Task<IEnumerable<T>> GetAllAsync();
         T GetById(object id);
-        void Insert(T obj);
+        Task<T> GetByIdAsync(object id);
+        void Add(T obj);
+        void AddRange(IEnumerable<T> objects);
+        Task AddAsync(T obj);
+        Task AddRangeAsync(IEnumerable<T> objects);
         void Update(T obj);
         void Delete(object id);
-
+        List<T> ToList();
+        IEnumerable<T> Where(Func<T, bool> predicate);
+        T FirstOrDefault(IEnumerable<T> obj);
         IQueryable<T> AsQueryable();
     }
 }

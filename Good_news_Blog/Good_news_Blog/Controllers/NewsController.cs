@@ -16,6 +16,8 @@ namespace Good_news_Blog.Controllers
         {
             _unitOfWork = uow;
         }
+
+        [HttpGet]
         public IActionResult AddNews()
         {
             return View();
@@ -27,11 +29,11 @@ namespace Good_news_Blog.Controllers
         }
        
         [HttpPost]
-        public async Task<IActionResult> SaveNews(News news)
+        public async Task<IActionResult> AddNews(News news)
         {
             if (ModelState.IsValid)
             {
-                _unitOfWork.News.Add(news);
+                await _unitOfWork.News.AddAsync(news);
                 await _unitOfWork.SaveAsync();
 
                 return RedirectToAction("NewsAdded", "News");

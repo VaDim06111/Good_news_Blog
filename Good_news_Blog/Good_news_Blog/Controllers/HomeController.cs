@@ -45,7 +45,7 @@ namespace Good_news_Blog.Controllers
 
         public IActionResult ReadMore(Guid id)
         {
-            var news = _unitOfWork.News.Where(p => p.Id.Equals(id)).FirstOrDefault();           
+            var news = _unitOfWork.News.Where(p => p.NewsId.Equals(id)).FirstOrDefault();           
             return View(news);
         }
 
