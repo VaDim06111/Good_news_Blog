@@ -21,5 +21,8 @@ namespace Good_news_Blog.Repositories
         IEnumerable<T> Where(Func<T, bool> predicate);
         T FirstOrDefault(IEnumerable<T> obj);
         IQueryable<T> AsQueryable();
+        IEnumerable<T> OrderBy(Func<T,string> predicate);       
+        IEnumerable<T> OrderByDescending(Func<T, string> predicate);
+        IEnumerable<T> Take(int count);
     }
 }

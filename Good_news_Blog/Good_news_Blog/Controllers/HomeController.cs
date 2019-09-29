@@ -20,7 +20,7 @@ namespace Good_news_Blog.Controllers
 
         public IActionResult Index()
         {
-            //return View(db.News.ToList());
+            //return View(db.News.ToList());           
             return View(_unitOfWork.News.ToList());
         }
 
@@ -44,7 +44,7 @@ namespace Good_news_Blog.Controllers
         }
 
         public IActionResult ReadMore(Guid id)
-        {
+        {            
             var news = _unitOfWork.News.Where(p => p.NewsId.Equals(id)).FirstOrDefault();           
             return View(news);
         }

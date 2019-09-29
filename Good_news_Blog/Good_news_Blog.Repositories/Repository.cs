@@ -21,7 +21,7 @@ namespace Good_news_Blog.Repositories
 
         public IQueryable<T> AsQueryable()
         {
-            return _table.AsQueryable();
+            return _table.AsQueryable();           
         }
 
         public void Delete(object id)
@@ -87,8 +87,23 @@ namespace Good_news_Blog.Repositories
         }
 
         public IEnumerable<T> Where(Func<T,bool> predicate)
-        {
+        {                       
             return _table.Where(predicate);
-        }                   
+        }
+
+        public IEnumerable<T> OrderBy(Func<T,string> predicate)
+        {
+            return _table.OrderBy(predicate);
+        }      
+
+        public IEnumerable<T> OrderByDescending(Func<T, string> predicate)
+        {         
+            return _table.OrderByDescending(predicate);
+        }
+
+        public IEnumerable<T> Take(int count)
+        {
+            return _table.Take(count);
+        }
     }
 }
