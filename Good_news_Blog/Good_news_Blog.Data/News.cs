@@ -8,17 +8,15 @@ namespace Good_news_Blog.Data
 {
     public class News : BaseEntity
     {
-        [Key]
-        public Guid NewsId { get; set; }
-        [Required]
+        [Required(ErrorMessage ="Please enter the title")]
         public string Title { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Please enter the text")]
         public string Text { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Please enter the source")]
         public string Source { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Please enter the publication date")]
         public DateTime DatePublication { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Please enter the index of positive")]
         public byte IndexOfPositive { get; set; }
 
     }

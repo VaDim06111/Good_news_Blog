@@ -7,9 +7,7 @@ using System.Threading.Tasks;
 namespace Good_news_Blog.Data
 {
     public class User : BaseEntity
-    {
-        [Key]
-        public Guid UserId { get; set; }      
+    {   
         [Required]
         public string UserName { get; set; }       
         public DateTime DateOfBirth { get; set; }

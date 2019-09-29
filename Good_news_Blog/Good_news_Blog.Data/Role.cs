@@ -8,8 +8,6 @@ namespace Good_news_Blog.Data
 {
     public class Role : BaseEntity
     {
-        [Key]
-        public Guid RoleId { get; set; }
         public string Name { get; set; }
 
         public IEnumerable<UserRole> UserRoles { get; set; }

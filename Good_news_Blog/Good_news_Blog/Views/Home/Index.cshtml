@@ -14,7 +14,7 @@
                 <h4 class="card-title">@news.Title</h4>
                 <p class="card-text">@news.Text.Substring(0, news.Text.Length < 145 ? news.Text.Length : 145) ...</p>
                 <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>                
-                <a asp-controller="Home" asp-action="ReadMore" asp-route-id="@news.NewsId" class="btn btn-primary">Read more</a>
+                <a asp-controller="Home" asp-action="ReadMore" asp-route-id="@news.Id" class="btn btn-primary">Read more</a>
             </div>
         </div>
     }
