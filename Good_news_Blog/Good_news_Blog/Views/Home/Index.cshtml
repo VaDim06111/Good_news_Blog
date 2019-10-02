@@ -4,22 +4,19 @@
     ViewData["Title"] = "Good news Blog";
 }
 
-<div class="card-deck">
+<div class="card-deck" style="margin-left:0px;">
 
     @foreach (var news in Model)
     {
-        <div class="card col-12 col-sm-6 col-md-4 col-lg-3" style="width: 35rem; margin: 15px">
-            <img src="~/images/fon.jpg" width="290" height="180" class="card-img-top" alt="image">
+        <div class="card col-12 col-sm-6 col-md-4">
+            <img src="~/images/fon.jpg" class="card-img-top" style="margin-top:5px;" alt="image">
             <div class="card-body">
                 <h4 class="card-title">@news.Title</h4>
                 <p class="card-text">@news.Text.Substring(0, news.Text.Length < 145 ? news.Text.Length : 145) ...</p>
-                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>                
+                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
                 <a asp-controller="Home" asp-action="ReadMore" asp-route-id="@news.Id" class="btn btn-primary">Read more</a>
             </div>
         </div>
     }
 
 </div>
-
-
-

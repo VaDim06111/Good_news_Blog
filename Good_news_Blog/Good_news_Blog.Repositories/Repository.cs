@@ -1,4 +1,5 @@
-﻿using Good_news_Blog.Data;
+﻿using Core;
+using Good_news_Blog.Data;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -21,7 +22,7 @@ namespace Good_news_Blog.Repositories
 
         public IQueryable<T> AsQueryable()
         {
-            return _table.AsQueryable();           
+            return _table.AsQueryable();
         }
 
         public void Delete(object id)
@@ -86,18 +87,18 @@ namespace Good_news_Blog.Repositories
             _context.Entry(obj).State = EntityState.Modified;
         }
 
-        public IEnumerable<T> Where(Func<T,bool> predicate)
-        {                       
+        public IEnumerable<T> Where(Func<T, bool> predicate)
+        {
             return _table.Where(predicate);
         }
 
-        public IEnumerable<T> OrderBy(Func<T,string> predicate)
+        public IEnumerable<T> OrderBy(Func<T, string> predicate)
         {
             return _table.OrderBy(predicate);
-        }      
+        }
 
         public IEnumerable<T> OrderByDescending(Func<T, string> predicate)
-        {         
+        {
             return _table.OrderByDescending(predicate);
         }
 

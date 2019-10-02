@@ -3,39 +3,23 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using Good_news_Blog.Data;
+using Microsoft.AspNetCore.Mvc;
 using Good_news_Blog.Models;
 using Good_news_Blog.Repositories;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Good_news_Blog.Controllers
 {
     public class HomeController : Controller
     {
-        private IUnitOfWork _unitOfWork;        
+        private IUnitOfWork _unitOfWork;
         public HomeController(IUnitOfWork uow)
         {
             _unitOfWork = uow;
         }
-
         public IActionResult Index()
         {
             //return View(db.News.ToList());           
             return View(_unitOfWork.News.ToList());
-        }
-
-        public IActionResult About()
-        {
-            ViewData["Message"] = "Your application description page.";
-
-            return View();
-        }
-
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
         }
 
         public IActionResult Privacy()
@@ -44,8 +28,8 @@ namespace Good_news_Blog.Controllers
         }
 
         public IActionResult ReadMore(Guid id)
-        {            
-            var news = _unitOfWork.News.Where(p => p.Id.Equals(id)).FirstOrDefault();           
+        {
+            var news = _unitOfWork.News.Where(p => p.Id.Equals(id)).FirstOrDefault();
             return View(news);
         }
 

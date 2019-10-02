@@ -5,7 +5,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{04106B24-BBDA-46D9-B6D6-FD405722FEA7}</ProjectGuid>
+    <ProjectGuid>{11E09D95-F782-4190-991C-362325F35672}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Good_news_Blog.Data</RootNamespace>

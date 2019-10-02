@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Good_news_Blog.Data
 {
     public class News : BaseEntity
     {
-        [Required(ErrorMessage ="Please enter the title")]
+        [Required(ErrorMessage = "Please enter the title")]
         public string Title { get; set; }
         [Required(ErrorMessage = "Please enter the text")]
         public string Text { get; set; }

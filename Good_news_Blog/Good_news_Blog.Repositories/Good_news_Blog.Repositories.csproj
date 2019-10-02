@@ -5,7 +5,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{A11E682D-9AF6-45D6-99AA-1A9FAEE984DD}</ProjectGuid>
+    <ProjectGuid>{BED861F6-AADE-44E7-8CB1-946C2194F49F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Good_news_Blog.Repositories</RootNamespace>
@@ -124,7 +124,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IRepository.cs" />
     <Compile Include="NewsRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository.cs" />
@@ -138,9 +137,14 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
+    <ProjectReference Include="..\Core\Core.csproj">
+      <Project>{7F7DBE97-BAC9-4490-84CA-A924835BE71B}</Project>
+      <Name>Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Good_news_Blog.Data\Good_news_Blog.Data.csproj">
-      <Project>{04106B24-BBDA-46D9-B6D6-FD405722FEA7}</Project>
+      <Project>{11E09D95-F782-4190-991C-362325F35672}</Project>
       <Name>Good_news_Blog.Data</Name>
     </ProjectReference>
   </ItemGroup>

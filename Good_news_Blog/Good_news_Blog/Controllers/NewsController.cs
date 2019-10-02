@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Good_news_Blog.Data;
 using Good_news_Blog.Repositories;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Good_news_Blog.Controllers
 {
@@ -16,7 +15,6 @@ namespace Good_news_Blog.Controllers
         {
             _unitOfWork = uow;
         }
-
         [HttpGet]
         public IActionResult AddNews()
         {
@@ -27,7 +25,7 @@ namespace Good_news_Blog.Controllers
         {
             return View();
         }
-       
+
         [HttpPost]
         public async Task<IActionResult> AddNews(News news)
         {
