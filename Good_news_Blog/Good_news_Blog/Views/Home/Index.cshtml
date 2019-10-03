@@ -7,9 +7,9 @@
 <div class="card-deck" style="margin-left:0px;">
 
     @foreach (var news in Model)
-    {
-        <div class="card col-12 col-sm-6 col-md-4">
-            <img src="~/images/fon.jpg" class="card-img-top" style="margin-top:5px;" alt="image">
+    {        
+        <div class="card" style="width:60rem;">
+            <img src="~/images/fon.jpg" class="card-img-top" alt="image">
             <div class="card-body">
                 <h4 class="card-title">@news.Title</h4>
                 <p class="card-text">@news.Text.Substring(0, news.Text.Length < 145 ? news.Text.Length : 145) ...</p>
