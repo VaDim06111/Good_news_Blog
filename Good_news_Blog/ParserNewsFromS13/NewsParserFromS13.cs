@@ -25,12 +25,12 @@ namespace ParserNewsFromS13
 
         public bool Add(News news)
         {
-            //if (!_unitOfWork.News.GetAll().Contains(news))
-            //{
-            //    _unitOfWork.News.Add(news);
+            if ( _unitOfWork.News.Where(u=>u.Title.Equals(news.Title)).Count() == 0)
+            {
+                _unitOfWork.News.Add(news);
 
-            //    return true;
-            //}
+                return true;
+            }
             _unitOfWork.News.Add(news);
 
             return true;
@@ -38,6 +38,12 @@ namespace ParserNewsFromS13
 
         public async Task<bool> AddAsync(News news)
         {
+            if (_unitOfWork.News.Where(u => u.Title.Equals(news.Title)).Count() == 0)
+            {
+                _unitOfWork.News.Add(news);
+
+                return true;
+            }
             await _unitOfWork.News.AddAsync(news);
 
             return true;
@@ -45,15 +51,29 @@ namespace ParserNewsFromS13
 
         public bool AddRange(IEnumerable<News> news)
         {
-            _unitOfWork.News.AddRange(news);
-
+            foreach (var item in news)
+            {
+                if (_unitOfWork.News.Where(u => u.Title.Equals(item.Title)).Count() == 0)
+                {
+                    _unitOfWork.News.Add(item);
+                   
+                }
+               
+            }
+           
             return true;
         }
 
         public async Task<bool> AddRangeAsync(IEnumerable<News> news)
         {
-            await _unitOfWork.News.AddRangeAsync(news);
-
+            foreach (var item in news)
+            {                
+                if (_unitOfWork.News.Where(u => u.Title.Equals(item.Title)).Count() == 0)
+                {
+                    await _unitOfWork.News.AddAsync(item);
+                }
+            }
+            
             return true;
         }
 

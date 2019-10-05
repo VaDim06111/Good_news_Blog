@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Good_news_Blog.Models;
 using Good_news_Blog.Repositories;
+using Good_news_Blog.Data;
 
 namespace Good_news_Blog.Controllers
 {
@@ -16,10 +17,22 @@ namespace Good_news_Blog.Controllers
         {
             _unitOfWork = uow;
         }
-        public IActionResult Index()
-        {
-            //return View(db.News.ToList());           
-            return View(_unitOfWork.News.ToList());
+
+        public async Task<IActionResult> Index(int page=1)
+        {           
+            int pageSize = 12;
+            var count = await _unitOfWork.News.CountAsync();
+            var items = _unitOfWork.News.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
+            NewsPageViewModel pageViewModel = new NewsPageViewModel(count, page, pageSize);
+            IndexViewModel viewModel = new IndexViewModel()
+            {
+                News = items,
+                PageViewModel = pageViewModel,
+                TotalPages = pageViewModel.TotalPages              
+            };
+
+            return View(viewModel);
         }
 
         public IActionResult Privacy()

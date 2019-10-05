@@ -37,7 +37,7 @@ namespace Good_news_Blog.Repositories
         }
 
         public IEnumerable<T> GetAll()
-        {
+        {            
             return _table.ToList();
         }
 
@@ -81,6 +81,11 @@ namespace Good_news_Blog.Repositories
             return _table.ToList();
         }
 
+        public async Task<List<T>> ToListAsync()
+        {
+            return await _table.ToListAsync();
+        }
+
         public void Update(T obj)
         {
             _table.Attach(obj);
@@ -105,6 +110,39 @@ namespace Good_news_Blog.Repositories
         public IEnumerable<T> Take(int count)
         {
             return _table.Take(count);
+        }
+
+        public bool Contains(T obj)
+        {
+            if (_table.Contains(obj))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public async Task<bool> ContainsAsync(T obj)
+        {
+            if (await _table.ContainsAsync(obj))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public int Count()
+        {
+            return _table.Count();
+        }
+
+        public async Task<int> CountAsync()
+        {
+            return await _table.CountAsync();
+        }
+
+        public IEnumerable<T> Skip(int count)
+        {
+            return _table.Skip(count);
         }
     }
 }

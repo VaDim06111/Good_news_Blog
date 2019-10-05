@@ -20,12 +20,18 @@ namespace Core
         void Update(T obj);
         void Delete(object id);
         List<T> ToList();
+        Task<List<T>> ToListAsync();
         IEnumerable<T> Where(Func<T, bool> predicate);
+        IEnumerable<T> Skip(int count);
         T FirstOrDefault(IEnumerable<T> obj);
         IQueryable<T> AsQueryable();
         IEnumerable<T> OrderBy(Func<T, string> predicate);
         IEnumerable<T> OrderByDescending(Func<T, string> predicate);
         IEnumerable<T> Take(int count);
+        bool Contains(T obj);
+        Task<bool> ContainsAsync(T obj);
+        int Count();
+        Task<int> CountAsync();
     }
 
 }

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Good_news_Blog.Data.News>
+﻿@model IndexViewModel
 
 @{
     ViewData["Title"] = "Good news Blog";
@@ -6,17 +6,54 @@
 
 <div class="card-columns" style="margin-left:0px;">
 
-    @foreach (var news in Model)
-    {        
+    @foreach (var news in Model.News)
+    {
         <div class="card col-md-12">
             <img src="~/images/fon.jpg" class="card-img-top" alt="image">
             <div class="card-body">
                 <h4 class="card-title">@news.Title</h4>
                 <p class="card-text">@news.Description</p>
-                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                <p class="card-text"><small class="text-muted">Last updated at @news.DatePublication.ToLongDateString()</small></p>
                 <a asp-controller="Home" asp-action="ReadMore" asp-route-id="@news.Id" class="btn btn-primary">Read more</a>
             </div>
         </div>
     }
 
 </div>
+
+<nav class="navbar navbar-expand-md">
+    <ul class="pagination mx-auto order-0">
+        @if (Model.PageViewModel.HasPreviousPage)
+        {
+            <li class="page-item">
+                <a class="page-link" asp-action="Index" asp-controller="Home" asp-route-page="@(Model.PageViewModel.PageNumber - 1)">Previous</a>
+            </li>
+        }
+        else
+        {
+            <li class="page-item disabled">
+                <a class="page-link" asp-action="Index" asp-controller="Home" asp-route-page="@(Model.PageViewModel.PageNumber - 1)" aria-disabled="true">Previous</a>
+            </li>
+
+        }
+        @for (var i = 1; i <= Model.TotalPages; i++)
+        {
+            <li class="page-item @(i == Model.PageViewModel.PageNumber ? "active" : "")">
+                <a asp-action="Index" asp-controller="Home" asp-route-page="@i" class="page-link">@i</a>
+            </li>
+        }
+        @if (Model.PageViewModel.HasNextPage)
+        {
+            <li class="page-item">
+                <a class="page-link" asp-action="Index" asp-controller="Home" asp-route-page="@(Model.PageViewModel.PageNumber + 1)">Next</a>
+            </li>
+        }
+        else
+        {
+            <li class="page-item disabled">
+                <a class="page-link" asp-action="Index" asp-controller="Home" asp-route-page="@(Model.PageViewModel.PageNumber + 1)" aria-disabled="true">Next</a>
+            </li>
+        }
+
+    </ul>
+</nav>
