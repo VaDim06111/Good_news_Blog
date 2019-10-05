@@ -13,8 +13,8 @@
             <div class="card-body">
                 <h4 class="card-title">@news.Title</h4>
                 <p class="card-text">@news.Description</p>
-                <p class="card-text"><small class="text-muted">Last updated at @news.DatePublication.ToLongDateString()</small></p>
-                <a asp-controller="Home" asp-action="ReadMore" asp-route-id="@news.Id" class="btn btn-primary">Read more</a>
+                <p class="card-text"><small class="text-muted">Последнее изменение @news.DatePublication.ToLongDateString() @news.DatePublication.ToShortTimeString()</small></p>
+                <a asp-controller="Home" asp-action="ReadMore" asp-route-id="@news.Id" class="btn btn-primary">Читать больше...</a>
             </div>
         </div>
     }
@@ -26,13 +26,13 @@
         @if (Model.PageViewModel.HasPreviousPage)
         {
             <li class="page-item">
-                <a class="page-link" asp-action="Index" asp-controller="Home" asp-route-page="@(Model.PageViewModel.PageNumber - 1)">Previous</a>
+                <a class="page-link" asp-action="Index" asp-controller="Home" asp-route-page="@(Model.PageViewModel.PageNumber - 1)">Предыдущая</a>
             </li>
         }
         else
         {
             <li class="page-item disabled">
-                <a class="page-link" asp-action="Index" asp-controller="Home" asp-route-page="@(Model.PageViewModel.PageNumber - 1)" aria-disabled="true">Previous</a>
+                <a class="page-link" asp-action="Index" asp-controller="Home" asp-route-page="@(Model.PageViewModel.PageNumber - 1)" aria-disabled="true">Предыдущая</a>
             </li>
 
         }
@@ -45,13 +45,13 @@
         @if (Model.PageViewModel.HasNextPage)
         {
             <li class="page-item">
-                <a class="page-link" asp-action="Index" asp-controller="Home" asp-route-page="@(Model.PageViewModel.PageNumber + 1)">Next</a>
+                <a class="page-link" asp-action="Index" asp-controller="Home" asp-route-page="@(Model.PageViewModel.PageNumber + 1)">Следующая</a>
             </li>
         }
         else
         {
             <li class="page-item disabled">
-                <a class="page-link" asp-action="Index" asp-controller="Home" asp-route-page="@(Model.PageViewModel.PageNumber + 1)" aria-disabled="true">Next</a>
+                <a class="page-link" asp-action="Index" asp-controller="Home" asp-route-page="@(Model.PageViewModel.PageNumber + 1)" aria-disabled="true">Следующая</a>
             </li>
         }
 

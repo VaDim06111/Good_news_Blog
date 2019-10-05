@@ -11,16 +11,16 @@
             <span class="fas fa-star" style="font-size:2em;"> @Model.IndexOfPositive</span>
         </div>
         <p class="card-text">@Model.Text</p>
-        <p class="card-text text-info">Source: <a href="@Model.Source" target="_blank">@Model.Source</a></p>
-        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+        <p class="card-text text-info">Источник: <a href="@Model.Source" target="_blank">@Model.Source</a></p>
+        <p class="card-text"><small class="text-muted">Последнее изменение @Model.DatePublication.ToLongDateString() @Model.DatePublication.ToShortTimeString()</small></p>
     </div>
 </div>
 
 <form class="col" style=margin-top: 15px;">
-    <span class="badge badge-secondary" style="margin-top:10px; margin-bottom:10px; font-size:30px;">Comments</span>
-    <textarea class="form-control" name="textComment" rows="6" style="resize: none" placeholder="Write your comment here..."></textarea>
+    <span class="badge badge-secondary" style="margin-top:10px; margin-bottom:10px; font-size:30px;">Комментарии</span>
+    <textarea class="form-control" name="textComment" rows="6" style="resize: none" placeholder="Напишите свой комментарий..."></textarea>
     <div class="container text-right">
-        <button type="submit" class="btn btn-primary col-md-2" style="margin-top:10px; margin-bottom:10px; font-size: 20px;">Send</button>
+        <button type="submit" class="btn btn-primary col-md-2" style="margin-top:10px; margin-bottom:10px; font-size: 20px;">Отправить</button>
     </div>
 </form>
 
