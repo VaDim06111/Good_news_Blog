@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.ServiceModel.Syndication;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Xml;
 using Good_news_Blog.Data;
@@ -54,22 +55,23 @@ namespace ParserNewsFromS13
             await _unitOfWork.News.AddRangeAsync(news);
 
             return true;
-        }      
+        }
 
         public IEnumerable<News> GetFromUrl()
-        {           
+        {
             XmlReader feedReader = XmlReader.Create(urlS13);
             SyndicationFeed feed = SyndicationFeed.Load(feedReader);
 
             List<News> news = new List<News>();
 
-            if (feed !=null)
+            if (feed != null)
             {
                 foreach (var article in feed.Items)
                 {
                     news.Add(new News()
                     {
                         Title = article.Title.Text,
+                        Description = Regex.Replace(article.Summary.Text, "<.*?>", string.Empty),
                         Source = article.Links.FirstOrDefault().Uri.ToString(),
                         DatePublication = article.PublishDate.UtcDateTime,
                         IndexOfPositive = 0,
@@ -77,9 +79,9 @@ namespace ParserNewsFromS13
                     });
                 }
             }
-            
+
             return news;
-        }
+        }      
 
         public string GetTextOfNews(string url)
         {
@@ -94,10 +96,14 @@ namespace ParserNewsFromS13
 
             foreach (var item in mas)
             {
-                text = text.Replace(item,"");
+                text = text.Replace(item, "");
             }
-            
+
+            Regex.Replace(text, "<.*?>", string.Empty);
+
             return text;
         }
+        
+      
     }
 }

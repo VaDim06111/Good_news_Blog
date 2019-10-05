@@ -9,7 +9,7 @@ namespace ParserNewsFromS13
 {
     public interface INewsS13Parser
     {
-        IEnumerable<News> GetFromUrl();       
+        IEnumerable<News> GetFromUrl();             
         bool Add(News news);
         Task<bool> AddAsync(News news);
         bool AddRange(IEnumerable<News> news);       

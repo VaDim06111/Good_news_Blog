@@ -9,15 +9,17 @@ namespace Good_news_Blog.Data
 {
     public class News : BaseEntity
     {
-        [Required(ErrorMessage = "Please enter the title")]
+        [Required]
         public string Title { get; set; }
-        [Required(ErrorMessage = "Please enter the text")]
+        [Required]
+        public string Description { get; set; }
+        [Required]
         public string Text { get; set; }
-        [Required(ErrorMessage = "Please enter the source")]
+        [Required]
         public string Source { get; set; }
-        [Required(ErrorMessage = "Please enter the publication date")]
+        [Required]
         public DateTime DatePublication { get; set; }
-        [Required(ErrorMessage = "Please enter the index of positive")]
+        [Required]
         public byte IndexOfPositive { get; set; }
 
     }
