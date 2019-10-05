@@ -3,13 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29326.143
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Good_news_Blog", "Good_news_Blog\Good_news_Blog.csproj", "{DAFF2F6F-E7E3-47F7-A48A-61E682110B93}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Good_news_Blog", "Good_news_Blog\Good_news_Blog.csproj", "{DAFF2F6F-E7E3-47F7-A48A-61E682110B93}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{7F7DBE97-BAC9-4490-84CA-A924835BE71B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Good_news_Blog.Data", "Good_news_Blog.Data\Good_news_Blog.Data.csproj", "{11E09D95-F782-4190-991C-362325F35672}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Good_news_Blog.Repositories", "Good_news_Blog.Repositories\Good_news_Blog.Repositories.csproj", "{BED861F6-AADE-44E7-8CB1-946C2194F49F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParserNewsFromOnliner", "ParserNewsFromOnliner\ParserNewsFromOnliner.csproj", "{C8321AAC-FEF4-4FAA-8F9D-50F95DC4D78E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParserNewsFromS13", "ParserNewsFromS13\ParserNewsFromS13.csproj", "{8E530A9F-A346-4366-95FD-D6F71EA3CF21}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +37,14 @@ Global
 		{BED861F6-AADE-44E7-8CB1-946C2194F49F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BED861F6-AADE-44E7-8CB1-946C2194F49F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BED861F6-AADE-44E7-8CB1-946C2194F49F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8321AAC-FEF4-4FAA-8F9D-50F95DC4D78E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8321AAC-FEF4-4FAA-8F9D-50F95DC4D78E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8321AAC-FEF4-4FAA-8F9D-50F95DC4D78E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8321AAC-FEF4-4FAA-8F9D-50F95DC4D78E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E530A9F-A346-4366-95FD-D6F71EA3CF21}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E530A9F-A346-4366-95FD-D6F71EA3CF21}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E530A9F-A346-4366-95FD-D6F71EA3CF21}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E530A9F-A346-4366-95FD-D6F71EA3CF21}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

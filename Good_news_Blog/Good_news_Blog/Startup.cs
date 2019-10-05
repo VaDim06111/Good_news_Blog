@@ -13,6 +13,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using ParserNewsFromOnliner;
+using ParserNewsFromS13;
 
 namespace Good_news_Blog
 {
@@ -35,6 +37,7 @@ namespace Good_news_Blog
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            // Add services to Database
             string connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connection));
             services.AddTransient<IRepository<News>, NewsRepository>();
@@ -42,6 +45,10 @@ namespace Good_news_Blog
             services.AddTransient<IRepository<User>, UserRepository>();
             services.AddTransient<IRepository<UserRole>, UserRoleRepository>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
+
+            // Add services to Parse news from web
+            services.AddTransient<INewsOnlinerParser, NewsParserFromOnliner>();
+            services.AddTransient<INewsS13Parser, NewsParserFromS13>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }

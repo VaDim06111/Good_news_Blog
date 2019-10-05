@@ -4,11 +4,11 @@
     ViewData["Title"] = "Good news Blog";
 }
 
-<div class="card-deck" style="margin-left:0px;">
+<div class="card-columns" style="margin-left:0px;">
 
     @foreach (var news in Model)
     {        
-        <div class="card" style="width:60rem;">
+        <div class="card col-md-12">
             <img src="~/images/fon.jpg" class="card-img-top" alt="image">
             <div class="card-body">
                 <h4 class="card-title">@news.Title</h4>

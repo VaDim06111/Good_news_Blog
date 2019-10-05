@@ -20,12 +20,15 @@
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="2.2.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
   </ItemGroup>
 
 
   <ItemGroup>
     <ProjectReference Include="..\Good_news_Blog.Data\Good_news_Blog.Data.csproj" />
     <ProjectReference Include="..\Good_news_Blog.Repositories\Good_news_Blog.Repositories.csproj" />
+    <ProjectReference Include="..\ParserNewsFromOnliner\ParserNewsFromOnliner.csproj" />
+    <ProjectReference Include="..\ParserNewsFromS13\ParserNewsFromS13.csproj" />
   </ItemGroup>
 
 </Project>

@@ -5,39 +5,41 @@ using System.Threading.Tasks;
 using Good_news_Blog.Data;
 using Good_news_Blog.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using ParserNewsFromOnliner;
+using ParserNewsFromS13;
 
 namespace Good_news_Blog.Controllers
 {
     public class NewsController : Controller
     {
-        private IUnitOfWork _unitOfWork;
-        public NewsController(IUnitOfWork uow)
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly INewsOnlinerParser _newsOnlinerParser;
+        private readonly INewsS13Parser _newsS13Parser;
+        
+        
+        public NewsController(IUnitOfWork uow, INewsOnlinerParser nop, INewsS13Parser nsp)
         {
             _unitOfWork = uow;
+            _newsOnlinerParser = nop;
+            _newsS13Parser = nsp;
         }
+
         [HttpGet]
-        public IActionResult AddNews()
+        public async Task<IActionResult> AddNews()
         {
-            return View();
+            //_newsOnlinerParser.GetFromUrl(urlOnliner);
+            var news = _newsS13Parser.GetFromUrl();
+            await _newsS13Parser.AddRangeAsync(news);
+
+            await _unitOfWork.SaveAsync();
+
+            return RedirectToAction("NewsAdded", "News");
         }
 
         public IActionResult NewsAdded()
         {
             return View();
         }
-
-        [HttpPost]
-        public async Task<IActionResult> AddNews(News news)
-        {
-            if (ModelState.IsValid)
-            {
-                await _unitOfWork.News.AddAsync(news);
-                await _unitOfWork.SaveAsync();
-
-                return RedirectToAction("NewsAdded", "News");
-            }
-            else
-                return RedirectToAction("Error", "Home");
-        }
+      
     }
 }
