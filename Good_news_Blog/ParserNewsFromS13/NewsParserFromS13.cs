@@ -113,7 +113,7 @@ namespace ParserNewsFromS13
 
             var text = node.Skip(1).Take(1).FirstOrDefault().InnerText;
 
-            var mas = new string[] { "&ndash; ", "&ndash;", "&mdash; ", "&mdash;", "&nbsp; ", "&nbsp; ", "&nbsp;", "&laquo; ", "&laquo;", "&raquo; ", "&raquo;" };
+            var mas = new string[] { "&ndash; ", "&ndash;", "&mdash; ", "&mdash;", "&nbsp; ", "&nbsp; ", "&nbsp;", "&laquo; ", "&laquo;", "&raquo; ", "&raquo;", "&quot;" };
 
             foreach (var item in mas)
             {

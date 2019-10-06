@@ -26,15 +26,24 @@ namespace Good_news_Blog.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> AddNews()
+        public async  Task<IActionResult> AddNews()
         {
-            var news = _newsS13Parser.GetFromUrl();
-            await _newsS13Parser.AddRangeAsync(news);
+            var parseS13 = Task.Factory.StartNew(() =>
+            {
+                var newsS13 = _newsS13Parser.GetFromUrl();
+                _newsS13Parser.AddRangeAsync(newsS13);
+            });
 
-            // var newsOnliner = _newsOnlinerParser.GetFromUrl();
+            var parseOnliner = Task.Factory.StartNew(() =>
+            {
+                var newsOnliner = _newsOnlinerParser.GetFromUrl();
+                _newsOnlinerParser.AddRangeAsync(newsOnliner);
+            });
+
+            parseS13.Wait();
+            parseOnliner.Wait();
 
             await _unitOfWork.SaveAsync();
-
 
             return RedirectToAction("NewsAdded", "News");
         }
