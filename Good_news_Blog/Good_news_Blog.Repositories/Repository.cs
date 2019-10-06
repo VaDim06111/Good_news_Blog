@@ -143,6 +143,6 @@ namespace Good_news_Blog.Repositories
         public IEnumerable<T> Skip(int count)
         {
             return _table.Skip(count);
-        }
+        }      
     }
 }

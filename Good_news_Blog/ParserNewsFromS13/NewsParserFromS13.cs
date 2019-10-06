@@ -7,6 +7,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Xml;
+using Core;
 using Good_news_Blog.Data;
 using Good_news_Blog.Repositories;
 using HtmlAgilityPack;

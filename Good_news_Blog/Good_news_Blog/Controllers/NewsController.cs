@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Core;
 using Good_news_Blog.Data;
 using Good_news_Blog.Repositories;
 using Microsoft.AspNetCore.Mvc;
@@ -27,11 +28,13 @@ namespace Good_news_Blog.Controllers
         [HttpGet]
         public async Task<IActionResult> AddNews()
         {
-            //_newsOnlinerParser.GetFromUrl(urlOnliner);
             var news = _newsS13Parser.GetFromUrl();
             await _newsS13Parser.AddRangeAsync(news);
 
+            // var newsOnliner = _newsOnlinerParser.GetFromUrl();
+
             await _unitOfWork.SaveAsync();
+
 
             return RedirectToAction("NewsAdded", "News");
         }

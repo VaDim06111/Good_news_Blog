@@ -26,7 +26,7 @@ namespace Core
         T FirstOrDefault(IEnumerable<T> obj);
         IQueryable<T> AsQueryable();
         IEnumerable<T> OrderBy(Func<T, string> predicate);
-        IEnumerable<T> OrderByDescending(Func<T, string> predicate);
+        IEnumerable<T> OrderByDescending(Func<T, string> predicate);       
         IEnumerable<T> Take(int count);
         bool Contains(T obj);
         Task<bool> ContainsAsync(T obj);

@@ -136,6 +136,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Core\Core.csproj">
+      <Project>{7F7DBE97-BAC9-4490-84CA-A924835BE71B}</Project>
+      <Name>Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Good_news_Blog.Data\Good_news_Blog.Data.csproj">
       <Project>{11E09D95-F782-4190-991C-362325F35672}</Project>
       <Name>Good_news_Blog.Data</Name>

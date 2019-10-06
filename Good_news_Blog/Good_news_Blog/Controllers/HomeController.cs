@@ -19,10 +19,15 @@ namespace Good_news_Blog.Controllers
         }
 
         public async Task<IActionResult> Index(int page=1)
-        {           
+        {
+            IEnumerable<News> news = await _unitOfWork.News.ToListAsync();
+
+            news = news.OrderByDescending(s => s.DatePublication.Date.ToString()).
+                ThenByDescending(w=>w.DatePublication.TimeOfDay.ToString());
+
             int pageSize = 12;
             var count = await _unitOfWork.News.CountAsync();
-            var items = _unitOfWork.News.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+            var items = news.Skip((page - 1) * pageSize).Take(pageSize).ToList();
 
             NewsPageViewModel pageViewModel = new NewsPageViewModel(count, page, pageSize);
             IndexViewModel viewModel = new IndexViewModel()
