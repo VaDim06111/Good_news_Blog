@@ -23,6 +23,9 @@
 
 <nav class="navbar navbar-expand-md ">
     <ul class="pagination mx-auto order-0">
+        <li class="page-item">
+            <a class="page-link" asp-action="Index" asp-controller="Home" asp-route-page="1">В начало</a>
+        </li>
         @if (Model.PageViewModel.HasPreviousPage)
         {
             <li class="page-item">
@@ -36,7 +39,8 @@
             </li>
 
         }
-        @for (var i = 1; i <= Model.TotalPages; i++)
+        @for (var i = Model.PageViewModel.PageNumber > 1 ? Model.PageViewModel.PageNumber - 1 : 1; 
+            i <= (Model.PageViewModel.PageNumber < Model.PageViewModel.TotalPages ? Model.PageViewModel.PageNumber + 1 : Model.PageViewModel.TotalPages); i++)
         {
             <li class="page-item @(i == Model.PageViewModel.PageNumber ? "active" : "")">
                 <a asp-action="Index" asp-controller="Home" asp-route-page="@i" class="page-link">@i</a>
@@ -54,6 +58,8 @@
                 <a class="page-link" asp-action="Index" asp-controller="Home" asp-route-page="@(Model.PageViewModel.PageNumber + 1)" aria-disabled="true">Следующая</a>
             </li>
         }
-
+        <li class="page-item">
+            <a class="page-link" asp-action="Index" asp-controller="Home" asp-route-page="@Model.PageViewModel.TotalPages">В конец</a>
+        </li>
     </ul>
 </nav>
