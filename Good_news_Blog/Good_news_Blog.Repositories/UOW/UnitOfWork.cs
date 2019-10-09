@@ -12,32 +12,18 @@ namespace Good_news_Blog.Repositories
     {
         private readonly ApplicationDbContext _context;
 
-        private readonly IRepository<News> _newsRepository;
-        private readonly IRepository<Role> _roleRepository;
-        private readonly IRepository<User> _userRepository;
-        private readonly IRepository<UserRole> _userRoleRepository;
+        private readonly IRepository<News> _newsRepository;       
 
         public UnitOfWork(ApplicationDbContext context,
-            IRepository<News> news,
-            IRepository<Role> roles,
-            IRepository<User> users,
-            IRepository<UserRole> userRoles)
+            IRepository<News> news)
+            
         {
             _context = context;
-            _newsRepository = news;
-            _roleRepository = roles;
-            _userRepository = users;
-            _userRoleRepository = userRoles;
+            _newsRepository = news;          
 
         }
 
-        public IRepository<News> News => _newsRepository;
-
-        public IRepository<Role> Roles => _roleRepository;
-
-        public IRepository<User> Users => _userRepository;
-
-        public IRepository<UserRole> UserRoles => _userRoleRepository;
+        public IRepository<News> News => _newsRepository;    
 
         private bool disposed = false;
 

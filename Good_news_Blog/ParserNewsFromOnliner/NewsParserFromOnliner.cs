@@ -15,9 +15,10 @@ namespace ParserNewsFromOnliner
 {
     public class NewsParserFromOnliner : INewsOnlinerParser
     {
-        private readonly IUnitOfWork _unitOfWork;       
+        private readonly IUnitOfWork _unitOfWork;
+        private const string UrlOnlinerRss = @"https://people.onliner.by/feed";
 
-        List<string> links = new List<string>() { @"https://people.onliner.by/feed", @"https://auto.onliner.by/feed" , @"https://tech.onliner.by/feed", @"https://realt.onliner.by/feed" };
+        //List<string> links = new List<string>() { @"https://people.onliner.by/feed", @"https://auto.onliner.by/feed" , @"https://tech.onliner.by/feed", @"https://realt.onliner.by/feed" };
 
         public NewsParserFromOnliner(IUnitOfWork uow)
         {
@@ -27,34 +28,33 @@ namespace ParserNewsFromOnliner
         public IEnumerable<News> GetFromUrl()
         {
             List<News> news = new List<News>();
-            foreach (var link in links)
+
+            XmlReader feedReader = XmlReader.Create(UrlOnlinerRss);
+            SyndicationFeed feed = SyndicationFeed.Load(feedReader);
+
+            if (feed != null)
             {
-                XmlReader feedReader = XmlReader.Create(link);
-                SyndicationFeed feed = SyndicationFeed.Load(feedReader);
-               
-                if (feed != null)
+                foreach (var article in feed.Items)
                 {
-                    foreach (var article in feed.Items)
+                    news.Add(new News()
                     {
-                        news.Add(new News()
-                        {
-                            Title = article.Title.Text.Replace("&nbsp;",""),
-                            Description = Regex.Replace(article.Summary.Text, "<.*?>", string.Empty),
-                            Source = article.Links.FirstOrDefault().Uri.ToString(),
-                            DatePublication = article.PublishDate.UtcDateTime,
-                            IndexOfPositive = 0,
-                            Text = GetText(article.Links.FirstOrDefault().Uri.ToString())
-                        });
-                    }
+                        Title = article.Title.Text.Replace("&nbsp;", ""),
+                        Description = Regex.Replace(article.Summary.Text, "<.*?>", string.Empty),
+                        Source = article.Links.FirstOrDefault().Uri.ToString(),
+                        DatePublication = article.PublishDate.UtcDateTime,
+                        IndexOfPositive = 0,
+                        Text = GetText(article.Links.FirstOrDefault().Uri.ToString())
+                    });
                 }
             }
-            
+
+
             return news;
         }
 
         public bool Add(News news)
         {
-            if (_unitOfWork.News.Where(u => u.Title.Equals(news.Title)).Count() == 0)
+            if (_unitOfWork.News.Where(u => u.Source.Equals(news.Source)).Count() == 0)
             {
                 _unitOfWork.News.Add(news);
 
@@ -67,7 +67,7 @@ namespace ParserNewsFromOnliner
 
         public async Task<bool> AddAsync(News news)
         {
-            if (_unitOfWork.News.Where(u => u.Title.Equals(news.Title)).Count() == 0)
+            if (_unitOfWork.News.Where(u => u.Source.Equals(news.Source)).Count() == 0)
             {
                 _unitOfWork.News.Add(news);
 
@@ -82,7 +82,7 @@ namespace ParserNewsFromOnliner
         {
             foreach (var item in news)
             {
-                if (_unitOfWork.News.Where(u => u.Title.Equals(item.Title)).Count() == 0)
+                if (_unitOfWork.News.Where(u => u.Source.Equals(item.Source)).Count() == 0)
                 {
                     _unitOfWork.News.Add(item);
 
@@ -97,7 +97,7 @@ namespace ParserNewsFromOnliner
         {
             foreach (var item in news)
             {
-                if (_unitOfWork.News.Where(u => u.Title.Equals(item.Title)).Count() == 0)
+                if (_unitOfWork.News.Where(u => u.Source.Equals(item.Source)).Count() == 0)
                 {
                     await _unitOfWork.News.AddAsync(item);
                 }

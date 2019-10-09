@@ -26,7 +26,7 @@ namespace ParserNewsFromS13
 
         public bool Add(News news)
         {
-            if ( _unitOfWork.News.Where(u=>u.Title.Equals(news.Title)).Count() == 0)
+            if ( _unitOfWork.News.Where(u => u.Source.Equals(news.Source)).Count() == 0)
             {
                 _unitOfWork.News.Add(news);
 
@@ -39,7 +39,7 @@ namespace ParserNewsFromS13
 
         public async Task<bool> AddAsync(News news)
         {
-            if (_unitOfWork.News.Where(u => u.Title.Equals(news.Title)).Count() == 0)
+            if (_unitOfWork.News.Where(u => u.Source.Equals(news.Source)).Count() == 00)
             {
                 _unitOfWork.News.Add(news);
 
@@ -54,7 +54,7 @@ namespace ParserNewsFromS13
         {
             foreach (var item in news)
             {
-                if (_unitOfWork.News.Where(u => u.Title.Equals(item.Title)).Count() == 0)
+                if (_unitOfWork.News.Where(u => u.Source.Equals(item.Source)).Count() == 0)
                 {
                     _unitOfWork.News.Add(item);
                    
@@ -69,7 +69,7 @@ namespace ParserNewsFromS13
         {
             foreach (var item in news)
             {                
-                if (_unitOfWork.News.Where(u => u.Title.Equals(item.Title)).Count() == 0)
+                if (_unitOfWork.News.Where(u => u.Source.Equals(item.Source)).Count() == 0)
                 {
                     await _unitOfWork.News.AddAsync(item);
                 }

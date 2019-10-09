@@ -10,10 +10,7 @@ namespace Good_news_Blog.Repositories
 {
     public interface IUnitOfWork : IDisposable
     {
-        IRepository<News> News { get; }
-        IRepository<Role> Roles { get; }
-        IRepository<User> Users { get; }
-        IRepository<UserRole> UserRoles { get; }
+        IRepository<News> News { get; }       
 
         void Save();
         Task SaveAsync();

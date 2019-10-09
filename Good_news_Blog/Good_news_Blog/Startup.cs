@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -38,12 +39,9 @@ namespace Good_news_Blog
             });
 
             // Add services to Database
-            string connection = Configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connection));
-            services.AddTransient<IRepository<News>, NewsRepository>();
-            services.AddTransient<IRepository<Role>, RoleRepository>();
-            services.AddTransient<IRepository<User>, UserRepository>();
-            services.AddTransient<IRepository<UserRole>, UserRoleRepository>();
+            string connection = Configuration.GetConnectionString("DefaultConnection");           
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connection));           
+            services.AddTransient<IRepository<News>, NewsRepository>();          
             services.AddTransient<IUnitOfWork, UnitOfWork>();
 
             // Add services to Parse news from web
