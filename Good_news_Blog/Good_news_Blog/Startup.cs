@@ -40,9 +40,12 @@ namespace Good_news_Blog
 
             // Add services to Database
             string connection = Configuration.GetConnectionString("DefaultConnection");           
-            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connection));           
+            services.AddDbContext<ApplicationDbContext>(options 
+                => options.UseSqlServer(connection));
+            services.AddDefaultIdentity<IdentityUser>()
+                .AddEntityFrameworkStores<ApplicationDbContext>();               
             services.AddTransient<IRepository<News>, NewsRepository>();          
-            services.AddTransient<IUnitOfWork, UnitOfWork>();
+            services.AddTransient<IUnitOfWork, UnitOfWork>();          
 
             // Add services to Parse news from web
             services.AddTransient<INewsOnlinerParser, NewsParserFromOnliner>();
@@ -68,6 +71,8 @@ namespace Good_news_Blog
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
+
+            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {

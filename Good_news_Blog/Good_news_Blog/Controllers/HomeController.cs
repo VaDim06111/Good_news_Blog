@@ -17,8 +17,8 @@ namespace Good_news_Blog.Controllers
         {
             _unitOfWork = uow;
         }
-
-        public async Task<IActionResult> Index(int page=1)
+        
+        public async Task<IActionResult> Index(int page = 1)
         {
             IEnumerable<News> news = await _unitOfWork.News.ToListAsync();
 
@@ -38,13 +38,15 @@ namespace Good_news_Blog.Controllers
             };
 
             return View(viewModel);
-        }
+        }      
 
+        [HttpGet]
         public IActionResult Privacy()
         {
             return View();
         }
 
+        [HttpGet]
         public IActionResult ReadMore(Guid id)
         {
             var news = _unitOfWork.News.Where(p => p.Id.Equals(id)).FirstOrDefault();
