@@ -17,9 +17,9 @@ namespace Good_news_Blog.Controllers
         {
             _unitOfWork = uow;
         }
-        
-        public async Task<IActionResult> Index(int page = 1)
-        {
+                
+        public async Task<IActionResult> Index(int id = 1)
+        {           
             IEnumerable<News> news = await _unitOfWork.News.ToListAsync();
 
             news = news.OrderByDescending(s => s.DatePublication.Date.ToString()).
@@ -27,14 +27,13 @@ namespace Good_news_Blog.Controllers
 
             int pageSize = 12;
             var count = await _unitOfWork.News.CountAsync();
-            var items = news.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+            var items = news.Skip((id - 1) * pageSize).Take(pageSize).ToList();
 
-            NewsPageViewModel pageViewModel = new NewsPageViewModel(count, page, pageSize);
+            NewsPageViewModel pageViewModel = new NewsPageViewModel(count, id, pageSize);
             IndexViewModel viewModel = new IndexViewModel()
             {
                 News = items,
-                PageViewModel = pageViewModel,
-                TotalPages = pageViewModel.TotalPages              
+                PageViewModel = pageViewModel                             
             };
 
             return View(viewModel);
