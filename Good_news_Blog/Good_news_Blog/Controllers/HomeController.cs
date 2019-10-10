@@ -12,18 +12,18 @@ namespace Good_news_Blog.Controllers
 {
     public class HomeController : Controller
     {
-        private IUnitOfWork _unitOfWork;
+        private readonly IUnitOfWork _unitOfWork;
         public HomeController(IUnitOfWork uow)
         {
             _unitOfWork = uow;
         }
-                
+
         public async Task<IActionResult> Index(int id = 1)
-        {           
+        {
             IEnumerable<News> news = await _unitOfWork.News.ToListAsync();
 
             news = news.OrderByDescending(s => s.DatePublication.Date.ToString()).
-                ThenByDescending(w=>w.DatePublication.TimeOfDay.ToString());
+                ThenByDescending(w => w.DatePublication.TimeOfDay.ToString());
 
             int pageSize = 12;
             var count = await _unitOfWork.News.CountAsync();
@@ -33,11 +33,11 @@ namespace Good_news_Blog.Controllers
             IndexViewModel viewModel = new IndexViewModel()
             {
                 News = items,
-                PageViewModel = pageViewModel                             
+                PageViewModel = pageViewModel
             };
 
             return View(viewModel);
-        }      
+        }
 
         [HttpGet]
         public IActionResult Privacy()
