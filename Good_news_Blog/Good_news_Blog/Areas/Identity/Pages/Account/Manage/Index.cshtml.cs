@@ -15,12 +15,12 @@ namespace Good_news_Blog.Areas.Identity.Pages.Account.Manage
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly IEmailSender _emailSender;
+        private readonly Core.IEmailSender _emailSender;
 
         public IndexModel(
             UserManager<IdentityUser> userManager,
             SignInManager<IdentityUser> signInManager,
-            IEmailSender emailSender)
+            Core.IEmailSender emailSender)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -39,6 +39,9 @@ namespace Good_news_Blog.Areas.Identity.Pages.Account.Manage
 
         public class InputModel
         {
+            [Required]
+            public string UserName { get; set; }
+
             [Required]
             [EmailAddress]
             public string Email { get; set; }
@@ -60,10 +63,10 @@ namespace Good_news_Blog.Areas.Identity.Pages.Account.Manage
             var email = await _userManager.GetEmailAsync(user);
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
 
-            Username = userName;
 
             Input = new InputModel
             {
+                UserName = userName,
                 Email = email,
                 PhoneNumber = phoneNumber
             };
@@ -84,6 +87,17 @@ namespace Good_news_Blog.Areas.Identity.Pages.Account.Manage
             if (user == null)
             {
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+            }
+
+            var userName = await _userManager.GetUserNameAsync(user);
+            if (Input.UserName != userName)
+            {
+                var setUserNameResult = await _userManager.SetUserNameAsync(user, Input.UserName);
+                if (!setUserNameResult.Succeeded)
+                {
+                    var userId = await _userManager.GetUserIdAsync(user);
+                    throw new InvalidOperationException($"Unexpected error occurred setting email for user with ID '{userId}'.");
+                }
             }
 
             var email = await _userManager.GetEmailAsync(user);

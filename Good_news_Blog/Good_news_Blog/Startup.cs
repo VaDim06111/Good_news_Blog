@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Core;
 using Good_news_Blog.Data;
+using Good_news_Blog.EmailService;
 using Good_news_Blog.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -50,6 +51,9 @@ namespace Good_news_Blog
             // Add services to Parse news from web
             services.AddTransient<INewsOnlinerParser, NewsParserFromOnliner>();
             services.AddTransient<INewsS13Parser, NewsParserFromS13>();
+
+            //Add EmailService
+            services.AddTransient<IEmailSender, SmtpEmailService>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
