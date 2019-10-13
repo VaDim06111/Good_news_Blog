@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Good_news_Blog.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Good_news_Blog.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class RolesController : Controller
     {
         private readonly RoleManager<IdentityRole> _roleManager;

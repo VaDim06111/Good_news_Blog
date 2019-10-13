@@ -1,0 +1,30 @@
+﻿
+@{
+    ViewData["Title"] = "Admin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2><span class="badge badge-secondary">Панель администратора</span></h2>
+
+<ul class="nav nav-pills">
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Новости</a>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" asp-action="AddNews" asp-controller="News">Обновить новости</a>
+        </div>
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Пользователи</a>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" asp-action="Index" asp-controller="Users">Список пользователей</a>
+            <a class="dropdown-item" asp-action="Create" asp-controller="Users">Создать пользователя</a>
+            <a class="dropdown-item" asp-action="UserList" asp-controller="Roles">Редактирование прав доступа</a>
+        </div>
+    </li>
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Роли</a>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" asp-action="Index" asp-controller="Roles">Список ролей</a>
+            <a class="dropdown-item" asp-action="Create" asp-controller="Roles">Добавить роль</a>
+        </div>
+    </li>
+</ul>

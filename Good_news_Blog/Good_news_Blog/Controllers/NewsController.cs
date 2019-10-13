@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Core;
 using Good_news_Blog.Data;
 using Good_news_Blog.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ParserNewsFromOnliner;
 using ParserNewsFromS13;
@@ -25,6 +26,7 @@ namespace Good_news_Blog.Controllers
             _newsS13Parser = nsp;
         }
 
+        [Authorize(Roles = "admin")]
         [HttpGet]
         public async  Task<IActionResult> AddNews()
         {
@@ -48,6 +50,7 @@ namespace Good_news_Blog.Controllers
             return RedirectToAction("NewsAdded", "News");
         }
 
+        [Authorize(Roles = "admin")]
         public IActionResult NewsAdded()
         {
             return View();
