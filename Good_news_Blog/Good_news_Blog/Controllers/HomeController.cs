@@ -22,7 +22,7 @@ namespace Good_news_Blog.Controllers
         {
             IEnumerable<News> news = await _unitOfWork.News.ToListAsync();
 
-            news = news.OrderByDescending(s => s.DatePublication.Date.ToString()).
+            news = news.OrderByDescending(s => s.DatePublication.Date.ToString("G")).
                 ThenByDescending(w => w.DatePublication.TimeOfDay.ToString());
 
             int pageSize = 12;

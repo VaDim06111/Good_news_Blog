@@ -43,8 +43,8 @@ namespace Good_news_Blog
             string connection = Configuration.GetConnectionString("DefaultConnection");           
             services.AddDbContext<ApplicationDbContext>(options 
                 => options.UseSqlServer(connection));
-            services.AddDefaultIdentity<IdentityUser>()
-                .AddEntityFrameworkStores<ApplicationDbContext>();               
+            services.AddIdentity<IdentityUser,IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddTransient<IRepository<News>, NewsRepository>();          
             services.AddTransient<IUnitOfWork, UnitOfWork>();          
 
