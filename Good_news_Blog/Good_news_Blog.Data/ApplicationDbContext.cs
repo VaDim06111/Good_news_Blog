@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore.Query.Expressions;
 
 namespace Good_news_Blog.Data
 {
@@ -21,5 +22,6 @@ namespace Good_news_Blog.Data
         {
             base.OnModelCreating(modelBuilder);
         }
+
     }
 }
