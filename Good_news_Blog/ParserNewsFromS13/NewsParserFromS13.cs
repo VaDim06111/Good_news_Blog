@@ -89,15 +89,19 @@ namespace ParserNewsFromS13
             {
                 foreach (var article in feed.Items)
                 {
-                    news.Add(new News()
+                    var text = GetTextOfNews(article.Links.FirstOrDefault().Uri.ToString());
+                    if (!string.IsNullOrEmpty(text))
                     {
-                        Title = article.Title.Text,
-                        Description = Regex.Replace(article.Summary.Text, "<.*?>", string.Empty),
-                        Source = article.Links.FirstOrDefault().Uri.ToString(),
-                        DatePublication = article.PublishDate.UtcDateTime,
-                        IndexOfPositive = 0,
-                        Text = GetTextOfNews(article.Links.FirstOrDefault().Uri.ToString())
-                    });
+                        news.Add(new News()
+                        {
+                            Title = article.Title.Text,
+                            Description = Regex.Replace(article.Summary.Text, "<.*?>", string.Empty),
+                            Source = article.Links.FirstOrDefault().Uri.ToString(),
+                            DatePublication = article.PublishDate.UtcDateTime,
+                            IndexOfPositive = 0,
+                            Text = text
+                        });
+                    }
                 }
             }
 
@@ -111,18 +115,22 @@ namespace ParserNewsFromS13
 
             var node = doc.DocumentNode.SelectNodes("//html/body/div/div/div/div/ul/li/div/div");
 
-            var text = node.Skip(1).Take(1).FirstOrDefault().InnerText;
-
-            var mas = new string[] { "&ndash; ", "&ndash;", "&mdash; ", "&mdash;", "&nbsp; ", "&nbsp; ", "&nbsp;", "&laquo; ", "&laquo;", "&raquo; ", "&raquo;", "&quot;" };
-
-            foreach (var item in mas)
+            if (node!=null)
             {
-                text = text.Replace(item, "");
+                var text = node.Skip(1).Take(1).FirstOrDefault().InnerText;
+                var mas = new string[] { "&ndash; ", "&ndash;", "&mdash; ", "&mdash;", "&nbsp; ", "&nbsp; ", "&nbsp;", "&laquo; ", "&laquo;", "&raquo; ", "&raquo;", "&quot;" };
+
+                foreach (var item in mas)
+                {
+                    text = text.Replace(item, "");
+                }
+
+                Regex.Replace(text, "<.*?>", string.Empty);
+
+                return text;
             }
-
-            Regex.Replace(text, "<.*?>", string.Empty);
-
-            return text;
+            
+            return "";
         }
         
       

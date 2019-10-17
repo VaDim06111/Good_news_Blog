@@ -17,6 +17,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ParserNewsFromOnliner;
 using ParserNewsFromS13;
+using ParserNewsFromTutBy;
 
 namespace Good_news_Blog
 {
@@ -52,6 +53,7 @@ namespace Good_news_Blog
             // Add services to Parse news from web
             services.AddTransient<INewsOnlinerParser, NewsParserFromOnliner>();
             services.AddTransient<INewsS13Parser, NewsParserFromS13>();
+            services.AddTransient<INewsParserFromTutBy, NewsParserFromTutBy>();
 
             //Add EmailService
             services.AddTransient<IEmailSender, SmtpEmailService>();

@@ -32,6 +32,7 @@
     <ProjectReference Include="..\Good_news_Blog.Repositories\Good_news_Blog.Repositories.csproj" />
     <ProjectReference Include="..\ParserNewsFromOnliner\ParserNewsFromOnliner.csproj" />
     <ProjectReference Include="..\ParserNewsFromS13\ParserNewsFromS13.csproj" />
+    <ProjectReference Include="..\ParserNewsFromTutBy\ParserNewsFromTutBy.csproj" />
   </ItemGroup>
 
 </Project>

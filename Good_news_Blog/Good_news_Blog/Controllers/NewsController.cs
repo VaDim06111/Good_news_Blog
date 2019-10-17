@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ParserNewsFromOnliner;
 using ParserNewsFromS13;
+using ParserNewsFromTutBy;
 
 namespace Good_news_Blog.Controllers
 {
@@ -17,33 +18,34 @@ namespace Good_news_Blog.Controllers
         private readonly IUnitOfWork _unitOfWork;
         private readonly INewsOnlinerParser _newsOnlinerParser;
         private readonly INewsS13Parser _newsS13Parser;
+        private readonly INewsParserFromTutBy _newsTutByParser;
         
         
-        public NewsController(IUnitOfWork uow, INewsOnlinerParser nop, INewsS13Parser nsp)
+        public NewsController(IUnitOfWork uow, INewsOnlinerParser nop, INewsS13Parser nsp, INewsParserFromTutBy ntp)
         {
             _unitOfWork = uow;
             _newsOnlinerParser = nop;
             _newsS13Parser = nsp;
+            _newsTutByParser = ntp;
         }
 
         [Authorize(Roles = "admin")]
         [HttpGet]
         public async  Task<IActionResult> AddNews()
         {
-            var parseS13 = Task.Factory.StartNew(() =>
+            var parse = Task.Factory.StartNew(() =>
             {
                 var newsS13 = _newsS13Parser.GetFromUrl();
                 _newsS13Parser.AddRangeAsync(newsS13);
-            });
 
-            var parseOnliner = Task.Factory.StartNew(() =>
-            {
                 var newsOnliner = _newsOnlinerParser.GetFromUrl();
                 _newsOnlinerParser.AddRangeAsync(newsOnliner);
+
+                var newsTutBy = _newsTutByParser.GetFromUrl();
+                _newsOnlinerParser.AddRangeAsync(newsTutBy);
             });
 
-            parseS13.Wait();
-            parseOnliner.Wait();
+            parse.Wait();
 
             await _unitOfWork.SaveAsync();
 

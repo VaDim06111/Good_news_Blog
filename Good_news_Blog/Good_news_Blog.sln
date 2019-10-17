@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParserNewsFromS13", "Parser
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Good_news_Blog.EmailService", "Good_news_Blog.EmailService\Good_news_Blog.EmailService.csproj", "{7FB06160-D62A-42A9-99EA-3C261FB7B1B5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParserNewsFromTutBy", "ParserNewsFromTutBy\ParserNewsFromTutBy.csproj", "{36E3B3AF-76CC-4B74-B122-2FF4F3B4A02B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{7FB06160-D62A-42A9-99EA-3C261FB7B1B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7FB06160-D62A-42A9-99EA-3C261FB7B1B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7FB06160-D62A-42A9-99EA-3C261FB7B1B5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36E3B3AF-76CC-4B74-B122-2FF4F3B4A02B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36E3B3AF-76CC-4B74-B122-2FF4F3B4A02B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36E3B3AF-76CC-4B74-B122-2FF4F3B4A02B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36E3B3AF-76CC-4B74-B122-2FF4F3B4A02B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

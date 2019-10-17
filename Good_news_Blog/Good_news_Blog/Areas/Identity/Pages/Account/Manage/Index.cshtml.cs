@@ -151,8 +151,14 @@ namespace Good_news_Blog.Areas.Identity.Pages.Account.Manage
                 protocol: Request.Scheme);
             await _emailSender.SendEmailAsync(
                 email,
-                "Confirm your email",
-                $"Пожалуйста, подтвердите свой аккаунт по <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>нажатию здесь</a>.");
+                "Подтверждение email",
+                $"<p align='center'><a href target=\"_blank\"><img src=\"https://demo.stripocdn.email/content/guids/433828f8-d210-471d-94f2-214a5bc8b247/images/89561571325169180.png\" alt=\"Good news Blog\" width=\"98\" title=\"Good news Blog\" style=\"display: block;\"></a></p>" +
+                $"<h1 style=\"color: #4a7eb0;\">Email verification</h1>" +
+                $"<h3>Здравствуйте, {_userManager.GetUserNameAsync(user).Result}</h3>" +
+                $"<h4>Ваш email должен быть верифицирован. " +
+                $"Ваш email будет использован для сброса пароля и для отправки важных сообщений.</h4>" +
+                $"<h2><a class='es-button' href='{HtmlEncoder.Default.Encode(callbackUrl)}'>Подтвердить email</a></h2>");
+
 
             StatusMessage = "Письмо с подтверждением отправлено. Пожалуйста, проверьте вашу электронную почту.";
             return RedirectToPage();
