@@ -47,7 +47,8 @@ namespace Good_news_Blog
             services.AddIdentity<IdentityUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
-            services.AddTransient<IRepository<News>, NewsRepository>();          
+            services.AddTransient<IRepository<News>, NewsRepository>();
+            services.AddTransient<IRepository<Comment>, CommentRepository>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();          
 
             // Add services to Parse news from web

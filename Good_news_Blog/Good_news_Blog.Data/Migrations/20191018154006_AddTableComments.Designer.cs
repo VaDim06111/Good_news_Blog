@@ -4,14 +4,16 @@ using Good_news_Blog.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Good_news_Blog.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20191018154006_AddTableComments")]
+    partial class AddTableComments
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -27,8 +29,6 @@ namespace Good_news_Blog.Data.Migrations
                     b.Property<string>("AuthorId")
                         .IsRequired();
 
-                    b.Property<Guid>("NewsId");
-
                     b.Property<DateTime>("PubDateTime");
 
                     b.Property<double>("Rating");
@@ -38,8 +38,6 @@ namespace Good_news_Blog.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AuthorId");
-
-                    b.HasIndex("NewsId");
 
                     b.ToTable("Comments");
                 });
@@ -236,11 +234,6 @@ namespace Good_news_Blog.Data.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "Author")
                         .WithMany()
                         .HasForeignKey("AuthorId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Good_news_Blog.Data.News", "News")
-                        .WithMany()
-                        .HasForeignKey("NewsId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

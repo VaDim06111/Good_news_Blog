@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Good_news_Blog.Models;
 using Good_news_Blog.Repositories;
 using Good_news_Blog.Data;
+using Good_news_Blog.ViewModels;
 
 namespace Good_news_Blog.Controllers
 {
@@ -49,6 +50,14 @@ namespace Good_news_Blog.Controllers
         public IActionResult ReadMore(Guid id)
         {
             var news = _unitOfWork.News.Where(p => p.Id.Equals(id)).FirstOrDefault();
+            var comments = _unitOfWork.Comments.Where(i=>i.News.Id.Equals(id));
+
+            var newsModel = new NewsViewModel()
+            {
+                News = news,
+                Comments = comments
+            };
+
             return View(news);
         }
 

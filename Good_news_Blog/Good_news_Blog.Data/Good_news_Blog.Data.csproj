@@ -222,6 +222,7 @@
   <ItemGroup>
     <Compile Include="ApplicationDbContext.cs" />
     <Compile Include="BaseEntity.cs" />
+    <Compile Include="Comment.cs" />
     <Compile Include="Migrations\20191005113634_AddDescriptionField.cs" />
     <Compile Include="Migrations\20191005113634_AddDescriptionField.designer.cs">
       <DependentUpon>20191005113634_AddDescriptionField.cs</DependentUpon>
@@ -233,6 +234,14 @@
     <Compile Include="Migrations\20191009203006_AddIdentity.cs" />
     <Compile Include="Migrations\20191009203006_AddIdentity.designer.cs">
       <DependentUpon>20191009203006_AddIdentity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\20191018154006_AddTableComments.cs" />
+    <Compile Include="Migrations\20191018154006_AddTableComments.designer.cs">
+      <DependentUpon>20191018154006_AddTableComments.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\20191018154849_FixTableComment.cs" />
+    <Compile Include="Migrations\20191018154849_FixTableComment.designer.cs">
+      <DependentUpon>20191018154849_FixTableComment.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\ApplicationDbContextModelSnapshot.cs" />
     <Compile Include="News.cs" />
