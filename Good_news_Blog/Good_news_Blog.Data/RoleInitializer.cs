@@ -24,7 +24,7 @@ namespace Good_news_Blog.Data
                 await roleManager.CreateAsync(new IdentityRole("user"));
             }
 
-            if (await userManager.FindByNameAsync(adminEmail) == null)
+            if (await userManager.FindByEmailAsync(adminEmail) == null)
             {
                 IdentityUser admin = new IdentityUser { Email = adminEmail, UserName = adminEmail };
                 IdentityResult result = await userManager.CreateAsync(admin, password);
