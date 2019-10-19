@@ -11,7 +11,7 @@
             <span class="fas fa-star" style="font-size:2em;"> @Model.IndexOfPositive</span>
         </div>
         <p class="card-text">@Model.Text</p>
-        <p class="card-text text-info">Источник: <a href="@Model.Source" target="_blank">@Model.Source</a></p>
+        <p class="card-text text-info">Источник: <a href="@Model.Source" target="_blank">нажмите чтобы перейти к источнику.</a></p>
         <p class="card-text"><small class="text-muted">Последнее изменение @Model.DatePublication.ToLongDateString() @Model.DatePublication.ToShortTimeString()</small></p>
     </div>
 </div>
@@ -44,7 +44,7 @@
                     </p>
                 </div>
             </div>
-            <div class="card card-inner">
+            @*<div class="card card-inner">
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-2">
@@ -61,7 +61,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>*@
         </div>
     </div>
 </div>
