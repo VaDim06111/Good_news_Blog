@@ -12,10 +12,9 @@ namespace Good_news_Blog.Data
     {
         public string Text { get; set; }
         public DateTime PubDateTime { get; set; }
-        public double Rating { get; set; }
-        [Required]
+        public int CountLikes { get; set; }
+        public int CountDislikes { get; set; }
         public IdentityUser Author { get; set; }
-        [Required]
         public News News { get; set; }
     }
 }

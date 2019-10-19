@@ -243,6 +243,10 @@
     <Compile Include="Migrations\20191018154849_FixTableComment.designer.cs">
       <DependentUpon>20191018154849_FixTableComment.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\20191019171837_EditTableComment.cs" />
+    <Compile Include="Migrations\20191019171837_EditTableComment.designer.cs">
+      <DependentUpon>20191019171837_EditTableComment.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\ApplicationDbContextModelSnapshot.cs" />
     <Compile Include="News.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -2,21 +2,26 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Good_news_Blog.Models;
 using Good_news_Blog.Repositories;
 using Good_news_Blog.Data;
 using Good_news_Blog.ViewModels;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace Good_news_Blog.Controllers
 {
     public class HomeController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
-        public HomeController(IUnitOfWork uow)
+        private readonly UserManager<IdentityUser> _userManager;
+        public HomeController(IUnitOfWork uow, UserManager<IdentityUser> userManager)
         {
             _unitOfWork = uow;
+            _userManager = userManager;
         }
 
         public async Task<IActionResult> Index(int id = 1)
@@ -65,6 +70,27 @@ namespace Good_news_Blog.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> SendComment(string text, Guid id)
+        {
+            //починить
+            var comment = new Comment()
+            {
+                Author = _userManager.FindByEmailAsync(User.FindFirst(ClaimTypes.Email).Value).Result,
+                Text = text,
+                PubDateTime = DateTime.Now.ToUniversalTime(),
+                CountDislikes = 0,
+                CountLikes = 0,
+                News = _unitOfWork.News.Where(i=>i.Id.Equals(id)).FirstOrDefault()
+            };
+
+            await _unitOfWork.Comments.AddAsync(comment);
+
+
+            return null;
         }
     }
 }

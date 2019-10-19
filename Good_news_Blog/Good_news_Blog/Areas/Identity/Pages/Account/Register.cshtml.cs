@@ -67,20 +67,26 @@ namespace Good_news_Blog.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 var user = new IdentityUser { UserName = Input.Email, Email = Input.Email };
-                var result = await _userManager.CreateAsync(user, Input.Password);
-                if (result.Succeeded)
+                if (_userManager.FindByEmailAsync(user.Email).Result == null)
                 {
-                    _logger.LogInformation("User created a new account with password.");
+                    var result = await _userManager.CreateAsync(user, Input.Password);
+                    if (result.Succeeded)
+                    {
+                        _logger.LogInformation("User created a new account with password.");
 
-                    await _userManager.AddToRoleAsync(user, "user");
+                        await _userManager.AddToRoleAsync(user, "user");
 
-                    await _signInManager.SignInAsync(user, isPersistent: false);
-                    return LocalRedirect(returnUrl);
+                        await _signInManager.SignInAsync(user, isPersistent: false);
+                        return LocalRedirect(returnUrl);
+                    }
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
                 }
-                foreach (var error in result.Errors)
-                {
-                    ModelState.AddModelError(string.Empty, error.Description);
-                }
+
+                ModelState.AddModelError(string.Empty,"Пользователь с таким email уже зарегистрирован!");
+                
             }
 
             // If we got this far, something failed, redisplay form
