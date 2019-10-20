@@ -63,7 +63,7 @@ namespace Good_news_Blog.Controllers
                 Comments = comments
             };
 
-            return View(news);
+            return View(newsModel);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
@@ -76,10 +76,11 @@ namespace Good_news_Blog.Controllers
         [HttpPost]
         public async Task<IActionResult> SendComment(string text, Guid id)
         {
-            //починить
+            var author = _userManager.FindByIdAsync(User.FindFirst(ClaimTypes.NameIdentifier).Value).Result;
+
             var comment = new Comment()
             {
-                Author = _userManager.FindByEmailAsync(User.FindFirst(ClaimTypes.Email).Value).Result,
+                Author = author,
                 Text = text,
                 PubDateTime = DateTime.Now.ToUniversalTime(),
                 CountDislikes = 0,
@@ -89,8 +90,10 @@ namespace Good_news_Blog.Controllers
 
             await _unitOfWork.Comments.AddAsync(comment);
 
+            await _unitOfWork.SaveAsync();
 
-            return null;
+
+            return RedirectToAction("ReadMore", id);
         }
     }
 }

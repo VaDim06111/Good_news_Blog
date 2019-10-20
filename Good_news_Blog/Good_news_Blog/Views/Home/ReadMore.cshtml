@@ -1,19 +1,19 @@
-﻿@model Good_news_Blog.Data.News
+﻿@model NewsViewModel
 @inject SignInManager<IdentityUser> SignInManager
 @{
-    ViewData["Title"] = Model.Title;
+    ViewData["Title"] = Model.News.Title;
 }
 
 <div class="card" style="margin: 15px;">
     <img src="~/images/fon.jpg" class="card-img-top" height="500" alt="image">
     <div class="card-body">
         <div class="row">
-            <h3 class="card-title col-md-11">@Model.Title</h3>
-            <span class="fas fa-star" style="font-size:2em;"> @Model.IndexOfPositive</span>
+            <h3 class="card-title col-md-11">@Model.News.Title</h3>
+            <span class="fas fa-star" style="font-size:2em;"> @Model.News.IndexOfPositive</span>
         </div>
-        <p class="card-text">@Model.Text</p>
-        <p class="card-text text-info">Источник: <a href="@Model.Source" target="_blank">нажмите чтобы перейти к источнику.</a></p>
-        <p class="card-text"><small class="text-muted">Последнее изменение @Model.DatePublication.ToLongDateString() @Model.DatePublication.ToShortTimeString()</small></p>
+        <p class="card-text">@Model.News.Text</p>
+        <p class="card-text text-info">Источник: <a href="@Model.News.Source" target="_blank">нажмите чтобы перейти к источнику.</a></p>
+        <p class="card-text"><small class="text-muted">Последнее изменение @Model.News.DatePublication.ToLongDateString() @Model.News.DatePublication.ToShortTimeString()</small></p>
     </div>
 </div>
 
@@ -22,54 +22,62 @@
 <div class="container">
     <span class="badge badge-secondary" style="margin-top:10px; margin-bottom:10px; font-size:30px;">Комментарии</span>
 
-    <div class="card">
-        <div class="card-body">
-            <div class="row">
-                <div class="col-md-2">
-                    <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid" />
-                    <p class="text-secondary text-center">15 Minutes Ago</p>
-                </div>
-                <div class="col-md-10">
-                    <h3>
-                        <p class="float-left"><strong>Maniruzzaman Akash</strong></p>
-                        <span class="float-right"><i class="text-warning fas fa-thumbs-down"></i></span>
-                        <span class="float-right" style="padding-left: 15px; padding-right: 5px;">0</span>
-                        <span class="float-right"><i class="text-warning fas fa-thumbs-up"></i></span>
-                        <span class="float-right" style="padding-right: 5px;">0</span>
-                    </h3>
-                    <div class="clearfix"></div>
-                    <p>Lorem Ipsum is simply dummy text of the pr make  but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                    <p>
-                        <a class="float-right btn text-white btn-danger ml-2"> <i class="fa fa-thumbs-down"></i> Dislike</a>
-                        <a class="float-right btn text-white btn-primary"> <i class="fas fa-thumbs-up"></i> Like</a>
-                    </p>
-                </div>
-            </div>
-            @*<div class="card card-inner">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-2">
-                                <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid" />
-                                <p class="text-secondary text-center">15 Minutes Ago</p>
-                            </div>
-                            <div class="col-md-10">
-                                <p><strong>Maniruzzaman Akash</strong></p>
-                                <p>Lorem Ipsum is simply dummy text of the pr make  but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                                <p>
-                                    <a class="float-right btn text-white btn-danger ml-2">  <i class="fa fa-thumbs-down"></i> Dislike</a>
-                                    <a class="float-right btn text-white btn-primary"> <i class="fa fa-thumbs-up"></i> Like</a>
-                                </p>
-                            </div>
+    @if (Model.Comments.Count() != 0)
+    {
+        @foreach (var comment in Model.Comments)
+        {
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid" />
+                            <p class="text-secondary text-center">@comment.PubDateTime.ToShortDateString()</p>
+                        </div>
+                        <div class="col-md-10">
+                            <h3>
+                                <p class="float-left"><strong>@comment.Author.UserName</strong></p>
+                                <span class="float-right"><i class="text-warning fas fa-thumbs-down"></i></span>
+                                <span class="float-right" style="padding-left: 15px; padding-right: 5px;">@comment.CountDislikes</span>
+                                <span class="float-right"><i class="text-warning fas fa-thumbs-up"></i></span>
+                                <span class="float-right" style="padding-right: 5px;">@comment.CountLikes</span>
+                            </h3>
+                            <div class="clearfix"></div>
+                            <p>@comment.Text</p>
+                            <p>
+                                <a class="float-right btn text-white btn-danger ml-2"> <i class="fa fa-thumbs-down"></i> Dislike</a>
+                                <a class="float-right btn text-white btn-primary"> <i class="fas fa-thumbs-up"></i> Like</a>
+                            </p>
                         </div>
                     </div>
-                </div>*@
-        </div>
-    </div>
+                    @*<div class="card card-inner">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid" />
+                                        <p class="text-secondary text-center">15 Minutes Ago</p>
+                                    </div>
+                                    <div class="col-md-10">
+                                        <p><strong>Maniruzzaman Akash</strong></p>
+                                        <p>Lorem Ipsum is simply dummy text of the pr make  but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                                        <p>
+                                            <a class="float-right btn text-white btn-danger ml-2">  <i class="fa fa-thumbs-down"></i> Dislike</a>
+                                            <a class="float-right btn text-white btn-primary"> <i class="fa fa-thumbs-up"></i> Like</a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>*@
+                </div>
+            </div>
+        }
+
+    }
 </div>
+
 
 @*  Send comment  *@
 <form asp-action="SendComment" class="col" style="margin-top: 15px;" method="post">
-    <input type="hidden" name="id" value="@Model.Id"/>
+    <input type="hidden" name="id" value="@Model.News.Id" />
     <textarea name="text" class="form-control" name="textComment" rows="6" style="resize: none" placeholder="Напишите свой комментарий..."></textarea>
     @if (SignInManager.IsSignedIn(User))
     {
