@@ -11,6 +11,7 @@ using Good_news_Blog.Data;
 using Good_news_Blog.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace Good_news_Blog.Controllers
 {
@@ -52,10 +53,11 @@ namespace Good_news_Blog.Controllers
         }
 
         [HttpGet]
-        public IActionResult ReadMore(Guid id)
+        public async Task<IActionResult> ReadMore(Guid id)
         {
             var news = _unitOfWork.News.Where(p => p.Id.Equals(id)).FirstOrDefault();
-            var comments = _unitOfWork.Comments.Where(i=>i.News.Id.Equals(id));
+            var commentModel =  await _unitOfWork.Comments.Include("Author").Include("News").ToListAsync();
+            var comments = commentModel.Where(i => i.News.Id.Equals(id));
 
             var newsModel = new NewsViewModel()
             {

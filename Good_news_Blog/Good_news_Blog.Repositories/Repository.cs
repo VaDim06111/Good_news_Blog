@@ -37,7 +37,7 @@ namespace Good_news_Blog.Repositories
         }
 
         public IEnumerable<T> GetAll()
-        {            
+        {
             return _table.ToList();
         }
 
@@ -143,6 +143,11 @@ namespace Good_news_Blog.Repositories
         public IEnumerable<T> Skip(int count)
         {
             return _table.Skip(count);
-        }      
+        }
+
+        public IQueryable<T> Include(string predicate)
+        {
+            return _table.Include(predicate);
+        }
     }
 }

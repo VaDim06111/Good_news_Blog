@@ -32,6 +32,7 @@ namespace Core
         Task<bool> ContainsAsync(T obj);
         int Count();
         Task<int> CountAsync();
+        IQueryable<T> Include(string predicate);
     }
 
 }
