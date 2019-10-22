@@ -21,7 +21,6 @@
 @*     Comments     *@
 <div class="container">
     <span class="badge badge-secondary" style="margin-top:10px; margin-bottom:10px; font-size:30px;">Комментарии</span>
-
     @if (Model.Comments.Any())
     {
         @foreach (var comment in Model.Comments)
@@ -44,6 +43,10 @@
                             <div class="clearfix"></div>
                             <p>@comment.Text</p>
                             <p>
+                                @if (User.IsInRole("admin"))
+                                {
+                                    <a class="float-right btn text-white btn-danger ml-2" asp-action="DeleteComment" asp-route-id="@comment.Id" asp-route-comment="@Model.News.Id">Delete</a>
+                                }
                                 <a class="float-right btn text-white btn-danger ml-2"> <i class="fa fa-thumbs-down"></i> Dislike</a>
                                 <a class="float-right btn text-white btn-primary"> <i class="fas fa-thumbs-up"></i> Like</a>
                             </p>
