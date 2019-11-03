@@ -57,7 +57,7 @@ namespace Good_news_Blog.Controllers
         {
             var news = _unitOfWork.News.Where(p => p.Id.Equals(id)).FirstOrDefault();
             var commentModel =  await _unitOfWork.Comments.Include("Author").Include("News").ToListAsync();
-            var comments = commentModel.Where(i => i.News.Id.Equals(id));
+            var comments = commentModel.Where(i => i.News.Id.Equals(id)).OrderByDescending(o=>o.PubDateTime);
 
             var newsModel = new NewsViewModel()
             {
@@ -74,38 +74,6 @@ namespace Good_news_Blog.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        [Authorize]
-        [HttpPost]
-        public async Task<IActionResult> SendComment(string text, Guid id)
-        {
-            var author = _userManager.FindByIdAsync(User.FindFirst(ClaimTypes.NameIdentifier).Value).Result;
-
-            var comment = new Comment()
-            {
-                Author = author,
-                Text = text,
-                PubDateTime = DateTime.Now.ToUniversalTime(),
-                CountDislikes = 0,
-                CountLikes = 0,
-                News = _unitOfWork.News.Where(i=>i.Id.Equals(id)).FirstOrDefault()
-            };
-
-            await _unitOfWork.Comments.AddAsync(comment);
-
-            await _unitOfWork.SaveAsync();
-
-
-            return RedirectToAction("ReadMore","Home", new {id = id});
-        }
-
-        [Authorize(Roles = "admin")]
-        public async Task<IActionResult> DeleteComment(Guid id, Guid comment)
-        {
-            _unitOfWork.Comments.Delete(id);
-            await _unitOfWork.SaveAsync();
-
-            
-            return RedirectToAction("ReadMore", "Home", new {id = comment});
-        }
+        
     }
 }
