@@ -80,7 +80,7 @@
 
 
 @*  Send comment  *@
-<form class="col" style="margin-top: 15px;">
+<div class="form-group" style="margin-top: 15px;">
     <input type="hidden" id="newsId" name="id" value="@Model.News.Id" />
     <textarea id="commentText" name="text" class="form-control" rows="6" style="resize: none" placeholder="Напишите свой комментарий..."></textarea>
     @if (SignInManager.IsSignedIn(User))
@@ -97,7 +97,7 @@
             <button class="btn btn-primary btn-send-comment col-md-2" disabled="disabled" style="margin-top: 10px; margin-bottom: 10px; font-size: 20px;">Отправить</button>
         </div>
     }
-</form>
+</div>
 
 <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
 
@@ -118,7 +118,8 @@
             url: "/comment/sendComment",
             data: JSON.stringify(comment),
             contentType: "application/json",
-            success: function (data) {
+            success: function (result) {
+                $('#commentText').val('');
             },
             error: errorFunc
         });

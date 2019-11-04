@@ -29,10 +29,8 @@ namespace Good_news_Blog.Controllers
         public async Task<IActionResult> Index(int id = 1)
         {
             IEnumerable<News> news = await _unitOfWork.News.ToListAsync();
-
-            news = news.OrderByDescending(s => s.DatePublication.Date.ToString("G")).
-                ThenByDescending(w => w.DatePublication.TimeOfDay.ToString());
-
+            news = news.OrderByDescending(s => s.DatePublication);
+            
             int pageSize = 12;
             var count = await _unitOfWork.News.CountAsync();
             var items = news.Skip((id - 1) * pageSize).Take(pageSize).ToList();
