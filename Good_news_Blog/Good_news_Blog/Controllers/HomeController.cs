@@ -25,6 +25,7 @@ namespace Good_news_Blog.Controllers
             _userManager = userManager;
         }
 
+        [HttpGet]
         public async Task<IActionResult> Index(int id = 1)
         {
             IEnumerable<News> news = await _unitOfWork.News.ToListAsync();
