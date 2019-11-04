@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 using Good_news_Blog.Data;
 using Good_news_Blog.Models;
 using Good_news_Blog.Repositories;
+using Good_news_Blog.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 
 namespace Good_news_Blog.Controllers
@@ -55,6 +57,22 @@ namespace Good_news_Blog.Controllers
             await _unitOfWork.SaveAsync();
 
             return RedirectToAction("ReadMore", "Home", new { id = comment });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> _GetComments(Guid id)
+        {
+            var news = _unitOfWork.News.Where(p => p.Id.Equals(id)).FirstOrDefault();
+            var commentModel = await _unitOfWork.Comments.Include("Author").Include("News").ToListAsync();
+            var comments = commentModel.Where(i => i.News.Id.Equals(id)).OrderByDescending(o => o.PubDateTime);
+
+            var newsModel = new NewsViewModel()
+            {
+                News = news,
+                Comments = comments
+            };
+
+            return PartialView("_GetComments", newsModel);
         }
     }
 }
