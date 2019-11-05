@@ -51,12 +51,13 @@ namespace Good_news_Blog.Controllers
         }
 
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> DeleteComment(Guid id, Guid comment)
+        [HttpPost]
+        public async Task<IActionResult> DeleteComment([FromBody] Guid id)
         {
             _unitOfWork.Comments.Delete(id);
             await _unitOfWork.SaveAsync();
 
-            return RedirectToAction("ReadMore", "Home", new { id = comment });
+            return Ok();
         }
 
         [HttpGet]
