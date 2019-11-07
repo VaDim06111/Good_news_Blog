@@ -81,7 +81,12 @@
             url: '/Comment/_GetComments/' + "?id=" + $('#newsId').val(),
             type: "GET",
             success: function (data) {
-                $('#commentContainer').html(data);
+                //$('#commentContainer').html(data);
+                $('#commentContainer').fadeOut(400,
+                    function() {
+                        $('#commentContainer').html(data);
+                        $(this).fadeIn(300);
+                    });
             },
             error: errorFunc
         });

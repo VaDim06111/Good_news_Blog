@@ -1,4 +1,5 @@
-﻿@model NewsViewModel
+﻿@using System.Security.Claims
+@model NewsViewModel
 
 <div class="container" id="partialComments">
     <span class="badge badge-secondary" style="margin-top:10px; margin-bottom:10px; font-size:30px;">Комментарии</span>
@@ -25,12 +26,15 @@
                                 <div class="clearfix"></div>
                                 <p>@comment.Text</p>
                                 <p>
-                                    @if (User.IsInRole("admin"))
+                                    @if (User.Identity.IsAuthenticated)
                                     {
-                                        <button id="@comment.Id" class="float-right btn text-white btn-danger btn-delete-comment ml-2">Delete</button>
+                                        @if (User.IsInRole("admin") || User.FindFirst(ClaimTypes.NameIdentifier).Value == comment.Author.Id)
+                                        {
+                                            <button id="@comment.Id" class="float-right btn text-white btn-danger btn-delete-comment ml-2">Delete</button>
+                                        }
+                                        <a class="float-right btn text-white btn-danger ml-2"> <i class="fa fa-thumbs-down"></i> Dislike</a>
+                                        <a class="float-right btn text-white btn-primary"> <i class="fas fa-thumbs-up"></i> Like</a>
                                     }
-                                    <a class="float-right btn text-white btn-danger ml-2"> <i class="fa fa-thumbs-down"></i> Dislike</a>
-                                    <a class="float-right btn text-white btn-primary"> <i class="fas fa-thumbs-up"></i> Like</a>
                                 </p>
                             </div>
                         </div>
@@ -78,7 +82,7 @@
             data: JSON.stringify(idComment),
             contentType: "application/json",
             success: function (result) {
-                $('div#'+idComment).slideToggle(1000);
+                $('div#' + idComment).slideToggle(1000);
             },
             error: errorFunc
         });

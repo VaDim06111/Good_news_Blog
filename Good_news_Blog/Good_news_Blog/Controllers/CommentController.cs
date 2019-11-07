@@ -50,7 +50,6 @@ namespace Good_news_Blog.Controllers
             return Json(comment);
         }
 
-        [Authorize(Roles = "admin")]
         [HttpPost]
         public async Task<IActionResult> DeleteComment([FromBody] Guid id)
         {
@@ -60,6 +59,8 @@ namespace Good_news_Blog.Controllers
             return Ok();
         }
 
+        //[OverrideAuthorization] для Web API
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> _GetComments(Guid id)
         {
