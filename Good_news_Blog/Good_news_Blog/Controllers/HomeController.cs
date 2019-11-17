@@ -18,11 +18,9 @@ namespace Good_news_Blog.Controllers
     public class HomeController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly UserManager<IdentityUser> _userManager;
-        public HomeController(IUnitOfWork uow, UserManager<IdentityUser> userManager)
+        public HomeController(IUnitOfWork uow)
         {
             _unitOfWork = uow;
-            _userManager = userManager;
         }
 
         [HttpGet]
