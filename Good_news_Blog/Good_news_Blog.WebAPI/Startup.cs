@@ -2,14 +2,22 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Core;
+using Good_news_Blog.Data;
+using Good_news_Blog.EmailService;
+using Good_news_Blog.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using ParserNewsFromOnliner;
+using ParserNewsFromS13;
+using ParserNewsFromTutBy;
 
 namespace Good_news_Blog.WebAPI
 {
@@ -25,6 +33,25 @@ namespace Good_news_Blog.WebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Add services to Database
+            //var connection = Configuration.GetConnectionString("DefaultConnection");
+            //services.AddDbContext<ApplicationDbContext>(options
+            //    => options.UseSqlServer(connection));
+            //services.AddIdentity<IdentityUser, IdentityRole>()
+            //    .AddEntityFrameworkStores<ApplicationDbContext>()
+            //    .AddDefaultTokenProviders();
+            //services.AddTransient<IRepository<News>, NewsRepository>();
+            //services.AddTransient<IRepository<Comment>, CommentRepository>();
+            //services.AddTransient<IUnitOfWork, UnitOfWork>();
+
+            //// Add services to Parse news from web
+            //services.AddTransient<INewsOnlinerParser, NewsParserFromOnliner>();
+            //services.AddTransient<INewsS13Parser, NewsParserFromS13>();
+            //services.AddTransient<INewsParserFromTutBy, NewsParserFromTutBy>();
+
+            ////Add EmailService
+            //services.AddTransient<IEmailSender, SmtpEmailService>();
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
@@ -42,7 +69,9 @@ namespace Good_news_Blog.WebAPI
             }
 
             app.UseHttpsRedirection();
+
             app.UseMvc();
+            
         }
     }
 }
