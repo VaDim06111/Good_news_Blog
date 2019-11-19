@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Core;
 using Good_news_Blog.Data;
 using Good_news_Blog.EmailService;
-using Good_news_Blog.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;

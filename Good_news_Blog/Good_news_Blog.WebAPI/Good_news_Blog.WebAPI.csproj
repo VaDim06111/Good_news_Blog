@@ -5,6 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MediatR" Version="7.0.0" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.HttpsPolicy" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.2.0" />
@@ -23,6 +25,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj" />
+    <ProjectReference Include="..\CQS_MediatR\CQS_MediatR.csproj" />
     <ProjectReference Include="..\Good_news_Blog.Data\Good_news_Blog.Data.csproj" />
     <ProjectReference Include="..\Good_news_Blog.EmailService\Good_news_Blog.EmailService.csproj" />
     <ProjectReference Include="..\ParserNewsFromOnliner\ParserNewsFromOnliner.csproj" />

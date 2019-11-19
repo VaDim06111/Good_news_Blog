@@ -9,7 +9,7 @@ namespace Good_news_Blog.WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RolesController : ControllerBase
+    public class RolesController : Controller
     {
     }
 }

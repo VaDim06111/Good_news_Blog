@@ -8,7 +8,7 @@ namespace Good_news_Blog.WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class HomeController : ControllerBase
+    public class HomeController : Controller
     {
         // GET api/home
         [HttpGet]
