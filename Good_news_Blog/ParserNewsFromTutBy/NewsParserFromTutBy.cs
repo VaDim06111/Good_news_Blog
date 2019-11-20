@@ -140,6 +140,7 @@ namespace ParserNewsFromTutBy
                 }
 
                 text = text.Replace("  ", " ");
+                text = text.Replace("\r\n", string.Empty);
             }
 
             return text;

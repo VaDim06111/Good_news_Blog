@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CQS_MediatR.Queries.Handlers;
+using CQS_MediatR.Queries.QuerieEntities;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Good_news_Blog.WebAPI.Controllers
@@ -10,18 +13,33 @@ namespace Good_news_Blog.WebAPI.Controllers
     [ApiController]
     public class HomeController : Controller
     {
-        // GET api/home
-        [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        private readonly IMediator _mediator;
+
+        public HomeController(IMediator mediator)
         {
-            return new string[] { "value1", "value2" };
+            _mediator = mediator;
         }
 
         // GET api/home/5
         [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
+        public async Task<ActionResult> Get(int id = 1)
         {
-            return "value";
+            int pageSize = 6;
+
+            try
+            {
+                var news = await _mediator.Send(new GetNewsPageQuery(id, pageSize));
+                news = news.OrderByDescending(s => s.DatePublication);
+                return Ok(Json(news));
+            }
+            catch (NullReferenceException)
+            {
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
 
         // POST api/home

@@ -11,18 +11,20 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CQS_MediatR.Queries.Handlers
 {
-    public class GetAllNewsHandler : IRequestHandler<GetAllNewsQuery, IEnumerable<News>>
+    public class GetNewsPageHandler : IRequestHandler<GetNewsPageQuery, IEnumerable<News>>
     {
         private readonly ApplicationDbContext _context;
 
-        public GetAllNewsHandler(ApplicationDbContext context)
+        public GetNewsPageHandler(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        public async Task<IEnumerable<News>> Handle(GetAllNewsQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<News>> Handle(GetNewsPageQuery request, CancellationToken cancellationToken)
         {
-            var result = await _context.News.ToListAsync(cancellationToken);
+            var result = await _context.News.Skip((request.PageNumber - 1) * request.PageSize)
+                .Take(request.PageSize)
+                .ToListAsync(cancellationToken);
 
             return result;
         }

@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Core;
+using CQS_MediatR.Queries.Handlers;
+using CQS_MediatR.Queries.QuerieEntities;
 using Good_news_Blog.Data;
 using Good_news_Blog.EmailService;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -50,6 +53,12 @@ namespace Good_news_Blog.WebAPI
             services.AddTransient<IEmailSender, SmtpEmailService>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2).AddControllersAsServices();
+
+            //Add MediatR
+            var assembly = AppDomain.CurrentDomain.Load("CQS_MediatR");
+            services.AddMediatR(assembly);
+            services.AddTransient<IMediator, Mediator>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

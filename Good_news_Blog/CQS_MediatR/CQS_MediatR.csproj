@@ -233,12 +233,12 @@
     <Compile Include="Commands\Handlers\AddRangeNewsHandler.cs" />
     <Compile Include="Commands\Handlers\DeleteCommentHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Queries\Handlers\GetAllNewsHandler.cs" />
+    <Compile Include="Queries\Handlers\GetNewsPageHandler.cs" />
     <Compile Include="Queries\Handlers\GetCommentByIdHandler.cs" />
     <Compile Include="Queries\Handlers\GetCommentModelHandler.cs" />
     <Compile Include="Queries\Handlers\GetCountNewsHandler.cs" />
     <Compile Include="Queries\Handlers\GetNewsByIdHandler.cs" />
-    <Compile Include="Queries\QuerieEntities\GetAllNewsQuery.cs" />
+    <Compile Include="Queries\QuerieEntities\GetNewsPageQuery.cs" />
     <Compile Include="Queries\QuerieEntities\GetCommentByIdQuery.cs" />
     <Compile Include="Queries\QuerieEntities\GetCommentModelQuery.cs" />
     <Compile Include="Queries\QuerieEntities\GetCountNewsQuery.cs" />

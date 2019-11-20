@@ -19,8 +19,8 @@ namespace Good_news_Blog.Controllers
         private readonly INewsOnlinerParser _newsOnlinerParser;
         private readonly INewsS13Parser _newsS13Parser;
         private readonly INewsParserFromTutBy _newsTutByParser;
-        
-        
+
+
         public NewsController(IUnitOfWork uow, INewsOnlinerParser nop, INewsS13Parser nsp, INewsParserFromTutBy ntp)
         {
             _unitOfWork = uow;
@@ -31,21 +31,24 @@ namespace Good_news_Blog.Controllers
 
         [Authorize(Roles = "admin")]
         [HttpGet]
-        public async  Task<IActionResult> AddNews()
+        public async Task<IActionResult> AddNews()
         {
-            var parse = Task.Factory.StartNew(() =>
-            {
+            Parallel.Invoke(
+                () =>
+                {
                 var newsS13 = _newsS13Parser.GetFromUrl();
                 _newsS13Parser.AddRangeAsync(newsS13);
-
-                var newsOnliner = _newsOnlinerParser.GetFromUrl();
-                _newsOnlinerParser.AddRangeAsync(newsOnliner);
-
-                var newsTutBy = _newsTutByParser.GetFromUrl();
-                _newsOnlinerParser.AddRangeAsync(newsTutBy);
-            });
-
-            parse.Wait();
+                }, 
+                () =>
+                {
+                    var newsOnliner = _newsOnlinerParser.GetFromUrl();
+                    _newsOnlinerParser.AddRangeAsync(newsOnliner);
+                },
+                () =>
+                {
+                    var newsTutBy = _newsTutByParser.GetFromUrl();
+                    _newsOnlinerParser.AddRangeAsync(newsTutBy);
+                });
 
             await _unitOfWork.SaveAsync();
 
@@ -57,6 +60,6 @@ namespace Good_news_Blog.Controllers
         {
             return View();
         }
-      
+
     }
 }
