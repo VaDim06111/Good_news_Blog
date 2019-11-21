@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Core;
-using CQS_MediatR.Queries.Handlers;
-using CQS_MediatR.Queries.QuerieEntities;
 using Good_news_Blog.Data;
 using Good_news_Blog.EmailService;
 using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -18,6 +19,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using ParserNewsFromOnliner;
 using ParserNewsFromS13;
 using ParserNewsFromTutBy;
@@ -36,7 +38,7 @@ namespace Good_news_Blog.WebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // Add services to Database
+            //===== Add services to Database =====
             var connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<ApplicationDbContext>(options
                 => options.UseSqlServer(connection));
@@ -44,17 +46,40 @@ namespace Good_news_Blog.WebAPI
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
-            // Add services to Parse news from web
+            //===== Add services to Parse news from web =====
             services.AddTransient<INewsOnlinerParser, NewsParserFromOnliner>();
             services.AddTransient<INewsS13Parser, NewsParserFromS13>();
             services.AddTransient<INewsParserFromTutBy, NewsParserFromTutBy>();
 
-            //Add EmailService
+            //===== Add EmailService =====
             services.AddTransient<IEmailSender, SmtpEmailService>();
+
+            //===== Add Jwt Authentication ========
+            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear(); // => remove default claims
+            services
+                .AddAuthentication(options =>
+                {
+                    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+
+                })
+                .AddJwtBearer(cfg =>
+                {
+                    cfg.RequireHttpsMetadata = false;
+                    cfg.SaveToken = true;
+                    cfg.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidIssuer = Configuration["JwtIssuer"],
+                        ValidAudience = Configuration["JwtIssuer"],
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JwtKey"])),
+                        ClockSkew = TimeSpan.Zero // remove delay of token when expire
+                    };
+                });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2).AddControllersAsServices();
 
-            //Add MediatR
+            //===== Add MediatR =====
             var assembly = AppDomain.CurrentDomain.Load("CQS_MediatR");
             services.AddMediatR(assembly);
             services.AddTransient<IMediator, Mediator>();
@@ -76,6 +101,7 @@ namespace Good_news_Blog.WebAPI
 
             app.UseHttpsRedirection();
             app.UseAuthentication();
+            app.UseStatusCodePages();
 
             app.UseMvc();
         }

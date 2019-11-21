@@ -19,12 +19,13 @@ namespace CQS_MediatR.Commands.Handlers
             _context = context;
         }
 
-        public Task<bool> Handle(DeleteCommentCommand request, CancellationToken cancellationToken)
+        public async Task<bool> Handle(DeleteCommentCommand request, CancellationToken cancellationToken)
         {
             var comment = _context.Comments.Find(request.Id);
             _context.Comments.Remove(comment);
+            await _context.SaveChangesAsync(cancellationToken);
 
-            return Task.FromResult(true);
+            return true;
         }
     }
 }

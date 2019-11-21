@@ -22,8 +22,7 @@ namespace CQS_MediatR.Queries.Handlers
 
         public async Task<News> Handle(GetNewsByIdQuery request, CancellationToken cancellationToken)
         {
-            var result = await _context.News.FirstOrDefaultAsync(n => n.Id.Equals(request.Id),
-                 cancellationToken);
+            var result = await _context.News.FirstOrDefaultAsync(s => s.Id.Equals(request.Id),cancellationToken);
 
             return result;
         }

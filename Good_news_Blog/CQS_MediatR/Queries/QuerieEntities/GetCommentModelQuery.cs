@@ -10,6 +10,10 @@ namespace CQS_MediatR.Queries.QuerieEntities
 {
     public class GetCommentModelQuery : IRequest<IEnumerable<Comment>>
     {
-        
+        public Guid Id { get; }
+        public GetCommentModelQuery(Guid id)
+        {
+            Id = id;
+        }
     }
 }
