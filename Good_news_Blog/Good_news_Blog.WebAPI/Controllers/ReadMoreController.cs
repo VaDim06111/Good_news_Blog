@@ -54,13 +54,13 @@ namespace Good_news_Blog.WebAPI.Controllers
 
         // PUT api/readmore/e2abcf9b-f692-4630-9799-08d76e9f8705
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public void Put(Guid id, [FromBody] string value)
         {
         }
 
         // DELETE api/readmore/e2abcf9b-f692-4630-9799-08d76e9f8705
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public void Delete(Guid id)
         {
         }
     }

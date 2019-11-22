@@ -70,9 +70,9 @@ namespace Good_news_Blog.WebAPI
                     cfg.SaveToken = true;
                     cfg.TokenValidationParameters = new TokenValidationParameters
                     {
-                        ValidIssuer = Configuration["JwtIssuer"],
-                        ValidAudience = Configuration["JwtIssuer"],
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JwtKey"])),
+                        ValidIssuer = Configuration["JWT:JwtIssuer"],
+                        ValidAudience = Configuration["JWT:JwtIssuer"],
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWT:JwtKey"])),
                         ClockSkew = TimeSpan.Zero // remove delay of token when expire
                     };
                 });
