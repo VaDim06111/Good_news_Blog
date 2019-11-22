@@ -5,8 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Core;
+using CQS_MediatR.Commands.CommandEntities;
 using Good_news_Blog.Data;
 using Good_news_Blog.EmailService;
+using Good_news_Blog.WebAPI.Filters;
+using Hangfire;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -20,9 +23,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using ParserNewsFromOnliner;
-using ParserNewsFromS13;
-using ParserNewsFromTutBy;
+using ParseNewsFromTutByUsingCQS;
+using ParserNewsFromOnlinerUsingCQS;
+using ParserNewsFromS13UsingCQS;
+
 
 namespace Good_news_Blog.WebAPI
 {
@@ -49,7 +53,7 @@ namespace Good_news_Blog.WebAPI
             //===== Add services to Parse news from web =====
             services.AddTransient<INewsOnlinerParser, NewsParserFromOnliner>();
             services.AddTransient<INewsS13Parser, NewsParserFromS13>();
-            services.AddTransient<INewsParserFromTutBy, NewsParserFromTutBy>();
+            services.AddTransient<INewsTutByParser, NewsParserFromTutBy>();
 
             //===== Add EmailService =====
             services.AddTransient<IEmailSender, SmtpEmailService>();
@@ -84,6 +88,12 @@ namespace Good_news_Blog.WebAPI
             services.AddMediatR(assembly);
             services.AddTransient<IMediator, Mediator>();
 
+            services
+                .AddHangfire(config
+                    => config.UseSqlServerStorage(
+                        Configuration
+                            .GetConnectionString("DefaultConnection")));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -104,6 +114,44 @@ namespace Good_news_Blog.WebAPI
             app.UseStatusCodePages();
 
             app.UseMvc();
+
+            app.UseHangfireServer();
+            app.UseHangfireDashboard("/api/admin/hangfire", new DashboardOptions
+            {
+                Authorization = new[] { new HangfireAuthorizationFilter() }
+            });
+
+            RecurringJob.AddOrUpdate(
+                () => GetNews(app.ApplicationServices.GetService<INewsOnlinerParser>(),
+                    app.ApplicationServices.GetService<INewsS13Parser>(),
+                    app.ApplicationServices.GetService<INewsTutByParser>(),
+                    app.ApplicationServices.GetService<IMediator>()),
+                Cron.Minutely);
+
+        }
+        public async Task GetNews(INewsOnlinerParser parserFromOnliner, INewsS13Parser newsParserFromS13, INewsTutByParser newsParserFromTutBy, IMediator mediator)
+        {
+            IEnumerable<News> newsS13 = new List<News>();
+            IEnumerable<News> newsOnliner = new List<News>();
+            IEnumerable<News> newsTutBy = new List<News>();
+
+            Parallel.Invoke(
+                () =>
+                {
+                    newsS13 = newsParserFromS13.GetFromUrl();
+                },
+                () =>
+                {
+                    newsOnliner = parserFromOnliner.GetFromUrl();
+                },
+                () =>
+                {
+                    newsTutBy = newsParserFromTutBy.GetFromUrl();
+                });
+
+            await mediator.Send(new AddRangeNewsCommand(newsS13));
+            await mediator.Send(new AddRangeNewsCommand(newsOnliner));
+            await mediator.Send(new AddRangeNewsCommand(newsTutBy));
         }
     }
 }

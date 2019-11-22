@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Hangfire.AspNetCore" Version="1.7.7" />
+    <PackageReference Include="Hangfire.Core" Version="1.7.7" />
+    <PackageReference Include="Hangfire.Dashboard.Authorization" Version="2.1.0" />
+    <PackageReference Include="Hangfire.SqlServer" Version="1.7.7" />
     <PackageReference Include="MediatR" Version="7.0.0" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" />
@@ -30,9 +34,9 @@
     <ProjectReference Include="..\CQS_MediatR\CQS_MediatR.csproj" />
     <ProjectReference Include="..\Good_news_Blog.Data\Good_news_Blog.Data.csproj" />
     <ProjectReference Include="..\Good_news_Blog.EmailService\Good_news_Blog.EmailService.csproj" />
-    <ProjectReference Include="..\ParserNewsFromOnliner\ParserNewsFromOnliner.csproj" />
-    <ProjectReference Include="..\ParserNewsFromS13\ParserNewsFromS13.csproj" />
-    <ProjectReference Include="..\ParserNewsFromTutBy\ParserNewsFromTutBy.csproj" />
+    <ProjectReference Include="..\ParseNewsFromTutByUsingCQS\ParserNewsFromTutByUsingCQS.csproj" />
+    <ProjectReference Include="..\ParserNewsFromOnlinerUsingCQS\ParserNewsFromOnlinerUsingCQS.csproj" />
+    <ProjectReference Include="..\ParserNewsFromS13UsingCQS\ParserNewsFromS13UsingCQS.csproj" />
   </ItemGroup>
 
 </Project>
