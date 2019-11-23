@@ -19,7 +19,11 @@ namespace Good_news_Blog.WebAPI.Controllers
             _mediator = mediator;
         }
 
-        // GET api/home/e2abcf9b-f692-4630-9799-08d76e9f8705
+        /// <summary>
+        /// GET api/home
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>Ok(news)</returns>
         [HttpGet("{id}")]
         public async Task<ActionResult> Get(int id = 1)
         {
@@ -38,19 +42,29 @@ namespace Good_news_Blog.WebAPI.Controllers
             }
         }
 
-        // POST api/home
+        /// <summary>
+        /// POST api/home
+        /// </summary>
+        /// <param name="value"></param>
         [HttpPost]
         public void Post([FromBody] string value)
         {
         }
 
-        // PUT api/home/e2abcf9b-f692-4630-9799-08d76e9f8705
+        /// <summary>
+        /// PUT api/home
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="value"></param>
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
         }
 
-        // DELETE api/home/e2abcf9b-f692-4630-9799-08d76e9f8705
+        /// <summary>
+        /// DELETE api/home
+        /// </summary>
+        /// <param name="id"></param>
         [HttpDelete("{id}")]
         public void Delete(int id)
         {

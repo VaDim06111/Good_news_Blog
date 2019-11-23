@@ -29,21 +29,32 @@ namespace Good_news_Blog.WebAPI.Controllers
             _configuration = configuration;
         }
 
-        // GET api/register
+        /// <summary>
+        /// GET api/register
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public ActionResult Get()
         {
             return NotFound();
         }
 
-        // GET api/register/5
+        /// <summary>
+        /// GET api/register
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>NotFound()</returns>
         [HttpGet("{id}")]
         public ActionResult Get(int id)
         {
             return NotFound();
         }
 
-        // POST api/register
+        /// <summary>
+        /// POST api/register
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns>GenerateJwtToken(model.Email, user)</returns>
         [HttpPost]
         public async Task<object> Post([FromBody] RegisterModel model)
         {
@@ -63,13 +74,20 @@ namespace Good_news_Blog.WebAPI.Controllers
             throw new ApplicationException("UNKNOWN_ERROR");
         }
 
-        // PUT api/register/5
+        /// <summary>
+        /// PUT api/register
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="value"></param>
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
         }
 
-        // DELETE api/register/5
+        /// <summary>
+        /// DELETE api/register
+        /// </summary>
+        /// <param name="id"></param>
         [HttpDelete("{id}")]
         public void Delete(int id)
         {

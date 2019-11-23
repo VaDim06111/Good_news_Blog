@@ -21,7 +21,10 @@ namespace Good_news_Blog.WebAPI.Controllers
             _userManager = userManager;
         }
 
-        // GET api/changeuser
+        /// <summary>
+        /// GET api/changeuser
+        /// </summary>
+        /// <returns>Ok(await _userManager.Users.ToListAsync())</returns>
         [HttpGet]
         public async Task<ActionResult> Get()
         {
@@ -35,7 +38,11 @@ namespace Good_news_Blog.WebAPI.Controllers
             }
         }
 
-        // GET api/changeuser/e2abcf9b-f692-4630-9799-08d76e9f8705
+        /// <summary>
+        /// GET api/changeuser
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns>Ok(model)</returns>
         [HttpGet("{id}")]
         public async Task<ActionResult> Get(string userId)
         {
@@ -63,7 +70,11 @@ namespace Good_news_Blog.WebAPI.Controllers
             return BadRequest();
         }
 
-        // POST api/changeuser
+        /// <summary>
+        /// POST api/changeuser
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns>Ok()</returns>
         [HttpPost]
         public async Task<ActionResult> Post([FromBody] EditUserViewModel model)
         {
@@ -89,13 +100,19 @@ namespace Good_news_Blog.WebAPI.Controllers
             return BadRequest();
         }
 
-        // PUT api/changeuser/e2abcf9b-f692-4630-9799-08d76e9f8705
+        /// <summary>
+        /// PUT api/changeuser
+        /// </summary>
+        /// <param name="userId"></param>
         [HttpPut("{id}")]
         public void Put([FromBody] string userId)
         {
         }
 
-        // DELETE api/changeuser/e2abcf9b-f692-4630-9799-08d76e9f8705
+        /// <summary>
+        /// DELETE api/changeuser
+        /// </summary>
+        /// <param name="userId"></param>
         [HttpDelete("{id}")]
         public void Delete(string userId)
         {

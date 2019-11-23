@@ -27,7 +27,11 @@ namespace Good_news_Blog.WebAPI.Controllers
             _userManager = userManager;
         }
 
-        // GET api/comment/e2abcf9b-f692-4630-9799-08d76e9f8705
+        /// <summary>
+        /// GET api/comment
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>Ok(newsModel)</returns>
         [HttpGet("{id}")]
         public async Task<ActionResult> Get(Guid id)
         {
@@ -51,7 +55,12 @@ namespace Good_news_Blog.WebAPI.Controllers
             }
         }
 
-        // POST api/comment
+        /// <summary>
+        /// POST api/comment
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="id"></param>
+        /// <returns>Ok(comment)</returns>
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] string text, Guid id)
         {
@@ -74,13 +83,21 @@ namespace Good_news_Blog.WebAPI.Controllers
             return Ok(comment);
         }
 
-        // PUT api/comment/e2abcf9b-f692-4630-9799-08d76e9f8705
+        /// <summary>
+        /// PUT api/comment
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="value"></param>
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
         }
 
-        // DELETE api/comment/e2abcf9b-f692-4630-9799-08d76e9f8705
+        /// <summary>
+        /// DELETE api/comment
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpDelete("{id}")]
         public async Task<bool> Delete(Guid id)
         {

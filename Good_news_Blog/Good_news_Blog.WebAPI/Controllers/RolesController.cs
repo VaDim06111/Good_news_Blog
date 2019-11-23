@@ -23,7 +23,10 @@ namespace Good_news_Blog.WebAPI.Controllers
             _userManager = userManager;
         }
 
-        // GET api/roles
+        /// <summary>
+        /// GET api/roles
+        /// </summary>
+        /// <returns>Ok(await _roleManager.Roles.ToListAsync())</returns>
         [HttpGet]
         public async Task<ActionResult> Get()
         {
@@ -37,7 +40,11 @@ namespace Good_news_Blog.WebAPI.Controllers
             }
         }
 
-        // GET api/roles/e2abcf9b-f692-4630-9799-08d76e9f8705
+        /// <summary>
+        /// GET api/roles
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>Ok(_roleManager.Roles.Where(s => s.Id.Equals(id)).ToString())</returns>
         [HttpGet("{id}")]
         public async Task<ActionResult> Get(string id)
         {
@@ -52,7 +59,11 @@ namespace Good_news_Blog.WebAPI.Controllers
             }
         }
 
-        // POST api/roles
+        /// <summary>
+        /// POST api/roles
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns>Ok()</returns>
         [HttpPost]
         public async Task<ActionResult> Post([FromBody] string value)
         {
@@ -73,13 +84,20 @@ namespace Good_news_Blog.WebAPI.Controllers
             return BadRequest();
         }
 
-        // PUT api/roles/e2abcf9b-f692-4630-9799-08d76e9f8705
+        /// <summary>
+        /// PUT api/roles
+        /// </summary>
+        /// <param name="userId"></param>
         [HttpPut("{id}")]
         public void Put([FromBody] string userId)
         {
         }
 
-        // DELETE api/roles/e2abcf9b-f692-4630-9799-08d76e9f8705
+        /// <summary>
+        /// DELETE api/roles
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>Ok()</returns>
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(string id)
         {

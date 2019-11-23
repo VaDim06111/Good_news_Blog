@@ -26,6 +26,7 @@ using Microsoft.IdentityModel.Tokens;
 using ParseNewsFromTutByUsingCQS;
 using ParserNewsFromOnlinerUsingCQS;
 using ParserNewsFromS13UsingCQS;
+using Swashbuckle.AspNetCore.Swagger;
 
 
 namespace Good_news_Blog.WebAPI
@@ -81,6 +82,15 @@ namespace Good_news_Blog.WebAPI
                     };
                 });
 
+            //===== Add Swagger =====
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info()
+                {
+                    Title = "Good news Blog"
+                });
+            });
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2).AddControllersAsServices();
 
             //===== Add MediatR =====
@@ -88,12 +98,12 @@ namespace Good_news_Blog.WebAPI
             services.AddMediatR(assembly);
             services.AddTransient<IMediator, Mediator>();
 
+            //===== Add Hangfire =====
             services
                 .AddHangfire(config
                     => config.UseSqlServerStorage(
                         Configuration
                             .GetConnectionString("DefaultConnection")));
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -112,7 +122,11 @@ namespace Good_news_Blog.WebAPI
             app.UseHttpsRedirection();
             app.UseAuthentication();
             app.UseStatusCodePages();
-
+            app.UseSwagger();
+            app.UseSwaggerUI(sw =>
+            {
+                sw.SwaggerEndpoint("/swagger/v1/swagger.json", "Good news Blog v1");
+            });
             app.UseMvc();
 
             app.UseHangfireServer();
@@ -121,13 +135,18 @@ namespace Good_news_Blog.WebAPI
                 Authorization = new[] { new HangfireAuthorizationFilter() }
             });
 
-            RecurringJob.AddOrUpdate(
-                () => GetNews(app.ApplicationServices.GetService<INewsOnlinerParser>(),
-                    app.ApplicationServices.GetService<INewsS13Parser>(),
-                    app.ApplicationServices.GetService<INewsTutByParser>(),
-                    app.ApplicationServices.GetService<IMediator>()),
-                Cron.Minutely);
+            var serviceProvider = app.ApplicationServices.CreateScope();
+            var service1 = serviceProvider.ServiceProvider.GetService<INewsOnlinerParser>();
+            var service2 = serviceProvider.ServiceProvider.GetService<INewsS13Parser>();
+            var service3 = serviceProvider.ServiceProvider.GetService<INewsTutByParser>();
+            var service4 = serviceProvider.ServiceProvider.GetService<IMediator>();
 
+            RecurringJob.AddOrUpdate(
+                () => GetNews(service1,
+                    service2,
+                    service3,
+                    service4),
+                Cron.Minutely);
         }
         public async Task GetNews(INewsOnlinerParser parserFromOnliner, INewsS13Parser newsParserFromS13, INewsTutByParser newsParserFromTutBy, IMediator mediator)
         {

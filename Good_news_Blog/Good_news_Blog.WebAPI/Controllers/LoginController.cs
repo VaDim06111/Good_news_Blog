@@ -29,7 +29,10 @@ namespace Good_news_Blog.WebAPI.Controllers
             _configuration = configuration;
         }
 
-        // GET api/login
+        /// <summary>
+        /// GET api/login
+        /// </summary>
+        /// <returns>NotFound()</returns>
         [HttpGet]
         public  ActionResult Get()
         {
@@ -37,13 +40,22 @@ namespace Good_news_Blog.WebAPI.Controllers
         }
 
         // GET api/login/5
+        /// <summary>
+        /// GET api/login
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>NotFound()</returns>
         [HttpGet("{id}")]
         public ActionResult Get(int id)
         {
             return NotFound();
         }
 
-        // POST api/login
+        /// <summary>
+        /// POST api/login
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns>GenerateJwtToken(model.Email, appUser)</returns>
         [HttpPost]
         public async Task<object> Post([FromBody] LoginModel model)
         {
@@ -58,13 +70,20 @@ namespace Good_news_Blog.WebAPI.Controllers
             throw new ApplicationException("INVALID_LOGIN_ATTEMPT");
         }
 
-        // PUT api/login/5
+        /// <summary>
+        /// PUT api/login
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="value"></param>
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
         }
 
-        // DELETE api/login/5
+        /// <summary>
+        /// DELETE api/login
+        /// </summary>
+        /// <param name="id"></param>
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
