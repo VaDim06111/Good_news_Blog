@@ -39,7 +39,7 @@ namespace ParserNewsFromS13
 
         public async Task<bool> AddAsync(News news)
         {
-            if (_unitOfWork.News.Where(u => u.Source.Equals(news.Source)).Count() == 00)
+            if (_unitOfWork.News.Where(u => u.Source.Equals(news.Source)).Count() == 0)
             {
                 _unitOfWork.News.Add(news);
 

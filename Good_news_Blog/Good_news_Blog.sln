@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParserNewsFromS13UsingCQS",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParserNewsFromTutByUsingCQS", "ParseNewsFromTutByUsingCQS\ParserNewsFromTutByUsingCQS.csproj", "{5E79B307-E723-41D9-8E23-F3DB1931D55B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParserAllNewsService", "ParserAllNewsService\ParserAllNewsService.csproj", "{E9D7FBB2-E681-4EA2-87C4-9D25037F94E3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,6 +89,10 @@ Global
 		{5E79B307-E723-41D9-8E23-F3DB1931D55B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5E79B307-E723-41D9-8E23-F3DB1931D55B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5E79B307-E723-41D9-8E23-F3DB1931D55B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E9D7FBB2-E681-4EA2-87C4-9D25037F94E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9D7FBB2-E681-4EA2-87C4-9D25037F94E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E9D7FBB2-E681-4EA2-87C4-9D25037F94E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E9D7FBB2-E681-4EA2-87C4-9D25037F94E3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

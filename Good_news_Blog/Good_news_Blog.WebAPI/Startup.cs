@@ -24,6 +24,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using ParseNewsFromTutByUsingCQS;
+using ParserAllNewsService;
 using ParserNewsFromOnlinerUsingCQS;
 using ParserNewsFromS13UsingCQS;
 using Swashbuckle.AspNetCore.Swagger;
@@ -55,6 +56,7 @@ namespace Good_news_Blog.WebAPI
             services.AddTransient<INewsOnlinerParser, NewsParserFromOnliner>();
             services.AddTransient<INewsS13Parser, NewsParserFromS13>();
             services.AddTransient<INewsTutByParser, NewsParserFromTutBy>();
+            services.AddTransient<IParserAllNews, ParserAllNews>();
 
             //===== Add EmailService =====
             services.AddTransient<IEmailSender, SmtpEmailService>();
@@ -135,42 +137,12 @@ namespace Good_news_Blog.WebAPI
                 Authorization = new[] { new HangfireAuthorizationFilter() }
             });
 
-            var serviceProvider = app.ApplicationServices.CreateScope();
-            var service1 = serviceProvider.ServiceProvider.GetService<INewsOnlinerParser>();
-            var service2 = serviceProvider.ServiceProvider.GetService<INewsS13Parser>();
-            var service3 = serviceProvider.ServiceProvider.GetService<INewsTutByParser>();
-            var service4 = serviceProvider.ServiceProvider.GetService<IMediator>();
-
+            var service = app.ApplicationServices.GetService<IParserAllNews>();
+            
             RecurringJob.AddOrUpdate(
-                () => GetNews(service1,
-                    service2,
-                    service3,
-                    service4),
-                Cron.Minutely);
-        }
-        public async Task GetNews(INewsOnlinerParser parserFromOnliner, INewsS13Parser newsParserFromS13, INewsTutByParser newsParserFromTutBy, IMediator mediator)
-        {
-            IEnumerable<News> newsS13 = new List<News>();
-            IEnumerable<News> newsOnliner = new List<News>();
-            IEnumerable<News> newsTutBy = new List<News>();
-
-            Parallel.Invoke(
-                () =>
-                {
-                    newsS13 = newsParserFromS13.GetFromUrl();
-                },
-                () =>
-                {
-                    newsOnliner = parserFromOnliner.GetFromUrl();
-                },
-                () =>
-                {
-                    newsTutBy = newsParserFromTutBy.GetFromUrl();
-                });
-
-            await mediator.Send(new AddRangeNewsCommand(newsS13));
-            await mediator.Send(new AddRangeNewsCommand(newsOnliner));
-            await mediator.Send(new AddRangeNewsCommand(newsTutBy));
+                () => service.ParseAllNews(),
+                Cron.Hourly);
+            
         }
     }
 }
