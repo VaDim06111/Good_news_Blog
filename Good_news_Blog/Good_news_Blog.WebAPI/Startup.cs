@@ -27,6 +27,7 @@ using ParseNewsFromTutByUsingCQS;
 using ParserAllNewsService;
 using ParserNewsFromOnlinerUsingCQS;
 using ParserNewsFromS13UsingCQS;
+using Serilog;
 using Swashbuckle.AspNetCore.Swagger;
 
 
@@ -37,6 +38,12 @@ namespace Good_news_Blog.WebAPI
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+
+            Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Debug()
+                .WriteTo.Console()
+                .WriteTo.File("logs\\log.txt", rollingInterval: RollingInterval.Day)
+                .CreateLogger();
         }
 
         public IConfiguration Configuration { get; }
@@ -121,7 +128,8 @@ namespace Good_news_Blog.WebAPI
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
+            app.UseCors("CORS_policy");
             app.UseAuthentication();
             app.UseStatusCodePages();
             app.UseSwagger();

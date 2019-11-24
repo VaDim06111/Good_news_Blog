@@ -11,6 +11,7 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Serilog;
 
 namespace Good_news_Blog.WebAPI.Controllers
 {
@@ -47,10 +48,13 @@ namespace Good_news_Blog.WebAPI.Controllers
                     Comments = comments
                 };
 
+                Log.Information("Get news model by newsId was successfully");
                 return Ok(newsModel);
             }
             catch (Exception ex)
             {
+                Log.Error($"Get news model by newsId was fail with exception:{Environment.NewLine}{ex.Message}");
+
                 return StatusCode(500, "Internal server error");
             }
         }
@@ -64,23 +68,36 @@ namespace Good_news_Blog.WebAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] string text, Guid id)
         {
-            var author = _userManager.FindByIdAsync(User.FindFirst(ClaimTypes.NameIdentifier).Value).Result;
-
-            var comment = new Comment()
+            try
             {
-                Author = author,
-                Text = text,
-                PubDateTime = DateTime.SpecifyKind(
-                    DateTime.UtcNow,
-                    DateTimeKind.Utc),
-                CountDislikes = 0,
-                CountLikes = 0,
-                News = await _mediator.Send(new GetNewsByIdQuery(id))                        
-            };
+                var author = _userManager.FindByIdAsync(User.FindFirst(ClaimTypes.NameIdentifier).Value).Result;
 
-            await _mediator.Send(new AddCommentCommand(comment));
+                var comment = new Comment()
+                {
+                    Author = author,
+                    Text = text,
+                    PubDateTime = DateTime.SpecifyKind(
+                        DateTime.UtcNow,
+                        DateTimeKind.Utc),
+                    CountDislikes = 0,
+                    CountLikes = 0,
+                    News = await _mediator.Send(new GetNewsByIdQuery(id))
+                };
 
-            return Ok(comment);
+                await _mediator.Send(new AddCommentCommand(comment));
+
+                Log.Information("Post new comment  was successfully");
+
+                return Ok(comment);
+            }
+            catch (Exception ex)
+            {
+                Log.Error($"Post new comment was fail with exception:{Environment.NewLine}{ex.Message}");
+
+                return BadRequest();
+
+            }
+
         }
 
         /// <summary>

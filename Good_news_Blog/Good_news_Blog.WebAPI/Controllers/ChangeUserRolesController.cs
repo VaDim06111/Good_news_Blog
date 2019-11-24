@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 
 namespace Good_news_Blog.WebAPI.Controllers
 {
@@ -32,10 +33,12 @@ namespace Good_news_Blog.WebAPI.Controllers
         {
             try
             {
+                Log.Information("Get all roles was successfully");
                 return Ok(await _roleManager.Roles.ToListAsync());
             }
             catch (Exception ex)
             {
+                Log.Error($"Get all roles was fail with exception:{Environment.NewLine}{ex.Message}");
                 return StatusCode(500, "Internal server error");
             }
         }
@@ -68,10 +71,12 @@ namespace Good_news_Blog.WebAPI.Controllers
                         AllRoles = allRoles
                     };
 
+                    Log.Information("Get change role model was successfully");
                     return Ok(model);
                 }
                 catch (Exception ex)
                 {
+                    Log.Error($"Get change role model was fail with exception:{Environment.NewLine}{ex.Message}");
                     return StatusCode(500, "Internal server error");
                 }
             }
@@ -106,10 +111,14 @@ namespace Good_news_Blog.WebAPI.Controllers
                     await _userManager.AddToRolesAsync(user, addedRoles);
                     await _userManager.RemoveFromRolesAsync(user, removedRoles);
 
+                    Log.Information("Post change role model was successfully");
+
                     return Ok();
                 }
                 catch (Exception ex)
                 {
+                    Log.Error($"Post change role model was fail with exception:{Environment.NewLine}{ex.Message}");
+
                     return StatusCode(500, "Internal server error");
                 }
             }

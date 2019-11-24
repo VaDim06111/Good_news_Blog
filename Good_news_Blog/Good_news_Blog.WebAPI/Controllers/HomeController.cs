@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using CQS_MediatR.Queries.QuerieEntities;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Serilog;
 
 namespace Good_news_Blog.WebAPI.Controllers
 {
@@ -34,10 +35,13 @@ namespace Good_news_Blog.WebAPI.Controllers
                 var news = await _mediator.Send(new GetNewsPageQuery(id, pageSize));
                 news = news.OrderByDescending(s => s.DatePublication);
 
+                Log.Information("Get news by id page was successfully");
+
                 return Ok(news);
             }
             catch (Exception ex)
             {
+                Log.Error($"Get news by id page was fail with exception:{Environment.NewLine}{ex.Message}");
                 return StatusCode(500, "Internal server error");
             }
         }

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 
 namespace Good_news_Blog.WebAPI.Controllers
 {
@@ -30,10 +31,12 @@ namespace Good_news_Blog.WebAPI.Controllers
         {
             try
             {
+                Log.Information("Get all users was successfully");
                 return Ok(await _userManager.Users.ToListAsync());
             }
             catch (Exception ex)
             {
+                Log.Error($"Get all users was fail with exception:{Environment.NewLine}{ex.Message}");
                 return StatusCode(500, "Internal server error");
             }
         }
@@ -57,12 +60,13 @@ namespace Good_news_Blog.WebAPI.Controllers
                         Id = user.Id,
                         Email = user.Email
                     };
-
+                    Log.Information("Get edit user model by userId was successfully");
                     return Ok(model);
 
                 }
                 catch (Exception ex)
                 {
+                    Log.Error($"Get edit user model by userId was fail with exception:{Environment.NewLine}{ex.Message}");
                     return StatusCode(500, "Internal server error");
                 }
             }
@@ -89,10 +93,12 @@ namespace Good_news_Blog.WebAPI.Controllers
 
                     await _userManager.UpdateAsync(user);
 
+                    Log.Information("Update user information was successfully");
                     return Ok();
                 }
                 catch (Exception ex)
                 {
+                    Log.Error($"Update user information was fail with exception:{Environment.NewLine}{ex.Message}");
                     return StatusCode(500, "Internal server error");
                 }
             }
