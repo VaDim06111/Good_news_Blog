@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Xml;
 using Good_news_Blog.Data;
 using System.ServiceModel.Syndication;
+using Core;
 using Good_news_Blog.Repositories;
 
 namespace ParserNewsFromTutBy
@@ -15,12 +16,14 @@ namespace ParserNewsFromTutBy
     public class NewsParserFromTutBy : INewsParserFromTutBy
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly ILemmatization _lemmatization;
         private const string UrlTutByrRss = @"https://news.tut.by/rss/all.rss";
 
 
-        public NewsParserFromTutBy(IUnitOfWork uow)
+        public NewsParserFromTutBy(IUnitOfWork uow, ILemmatization lemmatization)
         {
             _unitOfWork = uow;
+            _lemmatization = lemmatization;
         }
 
         public IEnumerable<News> GetFromUrl()
@@ -43,7 +46,7 @@ namespace ParserNewsFromTutBy
                             Description = Regex.Replace(article.Summary.Text, "<.*?>", string.Empty),
                             Source = article.Links.FirstOrDefault().Uri.ToString(),
                             DatePublication = article.PublishDate.UtcDateTime,
-                            IndexOfPositive = 0,
+                            IndexOfPositive = _lemmatization.GetIndexOfPositive(text).Result,
                             Text = text
                         });
                     }

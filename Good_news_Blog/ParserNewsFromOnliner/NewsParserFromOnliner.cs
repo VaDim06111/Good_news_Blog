@@ -16,13 +16,15 @@ namespace ParserNewsFromOnliner
     public class NewsParserFromOnliner : INewsOnlinerParser
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly ILemmatization _lemmatization;
         private const string UrlOnlinerRss = @"https://people.onliner.by/feed";
 
         //List<string> links = new List<string>() { @"https://people.onliner.by/feed", @"https://auto.onliner.by/feed" , @"https://tech.onliner.by/feed", @"https://realt.onliner.by/feed" };
 
-        public NewsParserFromOnliner(IUnitOfWork uow)
+        public NewsParserFromOnliner(IUnitOfWork uow, ILemmatization lemmatization)
         {
             _unitOfWork = uow;
+            _lemmatization = lemmatization;
         }
 
         public IEnumerable<News> GetFromUrl()
@@ -36,14 +38,15 @@ namespace ParserNewsFromOnliner
             {
                 foreach (var article in feed.Items)
                 {
+                    var text = GetText(article.Links.FirstOrDefault().Uri.ToString());
                     news.Add(new News()
                     {
                         Title = article.Title.Text.Replace("&nbsp;", ""),
                         Description = Regex.Replace(article.Summary.Text, "<.*?>", string.Empty),
                         Source = article.Links.FirstOrDefault().Uri.ToString(),
                         DatePublication = article.PublishDate.UtcDateTime,
-                        IndexOfPositive = 0,
-                        Text = GetText(article.Links.FirstOrDefault().Uri.ToString())
+                        IndexOfPositive = _lemmatization.GetIndexOfPositive(text).Result,
+                        Text = text
                     });
                 }
             }

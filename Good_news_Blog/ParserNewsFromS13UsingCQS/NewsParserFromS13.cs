@@ -6,6 +6,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Xml;
+using Core;
 using CQS_MediatR.Commands.CommandEntities;
 using Good_news_Blog.Data;
 using HtmlAgilityPack;
@@ -16,11 +17,13 @@ namespace ParserNewsFromS13UsingCQS
     public class NewsParserFromS13 : INewsS13Parser
     {
         private readonly IMediator _mediator;
+        private readonly ILemmatization _lemmatization;
         private const string urlS13 = @"http://s13.ru/rss";
 
-        public NewsParserFromS13(IMediator mediator)
+        public NewsParserFromS13(IMediator mediator, ILemmatization lemmatization)
         {
             _mediator = mediator;
+            _lemmatization = lemmatization;
         }
 
         public async Task<bool> AddRangeAsync(IEnumerable<News> objects)
@@ -50,7 +53,7 @@ namespace ParserNewsFromS13UsingCQS
                             Description = Regex.Replace(article.Summary.Text, "<.*?>", string.Empty),
                             Source = article.Links.FirstOrDefault().Uri.ToString(),
                             DatePublication = article.PublishDate.UtcDateTime,
-                            IndexOfPositive = 0,
+                            IndexOfPositive = _lemmatization.GetIndexOfPositive(text).Result,
                             Text = text
                         });
                     }

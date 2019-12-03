@@ -24,14 +24,13 @@ namespace Good_news_Blog.Data.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("AuthorId")
-                        .IsRequired();
+                    b.Property<string>("AuthorId");
 
                     b.Property<int>("CountDislikes");
 
                     b.Property<int>("CountLikes");
 
-                    b.Property<Guid>("NewsId");
+                    b.Property<Guid?>("NewsId");
 
                     b.Property<DateTime>("PubDateTime");
 
@@ -56,7 +55,7 @@ namespace Good_news_Blog.Data.Migrations
                     b.Property<string>("Description")
                         .IsRequired();
 
-                    b.Property<byte>("IndexOfPositive");
+                    b.Property<double>("IndexOfPositive");
 
                     b.Property<string>("Source")
                         .IsRequired();
@@ -237,13 +236,11 @@ namespace Good_news_Blog.Data.Migrations
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "Author")
                         .WithMany()
-                        .HasForeignKey("AuthorId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("AuthorId");
 
                     b.HasOne("Good_news_Blog.Data.News", "News")
                         .WithMany()
-                        .HasForeignKey("NewsId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("NewsId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

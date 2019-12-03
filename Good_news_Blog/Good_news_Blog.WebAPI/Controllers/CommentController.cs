@@ -8,6 +8,7 @@ using CQS_MediatR.Queries.QuerieEntities;
 using Good_news_Blog.Data;
 using Good_news_Blog.WebAPI.Models;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -16,6 +17,7 @@ using Serilog;
 namespace Good_news_Blog.WebAPI.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
     public class CommentController : Controller
     {
@@ -93,9 +95,7 @@ namespace Good_news_Blog.WebAPI.Controllers
             catch (Exception ex)
             {
                 Log.Error($"Post new comment was fail with exception:{Environment.NewLine}{ex.Message}");
-
                 return BadRequest();
-
             }
 
         }
@@ -118,7 +118,17 @@ namespace Good_news_Blog.WebAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<bool> Delete(Guid id)
         {
-            return (await _mediator.Send(new DeleteCommentCommand(id)));
+            try
+            {
+                await _mediator.Send(new DeleteCommentCommand(id));
+                Log.Information("Delete comment  was successfully");
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Log.Error($"Delete comment  was fail with exception: {ex.Message}");
+                return true;
+            }
         }
     }
 }

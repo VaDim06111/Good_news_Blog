@@ -20,7 +20,7 @@ namespace Good_news_Blog.Data
         [Required]
         public DateTime DatePublication { get; set; }
         [Required]
-        public byte IndexOfPositive { get; set; }
+        public double IndexOfPositive { get; set; }
 
     }
 }

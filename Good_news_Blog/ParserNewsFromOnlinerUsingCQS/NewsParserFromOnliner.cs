@@ -6,6 +6,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Xml;
+using Core;
 using CQS_MediatR.Commands.CommandEntities;
 using Good_news_Blog.Data;
 using HtmlAgilityPack;
@@ -16,11 +17,13 @@ namespace ParserNewsFromOnlinerUsingCQS
     public class NewsParserFromOnliner : INewsOnlinerParser
     {
         private readonly IMediator _mediator;
+        private readonly ILemmatization _lemmatization;
         private const string UrlOnlinerRss = @"https://people.onliner.by/feed";
 
-        public NewsParserFromOnliner(IMediator mediator)
+        public NewsParserFromOnliner(IMediator mediator, ILemmatization lemmatization)
         {
             _mediator = mediator;
+            _lemmatization = lemmatization;
         }
 
         public async Task<bool> AddRangeAsync(IEnumerable<News> objects)
@@ -41,14 +44,15 @@ namespace ParserNewsFromOnlinerUsingCQS
             {
                 foreach (var article in feed.Items)
                 {
+                    var text = GetText(article.Links.FirstOrDefault().Uri.ToString());
                     news.Add(new News()
                     {
                         Title = article.Title.Text.Replace("&nbsp;", ""),
                         Description = Regex.Replace(article.Summary.Text, "<.*?>", string.Empty),
                         Source = article.Links.FirstOrDefault().Uri.ToString(),
                         DatePublication = article.PublishDate.UtcDateTime,
-                        IndexOfPositive = 0,
-                        Text = GetText(article.Links.FirstOrDefault().Uri.ToString())
+                        IndexOfPositive = _lemmatization.GetIndexOfPositive(text).Result,
+                        Text = text
                     });
                 }
             }

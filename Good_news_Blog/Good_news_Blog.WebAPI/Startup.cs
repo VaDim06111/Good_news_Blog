@@ -5,23 +5,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Core;
-using CQS_MediatR.Commands.CommandEntities;
 using Good_news_Blog.Data;
 using Good_news_Blog.EmailService;
 using Good_news_Blog.WebAPI.Filters;
 using Hangfire;
+using IndexOfPositiveAnalysisService;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using ParseNewsFromTutByUsingCQS;
 using ParserAllNewsService;
@@ -67,6 +64,9 @@ namespace Good_news_Blog.WebAPI
 
             //===== Add EmailService =====
             services.AddTransient<IEmailSender, SmtpEmailService>();
+
+            //===== Add LemmatizationService =====
+            services.AddTransient<ILemmatization, Lemmatization>();
 
             //===== Add Jwt Authentication ========
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear(); // => remove default claims

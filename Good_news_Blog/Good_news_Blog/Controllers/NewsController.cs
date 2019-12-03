@@ -34,19 +34,19 @@ namespace Good_news_Blog.Controllers
             Parallel.Invoke(
                 () =>
                 {
-                var newsS13 = _newsS13Parser.GetFromUrl();
-                _newsS13Parser.AddRangeAsync(newsS13);
-                }, 
-                () =>
-                {
-                    var newsOnliner = _newsOnlinerParser.GetFromUrl();
-                    _newsOnlinerParser.AddRangeAsync(newsOnliner);
+                    var newsS13 = _newsS13Parser.GetFromUrl();
+                    _newsS13Parser.AddRangeAsync(newsS13);
                 },
-                () =>
-                {
-                    var newsTutBy = _newsTutByParser.GetFromUrl();
-                    _newsOnlinerParser.AddRangeAsync(newsTutBy);
-                });
+                    () =>
+                    {
+                        var newsOnliner = _newsOnlinerParser.GetFromUrl();
+                        _newsOnlinerParser.AddRangeAsync(newsOnliner);
+                    },
+                    () =>
+                    {
+                        var newsTutBy = _newsTutByParser.GetFromUrl();
+                        _newsOnlinerParser.AddRangeAsync(newsTutBy);
+                    });
 
             await _unitOfWork.SaveAsync();
 

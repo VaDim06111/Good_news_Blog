@@ -7,6 +7,7 @@ using Good_news_Blog.WebAPI.Models;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Serilog;
 
 namespace Good_news_Blog.WebAPI.Controllers
 {
@@ -41,10 +42,12 @@ namespace Good_news_Blog.WebAPI.Controllers
                     Comments = comments
                 };
 
+                Log.Information("Get newsModel was successfully");
                 return Ok(newsModel);
             }
             catch (Exception ex)
             {
+                Log.Error($"Get newsModel was fail with exception: {ex.Message}");
                 return StatusCode(500, "Internal server error");
             }
             

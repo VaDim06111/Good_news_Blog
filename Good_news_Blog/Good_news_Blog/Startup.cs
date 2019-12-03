@@ -6,6 +6,7 @@ using Core;
 using Good_news_Blog.Data;
 using Good_news_Blog.EmailService;
 using Good_news_Blog.Repositories;
+using IndexOfPositiveAnalysisService;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -55,6 +56,9 @@ namespace Good_news_Blog
             services.AddTransient<INewsOnlinerParser, NewsParserFromOnliner>();
             services.AddTransient<INewsS13Parser, NewsParserFromS13>();
             services.AddTransient<INewsParserFromTutBy, NewsParserFromTutBy>();
+
+            //===== Add LemmatizationService =====
+            services.AddTransient<ILemmatization, Lemmatization>();
 
             //Add EmailService
             services.AddTransient<IEmailSender, SmtpEmailService>();

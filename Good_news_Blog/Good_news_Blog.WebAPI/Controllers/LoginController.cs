@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using Serilog;
 
 namespace Good_news_Blog.WebAPI.Controllers
 {
@@ -59,15 +60,25 @@ namespace Good_news_Blog.WebAPI.Controllers
         [HttpPost]
         public async Task<object> Post([FromBody] LoginModel model)
         {
-            var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, false, false);
-
-            if (result.Succeeded)
+            try
             {
-                var appUser = _userManager.Users.SingleOrDefault(r => r.Email == model.Email);
-                return GenerateJwtToken(model.Email, appUser);
-            }
+                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, false, false);
 
-            throw new ApplicationException("INVALID_LOGIN_ATTEMPT");
+                if (result.Succeeded)
+                {
+                    Log.Information("Login operation was successfully");
+                    var appUser = _userManager.Users.SingleOrDefault(r => r.Email == model.Email);
+                    return GenerateJwtToken(model.Email, appUser);
+                }
+
+                Log.Information("Login operation was fail");
+                return Task.FromResult(false);
+            }
+            catch (Exception ex)
+            {
+                Log.Error($"Login operation was fail with exception: {ex.Message}");
+                return Task.FromResult(false);
+            }
         }
 
         /// <summary>

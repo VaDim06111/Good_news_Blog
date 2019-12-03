@@ -17,11 +17,13 @@ namespace ParserNewsFromS13
     public class NewsParserFromS13 : INewsS13Parser
     {      
         private readonly IUnitOfWork _unitOfWork;
+        private readonly ILemmatization _lemmatization;
         private const string urlS13 = @"http://s13.ru/rss";
 
-        public NewsParserFromS13(IUnitOfWork uow)
+        public NewsParserFromS13(IUnitOfWork uow, ILemmatization lemmatization)
         {
             _unitOfWork = uow;
+            _lemmatization = lemmatization;
         }
 
         public bool Add(News news)
@@ -98,7 +100,7 @@ namespace ParserNewsFromS13
                             Description = Regex.Replace(article.Summary.Text, "<.*?>", string.Empty),
                             Source = article.Links.FirstOrDefault().Uri.ToString(),
                             DatePublication = article.PublishDate.UtcDateTime,
-                            IndexOfPositive = 0,
+                            IndexOfPositive = _lemmatization.GetIndexOfPositive(text).Result,
                             Text = text
                         });
                     }

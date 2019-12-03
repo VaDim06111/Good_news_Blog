@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using Serilog;
 
 namespace Good_news_Blog.WebAPI.Controllers
 {
@@ -58,20 +59,33 @@ namespace Good_news_Blog.WebAPI.Controllers
         [HttpPost]
         public async Task<object> Post([FromBody] RegisterModel model)
         {
-            var user = new IdentityUser
+            try
             {
-                UserName = model.Email,
-                Email = model.Email
-            };
-            var result = await _userManager.CreateAsync(user, model.Password);
+                var user = new IdentityUser
+                {
+                    UserName = model.Email,
+                    Email = model.Email
+                };
+                var result = await _userManager.CreateAsync(user, model.Password);
 
-            if (result.Succeeded)
-            {
-                await _signInManager.SignInAsync(user, false);
-                return  GenerateJwtToken(model.Email, user);
+                if (result.Succeeded)
+                {
+                    Log.Information("Create user was successfully");
+
+                    await _signInManager.SignInAsync(user, false);
+                    Log.Information("SignInAsync was successfully");
+
+                    return GenerateJwtToken(model.Email, user);
+                }
+
+                Log.Error("SignInAsync was fail");
+                return Task.FromResult(false);
             }
-
-            throw new ApplicationException("UNKNOWN_ERROR");
+            catch (Exception ex)
+            {
+                Log.Error($"SignInAsync was fail with exception: {ex.Message}");
+                return Task.FromResult(false);
+            }
         }
 
         /// <summary>

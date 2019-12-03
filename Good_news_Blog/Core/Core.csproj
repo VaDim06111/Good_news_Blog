@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IEmailSender.cs" />
+    <Compile Include="ILemmatization.cs" />
     <Compile Include="IParser.cs" />
     <Compile Include="IParserCQS.cs" />
     <Compile Include="IRepository.cs" />

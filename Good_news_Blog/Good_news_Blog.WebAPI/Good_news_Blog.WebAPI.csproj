@@ -39,6 +39,7 @@
     <ProjectReference Include="..\CQS_MediatR\CQS_MediatR.csproj" />
     <ProjectReference Include="..\Good_news_Blog.Data\Good_news_Blog.Data.csproj" />
     <ProjectReference Include="..\Good_news_Blog.EmailService\Good_news_Blog.EmailService.csproj" />
+    <ProjectReference Include="..\IndexOfPositiveAnalysisService\IndexOfPositiveAnalysisService.csproj" />
     <ProjectReference Include="..\ParseNewsFromTutByUsingCQS\ParserNewsFromTutByUsingCQS.csproj" />
     <ProjectReference Include="..\ParserAllNewsService\ParserAllNewsService.csproj" />
     <ProjectReference Include="..\ParserNewsFromOnlinerUsingCQS\ParserNewsFromOnlinerUsingCQS.csproj" />

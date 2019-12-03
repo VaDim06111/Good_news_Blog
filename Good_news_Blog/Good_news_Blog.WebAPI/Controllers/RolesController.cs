@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Good_news_Blog.WebAPI.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 
 namespace Good_news_Blog.WebAPI.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize(Roles = "admin")]
     [ApiController]
     public class RolesController : Controller
     {
@@ -32,10 +35,12 @@ namespace Good_news_Blog.WebAPI.Controllers
         {
             try
             {
+                Log.Information("Get roles was successfully");
                 return Ok(await _roleManager.Roles.ToListAsync());
             }
             catch (Exception ex)
             {
+                Log.Error($"Get roles was fail with exception: {ex.Message}");
                 return StatusCode(500, "Internal server error");
             }
         }
@@ -48,13 +53,15 @@ namespace Good_news_Blog.WebAPI.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult> Get(string id)
         {
-
             try
             {
+                Log.Information("Get roles by id was successfully");
                 return Ok(_roleManager.Roles.Where(s => s.Id.Equals(id)).ToString());
             }
             catch (Exception ex)
             {
+                Log.Error($"Get roles by id was fail with exception: {ex.Message}");
+
                 return StatusCode(500, "Internal server error");
             }
         }
@@ -72,13 +79,13 @@ namespace Good_news_Blog.WebAPI.Controllers
                 try
                 {
                     await _roleManager.CreateAsync(new IdentityRole(value));
+                    Log.Information("Create role was successfully");
                 }
                 catch (Exception ex)
                 {
+                    Log.Warning($"Create role was fail with exception: {ex.Message}");
                     return StatusCode(500, "Internal server error");
                 }
-
-                return Ok();
             }
 
             return BadRequest();
@@ -106,16 +113,17 @@ namespace Good_news_Blog.WebAPI.Controllers
                 try
                 {
                     var role = await _roleManager.FindByIdAsync(id);
+                    Log.Information("Delete role was successfully");
                     await _roleManager.DeleteAsync(role);
                 }
                 catch (Exception ex)
                 {
+                    Log.Error($"Delete role was fail with exception: {ex.Message}");
                     return StatusCode(500, "Internal server error");
                 }
-
-                return Ok();
             }
 
+            Log.Error("Delete role was fail: string is null or empty");
             return BadRequest();
         }
     }
