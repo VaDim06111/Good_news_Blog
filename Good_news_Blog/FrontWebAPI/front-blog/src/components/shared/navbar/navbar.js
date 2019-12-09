@@ -13,11 +13,12 @@ import { MDBNavbar,
     MDBIcon, 
     MDBBtn, 
     MDBView, 
-    MDBContainer } from "mdbreact";
+    MDBContainer} from "mdbreact";
+import AnchorLink from 'react-anchor-link-smooth-scroll';    
 import "./navbar.css";
 import SignIn from "./signIn";
 
-class NavbarPage extends React.Component {
+class NavbarComponent extends React.Component {
 state = {
 collapseID: ""
 };
@@ -74,9 +75,11 @@ return (
             <h4 className="subtext-header mt-2 mb-4">
               Самые свежие и позитивные новости из вашего любимого города!
             </h4>
-            <MDBBtn outline rounded color="white">
-                Читать <MDBIcon icon="angle-double-down" /> 
-            </MDBBtn>
+            <AnchorLink href='#news'>
+              <MDBBtn outline rounded color="white">
+                Читать <MDBIcon icon="angle-double-down" />
+              </MDBBtn>
+            </AnchorLink>
           </MDBCol>
         </MDBRow>
       </MDBContainer>
@@ -87,4 +90,4 @@ return (
 }
 }
 
-export default NavbarPage;
+export default NavbarComponent;

@@ -86,9 +86,6 @@ namespace Good_news_Blog.WebAPI.Controllers
                     Log.Warning($"Create user was fail with exception: {ex.Message}");
                     return StatusCode(500, "Internal server error");
                 }
-
-                Log.Warning($"Create user was fail");
-                return Ok();
             }
 
             Log.Warning($"Create user was fail: model is invalid");

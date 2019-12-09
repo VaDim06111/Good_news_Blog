@@ -115,7 +115,7 @@ namespace Good_news_Blog.WebAPI.Controllers
 
                     Log.Information("Post change role model was successfully");
 
-                    return Ok();
+                    return StatusCode(201,"Post change role model was successfully");
                 }
                 catch (Exception ex)
                 {

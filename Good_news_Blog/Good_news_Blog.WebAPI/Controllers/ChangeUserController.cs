@@ -96,7 +96,7 @@ namespace Good_news_Blog.WebAPI.Controllers
                     await _userManager.UpdateAsync(user);
 
                     Log.Information("Update user information was successfully");
-                    return Ok();
+                    return StatusCode(201, "Update user information was successfully");
                 }
                 catch (Exception ex)
                 {

@@ -80,6 +80,7 @@ namespace Good_news_Blog.WebAPI.Controllers
                 {
                     await _roleManager.CreateAsync(new IdentityRole(value));
                     Log.Information("Create role was successfully");
+                    return StatusCode(201, "Create role was successfully");
                 }
                 catch (Exception ex)
                 {

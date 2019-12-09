@@ -90,7 +90,7 @@ namespace Good_news_Blog.WebAPI.Controllers
 
                 Log.Information("Post new comment  was successfully");
 
-                return Ok(comment);
+                return StatusCode(201, comment);
             }
             catch (Exception ex)
             {
