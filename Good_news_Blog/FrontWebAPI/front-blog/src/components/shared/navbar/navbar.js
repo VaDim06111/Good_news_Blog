@@ -3,8 +3,7 @@ import { BrowserRouter } from "react-router-dom";
 import { MDBNavbar, 
     MDBNavbarBrand, 
     MDBNavbarNav, 
-    MDBNavItem, 
-    MDBNavLink, 
+    MDBNavItem,  
     MDBNavbarToggler, 
     MDBCollapse, 
     MDBMask,
@@ -14,8 +13,7 @@ import { MDBNavbar,
     MDBBtn, 
     MDBView, 
     MDBContainer} from "mdbreact";
-import AnchorLink from 'react-anchor-link-smooth-scroll';
-import { Link } from 'react-router-dom';    
+import AnchorLink from 'react-anchor-link-smooth-scroll';   
 import "./navbar.css";
 import SignIn from "./signIn";
 
@@ -40,16 +38,16 @@ return (
       <MDBNavbar color='purple-gradient' dark expand="md" fixed="top"scrolling transparent>
         <MDBContainer>
           <MDBNavbarBrand>
-            <Link to='./'><span className="white-text">Good news Blog</span></Link>
+            <a href="/"><span className="white-text">Good news Blog</span></a>
           </MDBNavbarBrand>
           <MDBNavbarToggler onClick={this.toggleCollapse("navbarCollapse")} />
           <MDBCollapse id="navbarCollapse" isOpen={this.state.collapseID} navbar>
             <MDBNavbarNav left>
-              <MDBNavItem>
-                <MDBNavLink to="/">Новости</MDBNavLink>
+              <MDBNavItem className="m-1">
+                <a href="/"><MDBBtn outline color="white">Новости</MDBBtn></a>             
               </MDBNavItem>
-              <MDBNavItem>
-                <MDBNavLink to="#!">Панель администратора</MDBNavLink>
+              <MDBNavItem className="m-1">
+              <a href="#!"><MDBBtn outline color="white">Панель администратора</MDBBtn></a>               
               </MDBNavItem>
             </MDBNavbarNav>
             <SignIn />
