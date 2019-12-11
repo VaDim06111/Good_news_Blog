@@ -5,26 +5,27 @@ import {  MDBNavbarNav,
     MDBDropdownToggle, 
     MDBDropdownMenu, 
     MDBDropdownItem } from "mdbreact";
+import { Link } from 'react-router-dom';
 
 class SignIn extends React.Component {
 
     render() {
         return(
-        <MDBNavbarNav right>
+         <MDBNavbarNav right>
               <MDBNavItem>
                     <MDBDropdown>
                         <MDBDropdownToggle outline caret color="light">
                             Войти
                         </MDBDropdownToggle>
                     <MDBDropdownMenu basic>
-                        <MDBDropdownItem>Вход</MDBDropdownItem>
+                        <MDBDropdownItem><Link to='/login'>Вход</Link></MDBDropdownItem>
                         <MDBDropdownItem>Мой профиль</MDBDropdownItem>
                         <MDBDropdownItem>Регистрация</MDBDropdownItem>
                         <MDBDropdownItem>Выйти</MDBDropdownItem>
                         </MDBDropdownMenu>
                     </MDBDropdown>
               </MDBNavItem>
-            </MDBNavbarNav>
+            </MDBNavbarNav>  
         )
     }   
 }

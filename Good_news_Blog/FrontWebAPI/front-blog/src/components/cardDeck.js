@@ -68,7 +68,9 @@ class cardDeck extends React.Component {
                             </MDBCardBody>
                         </MDBCard>]
         return(
-            <CardDeck cards={cards}/>
+            <div id="news">
+                <CardDeck className="d-flex justify-content-center" cards={cards}/>
+            </div>     
         )
     }
 }

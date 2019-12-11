@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import { MDBNavbar, 
     MDBNavbarBrand, 
     MDBNavbarNav, 
@@ -14,7 +14,8 @@ import { MDBNavbar,
     MDBBtn, 
     MDBView, 
     MDBContainer} from "mdbreact";
-import AnchorLink from 'react-anchor-link-smooth-scroll';    
+import AnchorLink from 'react-anchor-link-smooth-scroll';
+import { Link } from 'react-router-dom';    
 import "./navbar.css";
 import SignIn from "./signIn";
 
@@ -34,18 +35,18 @@ const overlay = (
 );
 return (
 <div id="videobackground">
-  <Router>
+  <BrowserRouter>
     <div>
       <MDBNavbar color='purple-gradient' dark expand="md" fixed="top"scrolling transparent>
         <MDBContainer>
           <MDBNavbarBrand>
-            <span className="white-text">Good news Blog</span>
+            <Link to='./'><span className="white-text">Good news Blog</span></Link>
           </MDBNavbarBrand>
           <MDBNavbarToggler onClick={this.toggleCollapse("navbarCollapse")} />
           <MDBCollapse id="navbarCollapse" isOpen={this.state.collapseID} navbar>
             <MDBNavbarNav left>
               <MDBNavItem>
-                <MDBNavLink to="#!">Новости</MDBNavLink>
+                <MDBNavLink to="./">Новости</MDBNavLink>
               </MDBNavItem>
               <MDBNavItem>
                 <MDBNavLink to="#!">Панель администратора</MDBNavLink>
@@ -57,7 +58,7 @@ return (
       </MDBNavbar>
       {this.state.collapseID && overlay}
     </div>
-  </Router>
+  </BrowserRouter>
 
   <MDBView>
     <video className="video-intro" poster="https://mdbootstrap.com/img/Photos/Others/background.jpg" playsInline
