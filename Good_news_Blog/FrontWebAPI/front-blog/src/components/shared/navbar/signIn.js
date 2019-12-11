@@ -5,7 +5,6 @@ import {  MDBNavbarNav,
     MDBDropdownToggle, 
     MDBDropdownMenu, 
     MDBDropdownItem } from "mdbreact";
-import { Link } from 'react-router-dom';
 
 class SignIn extends React.Component {
 
@@ -17,11 +16,11 @@ class SignIn extends React.Component {
                         <MDBDropdownToggle outline caret color="light">
                             Войти
                         </MDBDropdownToggle>
-                    <MDBDropdownMenu basic>
-                        <MDBDropdownItem><Link to='/login'>Вход</Link></MDBDropdownItem>
-                        <MDBDropdownItem>Мой профиль</MDBDropdownItem>
-                        <MDBDropdownItem>Регистрация</MDBDropdownItem>
-                        <MDBDropdownItem>Выйти</MDBDropdownItem>
+                        <MDBDropdownMenu basic>
+                        <a href="/login" style={{margin:'0', padding:'0'}}><MDBDropdownItem>Вход</MDBDropdownItem></a>
+                        <a href="!#" style={{margin:'0', padding:'0'}}><MDBDropdownItem>Мой профиль</MDBDropdownItem></a>
+                        <a href="!#" style={{margin:'0', padding:'0'}}><MDBDropdownItem>Регистрация</MDBDropdownItem></a>
+                        <a href="!#" style={{margin:'0', padding:'0'}}><MDBDropdownItem>Выход</MDBDropdownItem></a>
                         </MDBDropdownMenu>
                     </MDBDropdown>
               </MDBNavItem>

@@ -18,7 +18,7 @@ class SignInPage extends React.Component {
                             <p className="h5 text-center mb-4">Войти</p>
                             <div className="grey-text">
                             <MDBInput
-                                label="Type your email"
+                                label="Ваш email"
                                 icon="envelope"
                                 group
                                 type="email"
@@ -27,7 +27,7 @@ class SignInPage extends React.Component {
                                 success="right"
                             />
                             <MDBInput
-                                label="Type your password"
+                                label="Ваш пароль"
                                 icon="lock"
                                 group
                                 type="password"

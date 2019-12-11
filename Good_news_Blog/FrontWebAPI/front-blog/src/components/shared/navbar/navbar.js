@@ -46,7 +46,7 @@ return (
           <MDBCollapse id="navbarCollapse" isOpen={this.state.collapseID} navbar>
             <MDBNavbarNav left>
               <MDBNavItem>
-                <MDBNavLink to="./">Новости</MDBNavLink>
+                <MDBNavLink to="/">Новости</MDBNavLink>
               </MDBNavItem>
               <MDBNavItem>
                 <MDBNavLink to="#!">Панель администратора</MDBNavLink>
