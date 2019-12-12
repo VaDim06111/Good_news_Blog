@@ -1,78 +1,73 @@
 import React from 'react';
-//import Card from './components/card';
 import { MDBBtn,
     MDBCard, 
-    MDBCardGroup,
     MDBCardBody, 
     MDBCardImage, 
     MDBCardTitle, 
     MDBCardText, 
-    MDBCol } from 'mdbreact';
+    MDBCol,
+    MDBCardGroup} from 'mdbreact';
 
-function CardDeck(props) {
-    const cards = props.cards;
-    const listItems = cards.map((card) =>
-      <MDBCol className="m-1 pt-5 pb-4">{card}</MDBCol>
-    );
-    return (
-      <MDBCardGroup>{listItems}</MDBCardGroup>
-    );
-  }
+class CardDeck extends React.Component {
 
-class cardDeck extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+          error: null,
+          isLoaded: false,
+          items: []
+        };
+      }
+    
+      componentDidMount() {
+
+        fetch("https://localhost:44308/api/home/1")
+          .then(res => res.json())
+          .then(
+            (result) => {
+              this.setState({
+                isLoaded: true,
+                items: result
+              });
+            },
+            (error) => {
+              this.setState({
+                isLoaded: true,
+                error
+              });
+            }
+          )
+      }
 
     render() {
-        const cards = [
-                            <MDBCard size='4' style={{ width: "22rem" }}>
-                            <MDBCardImage className="img-fluid" src="https://mdbootstrap.com/img/Photos/Others/images/43.jpg" waves />
-                            <MDBCardBody>
-                                <MDBCardTitle>Card title</MDBCardTitle>
-                                <MDBCardText>
-                                    Some quick example text to build on the card title and make
-                                up the bulk of the card&apos;s content.
-                                </MDBCardText>
-                            <MDBBtn href="#">Читать...</MDBBtn>
-                            </MDBCardBody>
-                        </MDBCard>, 
-                                <MDBCard style={{ width: "22rem" }}>
-                                <MDBCardImage className="img-fluid" src="https://mdbootstrap.com/img/Photos/Others/images/43.jpg" waves />
-                                <MDBCardBody>
-                                <MDBCardTitle>Card title</MDBCardTitle>
-                                <MDBCardText>
-                                    Some quick example text to build on the card title and make
-                                    up the bulk of the card&apos;s content.
-                                </MDBCardText>
-                                <MDBBtn href="#">Читать...</MDBBtn>
-                            </MDBCardBody>
-                        </MDBCard>,
-                        <MDBCard size='4' style={{ width: "22rem" }}>
-                            <MDBCardImage className="img-fluid" src="https://mdbootstrap.com/img/Photos/Others/images/43.jpg" waves />
-                            <MDBCardBody>
-                                <MDBCardTitle>Card title</MDBCardTitle>
-                                <MDBCardText>
-                                    Some quick example text to build on the card title and make
-                                up the bulk of the card&apos;s content.
-                                </MDBCardText>
-                            <MDBBtn href="#">Читать...</MDBBtn>
-                            </MDBCardBody>
-                        </MDBCard>, 
-                                <MDBCard style={{ width: "22rem" }}>
-                                <MDBCardImage className="img-fluid" src="https://mdbootstrap.com/img/Photos/Others/images/43.jpg" waves />
-                                <MDBCardBody>
-                                <MDBCardTitle>Card title</MDBCardTitle>
-                                <MDBCardText>
-                                    Some quick example text to build on the card title and make
-                                    up the bulk of the card&apos;s content.
-                                </MDBCardText>
-                                <MDBBtn href="#">Читать...</MDBBtn>
-                            </MDBCardBody>
-                        </MDBCard>]
+        const { error, isLoaded, items } = this.state;
+            if (error) {
+                return <div>Ошибка: {error.message}</div>;
+              } else if (!isLoaded) {
+                return <div>Загрузка...</div>;
+              } else {
         return(
             <div id="news">
-                <CardDeck className="d-flex justify-content-center" cards={cards}/>
+              <MDBCardGroup className="ml-5">
+                {items.map(item => (
+                            <MDBCol key={item.id} className="m-1 pt-5 pb-4">
+                              <MDBCard style={{ width: "22rem" }}>
+                                  <MDBCardImage className="img-fluid" src="https://mdbootstrap.com/img/Photos/Others/images/43.jpg" waves />
+                                  <MDBCardBody>
+                                      <MDBCardTitle>{item.title}</MDBCardTitle>
+                                      <MDBCardText>
+                                          {item.description}
+                                      </MDBCardText>
+                                      <MDBBtn href="#">Читать...</MDBBtn>
+                                  </MDBCardBody>
+                              </MDBCard>
+                            </MDBCol>
+                        ))}       
+              </MDBCardGroup>                                 
             </div>     
-        )
+        );
     }
 }
+}
 
-export default cardDeck;
+export default CardDeck;

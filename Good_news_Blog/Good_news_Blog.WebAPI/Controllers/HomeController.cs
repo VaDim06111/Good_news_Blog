@@ -28,7 +28,7 @@ namespace Good_news_Blog.WebAPI.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult> Get(int id = 1)
         {
-            int pageSize = 6;
+            int pageSize = 16;
 
             try
             {

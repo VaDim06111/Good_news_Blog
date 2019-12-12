@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Xml;
 using Core;
 using CQS_MediatR.Commands.CommandEntities;
+using CQS_MediatR.Queries.QuerieEntities;
 using Good_news_Blog.Data;
 using HtmlAgilityPack;
 using MediatR;

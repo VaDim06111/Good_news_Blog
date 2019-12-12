@@ -44,7 +44,7 @@ namespace ParserAllNewsService
 
                     foreach (var news1 in newsFromS13)
                     {
-                        if (allNews.Count(s => s.Source.Equals(news1.Source)) == 0)
+                        if (allNews.Count(s => s.Source.Equals(news1.Source)) == 0 && allNews.Count(s=>s.Title.Equals(news1.Title)) == 0)
                         {
                             _mediator.Send(new AddNewsCommand(news1));
                         }
@@ -55,7 +55,7 @@ namespace ParserAllNewsService
                     newsFromOnliner = _newsOnliner.GetFromUrl();
                     foreach (var news2 in newsFromOnliner)
                     {
-                        if (allNews.Count(s => s.Source.Equals(news2.Source)) == 0)
+                        if (allNews.Count(s => s.Source.Equals(news2.Source)) == 0 && allNews.Count(s => s.Title.Equals(news2.Title)) == 0)
                         {
                             _mediator.Send(new AddNewsCommand(news2));
                         }
@@ -66,7 +66,7 @@ namespace ParserAllNewsService
                     newsFromTutBy = _newsTutBy.GetFromUrl();
                     foreach (var news3 in newsFromTutBy)
                     {
-                        if (allNews.Count(s => s.Source.Equals(news3.Source)) == 0)
+                        if (allNews.Count(s => s.Source.Equals(news3.Source)) == 0 && allNews.Count(s => s.Title.Equals(news3.Title)) == 0)
                         {
                             _mediator.Send(new AddNewsCommand(news3));
                         }

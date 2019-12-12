@@ -17,7 +17,7 @@ class FormContact extends React.Component {
                   <form>
                     <div>
                       <MDBInput
-                        label="Your email"
+                        label="Ваш email"
                         icon="envelope"
                         group
                         type="email"
@@ -27,7 +27,7 @@ class FormContact extends React.Component {
                         success="right"
                       />
                       <MDBInput
-                                label="Subject"
+                                label="Тема"
                                 icon="tag"
                                 group
                                 type="text"
@@ -45,14 +45,14 @@ class FormContact extends React.Component {
                             <MDBInput
                                 type="textarea"
                                 rows="1"
-                                label="Your message"
+                                label="Ваше сообщение"
                                 labelClass='white-text'
                                 icon="pencil-alt"
                             />
                         </div>
                     <div className="text-center">
                       <MDBBtn outline color="warning">
-                        Send <MDBIcon far icon="paper-plane" />
+                        Отправить <MDBIcon far icon="paper-plane" />
                       </MDBBtn>
                     </div>
                   </form>

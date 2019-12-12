@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Cors.Internal;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -100,7 +101,12 @@ namespace Good_news_Blog.WebAPI
                 });
             });
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2).AddControllersAsServices();
+            services.AddCors();
+
+            services.AddMvc()
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+                .AddControllersAsServices();
+            
 
             //===== Add MediatR =====
             var assembly = AppDomain.CurrentDomain.Load("CQS_MediatR");
@@ -129,7 +135,8 @@ namespace Good_news_Blog.WebAPI
             }
 
             //app.UseHttpsRedirection();
-            app.UseCors("CORS_policy");
+            app.UseCors(builder => 
+                builder.AllowAnyOrigin());
             app.UseAuthentication();
             app.UseStatusCodePages();
             app.UseSwagger();
