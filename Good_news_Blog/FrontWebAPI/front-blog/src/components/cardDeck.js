@@ -13,39 +13,12 @@ class CardDeck extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-          error: null,
-          isLoaded: false,
-          items: []
+          items: props.items
         };
-      }
-    
-      componentDidMount() {
-
-        fetch("https://localhost:44308/api/home/1")
-          .then(res => res.json())
-          .then(
-            (result) => {
-              this.setState({
-                isLoaded: true,
-                items: result
-              });
-            },
-            (error) => {
-              this.setState({
-                isLoaded: true,
-                error
-              });
-            }
-          )
       }
 
     render() {
-        const { error, isLoaded, items } = this.state;
-            if (error) {
-                return <div>Ошибка: {error.message}</div>;
-              } else if (!isLoaded) {
-                return <div>Загрузка...</div>;
-              } else {
+      const { items } = this.state;
         return(
             <div id="news">
               <MDBCardGroup className="ml-5">
@@ -67,7 +40,6 @@ class CardDeck extends React.Component {
             </div>     
         );
     }
-}
 }
 
 export default CardDeck;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CQS_MediatR.Queries.QuerieEntities;
+using Good_news_Blog.WebAPI.Models;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
@@ -24,7 +25,7 @@ namespace Good_news_Blog.WebAPI.Controllers
         /// GET api/home
         /// </summary>
         /// <param name="id"></param>
-        /// <returns>Ok(news)</returns>
+        /// <returns>Ok(model)</returns>
         [HttpGet("{id}")]
         public async Task<ActionResult> Get(int id = 1)
         {
@@ -32,12 +33,21 @@ namespace Good_news_Blog.WebAPI.Controllers
 
             try
             {
+                var countNews = await _mediator.Send(new GetCountNewsQuery());
+                var countPages = (countNews % pageSize) == 0 ? countNews / pageSize : countNews / pageSize + 1;
+
                 var news = await _mediator.Send(new GetNewsPageQuery(id, pageSize));
                 news = news.OrderByDescending(s => s.DatePublication);
 
+                NewsModel model = new NewsModel()
+                {
+                    CountPages = countPages,
+                    News = news
+                };
+
                 Log.Information("Get news by id page was successfully");
 
-                return Ok(news);
+                return Ok(model);
             }
             catch (Exception ex)
             {
