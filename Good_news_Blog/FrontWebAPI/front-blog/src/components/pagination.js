@@ -23,12 +23,10 @@ import { MDBPagination,
                 }
             
                 return(
-                    pageNumbers.map(number => {
-                        let classes = page === number ? true : false;
-                      
+                    pageNumbers.map(number => {   
                         return (
-                          <MDBPageItem key={number} active={classes} onClick={() => this.props.updateData(number)}>
-                                <MDBPageNav >
+                          <MDBPageItem key={number} active={page === number} >
+                                <MDBPageNav onClick={() => this.props.updateData(number)}>
                                     {number}
                                 </MDBPageNav>
                             </MDBPageItem>

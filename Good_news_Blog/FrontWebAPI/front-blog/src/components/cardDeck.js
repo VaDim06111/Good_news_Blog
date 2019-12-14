@@ -31,7 +31,7 @@ class CardDeck extends React.Component {
                                       <MDBCardText>
                                           {item.description}
                                       </MDBCardText>
-                                      <MDBBtn href="#">Читать...</MDBBtn>
+                                      <MDBBtn href={'/'+ item.id}>Читать...</MDBBtn>
                                   </MDBCardBody>
                               </MDBCard>
                             </MDBCol>

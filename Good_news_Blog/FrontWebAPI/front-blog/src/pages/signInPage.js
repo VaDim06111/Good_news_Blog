@@ -13,25 +13,29 @@ class SignInPage extends React.Component {
         return(
             <BrowserRouter>
             <NavbarMain />
-            <div className="night-fade-gradient mt-0 pt-0" style = {{height:"100vh"}}>
+            <div className="purple lighten-2 mt-0 pt-0" style = {{height:"100vh"}}>
             <MDBContainer>
-                        <MDBRow>
+                        <MDBRow className="text-white">
                             <MDBCol md="6" className="mx-auto" style={{marginTop:'20%'}}>
                             <form>
                                 <p className="h5 text-center mb-4">Войти</p>
                                 <div className="grey-text">
-                                <MDBInput
+                                <MDBInput className="text-white"
                                     label="Ваш email"
+                                    labelClass="text-white"
                                     icon="envelope"
+                                    size="lg"
                                     group
                                     type="email"
                                     validate
                                     error="wrong"
                                     success="right"
                                 />
-                                <MDBInput
+                                <MDBInput className="text-white"
                                     label="Ваш пароль"
+                                    labelClass="text-white"
                                     icon="lock"
+                                    size="lg"
                                     group
                                     type="password"
                                     validate

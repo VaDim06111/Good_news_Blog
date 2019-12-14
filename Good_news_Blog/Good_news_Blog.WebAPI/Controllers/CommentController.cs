@@ -17,7 +17,6 @@ using Serilog;
 namespace Good_news_Blog.WebAPI.Controllers
 {
     [Route("api/[controller]")]
-    [Authorize]
     [ApiController]
     public class CommentController : Controller
     {
@@ -68,6 +67,7 @@ namespace Good_news_Blog.WebAPI.Controllers
         /// <param name="id"></param>
         /// <returns>Ok(comment)</returns>
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Post([FromBody] string text, Guid id)
         {
             try
@@ -106,6 +106,7 @@ namespace Good_news_Blog.WebAPI.Controllers
         /// <param name="id"></param>
         /// <param name="value"></param>
         [HttpPut("{id}")]
+        [Authorize]
         public void Put(int id, [FromBody] string value)
         {
         }
@@ -116,6 +117,7 @@ namespace Good_news_Blog.WebAPI.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<bool> Delete(Guid id)
         {
             try
