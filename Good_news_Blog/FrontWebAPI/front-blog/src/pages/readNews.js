@@ -3,6 +3,7 @@ import { BrowserRouter} from 'react-router-dom';
 
 import NavbarMain from '../components/shared/navbar/navbarMain';
 import Footer from '../components/shared/footer/footer';
+import CommentBlock from '../components/commentBlock';
 
 import Lottie from 'react-lottie';
 import animationDataLoad from '../assets/lego-loader.json';
@@ -14,7 +15,10 @@ import { MDBRow,
     MDBMask,
     MDBCardBody, 
     MDBCol,
-    MDBContainer} from 'mdbreact';
+    MDBContainer,
+    MDBCardHeader,
+    MDBBtn,
+    MDBInput } from 'mdbreact';
 
 
 
@@ -26,7 +30,7 @@ class ReadNewsPage extends React.Component {
             error: null,
             isLoaded: false,
             news: null,
-            comments: null
+            comments: []
         }
     }
     
@@ -128,6 +132,28 @@ class ReadNewsPage extends React.Component {
                       </MDBContainer>
                   </MDBCol>
                 </MDBRow> 
+                <MDBContainer className="mt-5 mb-5">             
+                    <MDBCardHeader className="border-0 font-weight-bold">
+                      <p className="mr-4 mb-0">{comments.length} comments</p>
+                    </MDBCardHeader>
+                    <CommentBlock comments={comments} />
+                    <div className="form-group mt-4">
+                      <MDBInput 
+                            label="Ваше сообщение"
+                            size="lg"
+                            rows="1"
+                            group
+                            type="textarea"
+                            validate
+                            error="wrong"
+                            success="right"
+                        />
+                    <div className="text-center my-4">
+                      <MDBBtn size="lg">Отправить</MDBBtn>
+                    </div>
+                  </div>
+                </MDBContainer> 
+                
                 <Footer />          
             </BrowserRouter>
         )

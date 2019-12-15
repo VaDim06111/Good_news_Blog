@@ -6,6 +6,7 @@ import { MDBContainer,
     MDBBtn } from 'mdbreact';
 import { BrowserRouter } from 'react-router-dom';
 import NavbarMain from '../components/shared/navbar/navbarMain';
+import Footer from '../components/shared/footer/footer';
 
 class SignUpPage extends React.Component {
 
@@ -13,10 +14,10 @@ class SignUpPage extends React.Component {
         return(
             <BrowserRouter>
             <NavbarMain />
-            <div className="purple lighten-2 mt-0 pt-0" style = {{height:"100vh"}}>
+            <div className="purple lighten-2 mt-0 pt-0" style = {{height:"61.1vh"}}>
             <MDBContainer>
                 <MDBRow className="text-white">
-                    <MDBCol md="6" className="mx-auto" style={{marginTop:'20%'}}>
+                    <MDBCol md="6" className="mx-auto" style={{marginTop:'13%'}}>
                     <form>
                         <p className="h5 text-center mb-4">Регистрация</p>
                         <div className="grey-text">
@@ -67,6 +68,7 @@ class SignUpPage extends React.Component {
                 </MDBRow>
             </MDBContainer>
             </div>
+            <Footer />
             </BrowserRouter>     
         )
     }
