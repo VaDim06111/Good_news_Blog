@@ -128,7 +128,6 @@ namespace ParserNewsFromS13
                 }
 
                 Regex.Replace(text, "<.*?>", string.Empty);
-                text = text.Replace("\r\n", string.Empty);
 
                 return text;
             }
