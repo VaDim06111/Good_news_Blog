@@ -85,7 +85,7 @@ namespace ParserNewsFromOnliner
         {
             foreach (var item in news)
             {
-                if (_unitOfWork.News.Where(u => u.Source.Equals(item.Source)).Count() == 0)
+                if (!_unitOfWork.News.Where(u => u.Source.Equals(item.Source)).Any() && !_unitOfWork.News.Where(u => u.Title.Contains(item.Title)).Any())
                 {
                     _unitOfWork.News.Add(item);
 
@@ -100,7 +100,7 @@ namespace ParserNewsFromOnliner
         {
             foreach (var item in news)
             {
-                if (_unitOfWork.News.Where(u => u.Source.Equals(item.Source)).Count() == 0)
+                if (!_unitOfWork.News.Where(u => u.Source.Equals(item.Source)).Any() && !_unitOfWork.News.Where(u=>u.Title.Contains(item.Title)).Any())
                 {
                     await _unitOfWork.News.AddAsync(item);
                 }

@@ -42,35 +42,49 @@ namespace ParserAllNewsService
                 {
                     newsFromS13 = _newsS13.GetFromUrl();
 
-                    foreach (var news1 in newsFromS13)
+                    if (newsFromS13 != null)
                     {
-                        if (allNews.Count(s => s.Source.Equals(news1.Source)) == 0 && allNews.Count(s=>s.Title.Equals(news1.Title)) == 0)
+                        foreach (var news1 in newsFromS13)
                         {
-                            _mediator.Send(new AddNewsCommand(news1));
+                            if (allNews.Count(s => s.Source.Contains(news1.Source)) == 0 && allNews.Count(s => s.Title.Contains(news1.Title)) == 0)
+                            {
+                                _mediator.Send(new AddNewsCommand(news1));
+                            }
                         }
                     }
+                    
                 },
                 () =>
                 {
                     newsFromOnliner = _newsOnliner.GetFromUrl();
-                    foreach (var news2 in newsFromOnliner)
+
+                    if (newsFromOnliner != null)
                     {
-                        if (allNews.Count(s => s.Source.Equals(news2.Source)) == 0 && allNews.Count(s => s.Title.Equals(news2.Title)) == 0)
+                        foreach (var news2 in newsFromOnliner)
                         {
-                            _mediator.Send(new AddNewsCommand(news2));
+                            if (allNews.Count(s => s.Source.Contains(news2.Source)) == 0 && allNews.Count(s => s.Title.Contains(news2.Title)) == 0)
+                            {
+                                _mediator.Send(new AddNewsCommand(news2));
+                            }
                         }
                     }
+                    
                 },
                 () =>
                 {
                     newsFromTutBy = _newsTutBy.GetFromUrl();
-                    foreach (var news3 in newsFromTutBy)
+
+                    if (newsFromTutBy != null)
                     {
-                        if (allNews.Count(s => s.Source.Equals(news3.Source)) == 0 && allNews.Count(s => s.Title.Equals(news3.Title)) == 0)
+                        foreach (var news3 in newsFromTutBy)
                         {
-                            _mediator.Send(new AddNewsCommand(news3));
+                            if (allNews.Count(s => s.Source.Contains(news3.Source)) == 0 && allNews.Count(s => s.Title.Contains(news3.Title)) == 0)
+                            {
+                                _mediator.Send(new AddNewsCommand(news3));
+                            }
                         }
                     }
+                    
                 });
 
             return true;

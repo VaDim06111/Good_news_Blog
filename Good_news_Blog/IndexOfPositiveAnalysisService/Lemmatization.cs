@@ -104,7 +104,7 @@ namespace IndexOfPositiveAnalysisService
                     masText = new string[text.Length / 1500 + 1];
                     for (int i = 0; i < masText.Length; i++)
                     {
-                        masText[i] = text.Substring(i * 1500, text.Length - i * 1500 > 1500 ? 1500 : text.Length - i * 1500);
+                        masText[i] = text.Substring(i * 1400, text.Length - i * 1500 > 1500 ? 1500 : text.Length - i * 1500);
                     }
 
                     for (int i = 0; i < masText.Length; i++)

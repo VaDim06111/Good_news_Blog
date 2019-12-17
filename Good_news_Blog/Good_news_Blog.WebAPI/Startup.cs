@@ -16,7 +16,6 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Cors.Internal;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -85,9 +84,12 @@ namespace Good_news_Blog.WebAPI
                     cfg.SaveToken = true;
                     cfg.TokenValidationParameters = new TokenValidationParameters
                     {
+                        ValidateIssuer = true,
                         ValidIssuer = Configuration["JWT:JwtIssuer"],
-                        ValidAudience = Configuration["JWT:JwtIssuer"],
+                        ValidateAudience = true,
+                        ValidAudience = Configuration["JWT:JwtAudience"],
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWT:JwtKey"])),
+                        ValidateIssuerSigningKey = true,
                         ClockSkew = TimeSpan.Zero // remove delay of token when expire
                     };
                 });
@@ -101,6 +103,7 @@ namespace Good_news_Blog.WebAPI
                 });
             });
 
+            //----- Add CORS -----
             services.AddCors();
 
             services.AddMvc()
@@ -135,8 +138,12 @@ namespace Good_news_Blog.WebAPI
             }
 
             //app.UseHttpsRedirection();
-            app.UseCors(builder => 
-                builder.AllowAnyOrigin());
+            app.UseCors(builder => builder
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .AllowCredentials()
+            );
             app.UseAuthentication();
             app.UseStatusCodePages();
             app.UseSwagger();
@@ -156,7 +163,7 @@ namespace Good_news_Blog.WebAPI
             
             RecurringJob.AddOrUpdate(
                 () => service.ParseAllNews(),
-                Cron.Hourly);
+                Cron.Daily);
             
         }
     }

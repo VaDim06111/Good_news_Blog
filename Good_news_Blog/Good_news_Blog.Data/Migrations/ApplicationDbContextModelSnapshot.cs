@@ -30,7 +30,7 @@ namespace Good_news_Blog.Data.Migrations
 
                     b.Property<int>("CountLikes");
 
-                    b.Property<Guid?>("NewsId");
+                    b.Property<Guid>("NewsId");
 
                     b.Property<DateTime>("PubDateTime");
 
@@ -39,8 +39,6 @@ namespace Good_news_Blog.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AuthorId");
-
-                    b.HasIndex("NewsId");
 
                     b.ToTable("Comments");
                 });
@@ -237,10 +235,6 @@ namespace Good_news_Blog.Data.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "Author")
                         .WithMany()
                         .HasForeignKey("AuthorId");
-
-                    b.HasOne("Good_news_Blog.Data.News", "News")
-                        .WithMany()
-                        .HasForeignKey("NewsId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

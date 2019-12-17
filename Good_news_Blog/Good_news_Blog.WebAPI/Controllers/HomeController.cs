@@ -37,7 +37,6 @@ namespace Good_news_Blog.WebAPI.Controllers
                 var countPages = (countNews % pageSize) == 0 ? countNews / pageSize : countNews / pageSize + 1;
 
                 var news = await _mediator.Send(new GetNewsPageQuery(id, pageSize));
-                news = news.OrderByDescending(s => s.DatePublication);
 
                 NewsModel model = new NewsModel()
                 {

@@ -35,69 +35,85 @@ namespace ParseNewsFromTutByUsingCQS
 
         public IEnumerable<News> GetFromUrl()
         {
-            List<News> news = new List<News>();
-
-            XmlReader feedReader = XmlReader.Create(UrlTutByrRss);
-            SyndicationFeed feed = SyndicationFeed.Load(feedReader);
-
-            if (feed != null)
+            try
             {
-                foreach (var article in feed.Items)
+                List<News> news = new List<News>();
+
+                XmlReader feedReader = XmlReader.Create(UrlTutByrRss);
+                SyndicationFeed feed = SyndicationFeed.Load(feedReader);
+
+                if (feed != null)
                 {
-                    var text = GetText(article.Links.FirstOrDefault().Uri.ToString());
-                    if (!string.IsNullOrEmpty(text))
+                    foreach (var article in feed.Items)
                     {
-                        news.Add(new News()
+                        var text = GetText(article.Links.FirstOrDefault().Uri.ToString());
+                        if (!string.IsNullOrEmpty(text))
                         {
-                            Title = article.Title.Text.Replace("&nbsp;", ""),
-                            Description = Regex.Replace(article.Summary.Text, "<.*?>", string.Empty),
-                            Source = article.Links.FirstOrDefault().Uri.ToString(),
-                            DatePublication = article.PublishDate.UtcDateTime,
-                            IndexOfPositive = _lemmatization.GetIndexOfPositive(text).Result,
-                            Text = text
-                        });
+                            news.Add(new News()
+                            {
+                                Title = article.Title.Text.Replace("&nbsp;", ""),
+                                Description = Regex.Replace(article.Summary.Text, "<.*?>", string.Empty),
+                                Source = article.Links.FirstOrDefault().Uri.ToString(),
+                                DatePublication = article.PublishDate.UtcDateTime,
+                                IndexOfPositive = _lemmatization.GetIndexOfPositive(text).Result,
+                                Text = text
+                            });
+                        }
                     }
                 }
-            }
 
-            return news;
+                return news;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+           
         }
 
         public string GetText(string url)
         {
-            var web = new HtmlWeb();
-            var doc = web.Load(url);
-
-            string text = "";
-
-            //var node = doc.DocumentNode.SelectNodes("//html/body/div/div/div/div/div/div/div");
-            var node = doc.DocumentNode.SelectNodes("//html/body/div/div/div/div/div/div/div/div/p");
-
-            if (node != null)
+            try
             {
-                foreach (var item in node)
+                var web = new HtmlWeb();
+                var doc = web.Load(url);
+
+                string text = "";
+
+                //var node = doc.DocumentNode.SelectNodes("//html/body/div/div/div/div/div/div/div");
+                var node = doc.DocumentNode.SelectNodes("//html/body/div/div/div/div/div/div/div/div/p");
+
+                if (node != null)
                 {
-                    if (text == "")
+                    foreach (var item in node)
                     {
-                        text = item.InnerText;
+                        if (text == "")
+                        {
+                            text = item.InnerText;
+                        }
+                        else
+                        {
+                            text += Environment.NewLine + item.InnerText;
+                        }
                     }
-                    else
+
+                    var mas = new string[] { "&ndash; ", "&ndash;", "&mdash; ", "&mdash;", "&nbsp; ", "&nbsp; ", "&nbsp;", "&laquo; ", "&laquo;", "&raquo; ", "&raquo;", "&quot;" };
+
+                    foreach (var item in mas)
                     {
-                        text += Environment.NewLine + item.InnerText;
+                        text = text.Replace(item, " ");
                     }
+
+                    text = text.Replace("  ", " ");
                 }
 
-                var mas = new string[] { "&ndash; ", "&ndash;", "&mdash; ", "&mdash;", "&nbsp; ", "&nbsp; ", "&nbsp;", "&laquo; ", "&laquo;", "&raquo; ", "&raquo;", "&quot;" };
-
-                foreach (var item in mas)
-                {
-                    text = text.Replace(item, " ");
-                }
-
-                text = text.Replace("  ", " ");
+                return text;
             }
-
-            return text;
+            catch (Exception ex)
+            {
+                return null;
+            }
+            
         }
     }
 }

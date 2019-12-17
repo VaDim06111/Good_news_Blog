@@ -35,57 +35,73 @@ namespace ParserNewsFromS13UsingCQS
 
         public IEnumerable<News> GetFromUrl()
         {
-            XmlReader feedReader = XmlReader.Create(urlS13);
-            SyndicationFeed feed = SyndicationFeed.Load(feedReader);
-
-            List<News> news = new List<News>();
-
-            if (feed != null)
+            try
             {
-                foreach (var article in feed.Items)
+                XmlReader feedReader = XmlReader.Create(urlS13);
+                SyndicationFeed feed = SyndicationFeed.Load(feedReader);
+
+                List<News> news = new List<News>();
+
+                if (feed != null)
                 {
-                    var text = GetTextOfNews(article.Links.FirstOrDefault().Uri.ToString());
-                    if (!string.IsNullOrEmpty(text))
+                    foreach (var article in feed.Items)
                     {
-                        news.Add(new News()
+                        var text = GetTextOfNews(article.Links.FirstOrDefault().Uri.ToString());
+                        if (!string.IsNullOrEmpty(text))
                         {
-                            Title = article.Title.Text,
-                            Description = Regex.Replace(article.Summary.Text, "<.*?>", string.Empty),
-                            Source = article.Links.FirstOrDefault().Uri.ToString(),
-                            DatePublication = article.PublishDate.UtcDateTime,
-                            IndexOfPositive = _lemmatization.GetIndexOfPositive(text).Result,
-                            Text = text
-                        });
+                            news.Add(new News()
+                            {
+                                Title = article.Title.Text,
+                                Description = Regex.Replace(article.Summary.Text, "<.*?>", string.Empty),
+                                Source = article.Links.FirstOrDefault().Uri.ToString(),
+                                DatePublication = article.PublishDate.UtcDateTime,
+                                IndexOfPositive = _lemmatization.GetIndexOfPositive(text).Result,
+                                Text = text
+                            });
+                        }
                     }
                 }
-            }
 
-            return news;
+                return news;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+            
         }
 
         public string GetTextOfNews(string url)
         {
-            var web = new HtmlWeb();
-            var doc = web.Load(url);
-
-            var node = doc.DocumentNode.SelectNodes("//html/body/div/div/div/div/ul/li/div/div");
-
-            if (node != null)
+            try
             {
-                var text = node.Skip(1).Take(1).FirstOrDefault().InnerText;
-                var mas = new string[] { "&ndash; ", "&ndash;", "&mdash; ", "&mdash;", "&nbsp; ", "&nbsp; ", "&nbsp;", "&laquo; ", "&laquo;", "&raquo; ", "&raquo;", "&quot;" };
+                var web = new HtmlWeb();
+                var doc = web.Load(url);
 
-                foreach (var item in mas)
+                var node = doc.DocumentNode.SelectNodes("//html/body/div/div/div/div/ul/li/div/div");
+
+                if (node != null)
                 {
-                    text = text.Replace(item, "");
+                    var text = node.Skip(1).Take(1).FirstOrDefault().InnerText;
+                    var mas = new string[] { "&ndash; ", "&ndash;", "&mdash; ", "&mdash;", "&nbsp; ", "&nbsp; ", "&nbsp;", "&laquo; ", "&laquo;", "&raquo; ", "&raquo;", "&quot;" };
+
+                    foreach (var item in mas)
+                    {
+                        text = text.Replace(item, "");
+                    }
+
+                    Regex.Replace(text, "<.*?>", string.Empty);
+
+                    return text;
                 }
 
-                Regex.Replace(text, "<.*?>", string.Empty);
-
-                return text;
+                return null;
             }
-
-            return "";
+            catch (Exception ex)
+            {
+                return null;
+            }
+           
         }
     }
 }

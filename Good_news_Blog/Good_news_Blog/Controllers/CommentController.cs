@@ -41,7 +41,7 @@ namespace Good_news_Blog.Controllers
                     DateTimeKind.Utc),
                 CountDislikes = 0,
                 CountLikes = 0,
-                News = _unitOfWork.News.Where(i => i.Id.Equals(model.Id)).FirstOrDefault()
+                NewsId = model.Id
             };
 
             await _unitOfWork.Comments.AddAsync(comment);
@@ -66,7 +66,7 @@ namespace Good_news_Blog.Controllers
         {
             var news = _unitOfWork.News.Where(p => p.Id.Equals(id)).FirstOrDefault();
             var commentModel = await _unitOfWork.Comments.Include("Author").Include("News").ToListAsync();
-            var comments = commentModel.Where(i => i.News.Id.Equals(id)).OrderByDescending(o => o.PubDateTime);
+            var comments = commentModel.Where(i => i.NewsId.Equals(id)).OrderByDescending(o => o.PubDateTime);
 
             var newsModel = new NewsViewModel()
             {

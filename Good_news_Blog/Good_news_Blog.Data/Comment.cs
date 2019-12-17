@@ -15,6 +15,6 @@ namespace Good_news_Blog.Data
         public int CountLikes { get; set; }
         public int CountDislikes { get; set; }
         public IdentityUser Author { get; set; }
-        public News News { get; set; }
+        public Guid NewsId { get; set; }
     }
 }

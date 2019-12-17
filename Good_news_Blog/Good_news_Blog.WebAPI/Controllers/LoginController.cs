@@ -5,11 +5,10 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
-using Good_news_Blog.WebAPI.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Serilog;
 
@@ -19,13 +18,11 @@ namespace Good_news_Blog.WebAPI.Controllers
     [ApiController]
     public class LoginController : Controller
     {
-        private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly IConfiguration _configuration;
 
-        public LoginController(SignInManager<IdentityUser> signInManager, UserManager<IdentityUser> userManager, IConfiguration configuration)
+        public LoginController( UserManager<IdentityUser> userManager, IConfiguration configuration)
         {
-            _signInManager = signInManager;
             _userManager = userManager;
             _configuration = configuration;
         }
@@ -58,21 +55,13 @@ namespace Good_news_Blog.WebAPI.Controllers
         /// <param name="model"></param>
         /// <returns>GenerateJwtToken(model.Email, appUser)</returns>
         [HttpPost]
-        public async Task<object> Post([FromBody] LoginModel model)
+        public async Task<object> Post( string email, string password)
         {
             try
             {
-                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, false, false);
-
-                if (result.Succeeded)
-                {
-                    Log.Information("Login operation was successfully");
-                    var appUser = _userManager.Users.SingleOrDefault(r => r.Email == model.Email);
-                    return GenerateJwtToken(model.Email, appUser);
-                }
-
-                Log.Information("Login operation was fail");
-                return Task.FromResult(false);
+                var appUser = _userManager.Users.SingleOrDefault(r => r.Email == email);
+                Log.Information("Login operation was successfully");
+                return GenerateJwtToken(email, appUser);
             }
             catch (Exception ex)
             {
@@ -102,11 +91,12 @@ namespace Good_news_Blog.WebAPI.Controllers
 
         private object GenerateJwtToken(string email, IdentityUser user)
         {
+            IdentityModelEventSource.ShowPII = true;
             var claims = new List<Claim>
             {
                 new Claim(JwtRegisteredClaimNames.Sub, email),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new Claim(ClaimTypes.NameIdentifier, user.Id)
+                new Claim("UserId", user.Id)
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:JwtKey"]));
@@ -114,8 +104,8 @@ namespace Good_news_Blog.WebAPI.Controllers
             var expires = DateTime.Now.AddDays(Convert.ToDouble(_configuration["JWT:JwtExpireDays"]));
 
             var token = new JwtSecurityToken(
-                _configuration["JwtIssuer"],
-                _configuration["JwtIssuer"],
+                _configuration["JWT:JwtIssuer"],
+                _configuration["JWT:JwtAudience"],
                 claims,
                 expires: expires,
                 signingCredentials: creds

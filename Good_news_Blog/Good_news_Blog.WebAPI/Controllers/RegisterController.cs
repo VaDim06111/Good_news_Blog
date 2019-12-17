@@ -72,7 +72,6 @@ namespace Good_news_Blog.WebAPI.Controllers
                 {
                     Log.Information("Create user was successfully");
 
-                    await _signInManager.SignInAsync(user, false);
                     Log.Information("SignInAsync was successfully");
 
                     return GenerateJwtToken(model.Email, user);
@@ -113,7 +112,7 @@ namespace Good_news_Blog.WebAPI.Controllers
             {
                 new Claim(JwtRegisteredClaimNames.Sub, email),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new Claim(ClaimTypes.NameIdentifier, user.Id)
+                new Claim("UserId", user.Id)
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:JwtKey"]));

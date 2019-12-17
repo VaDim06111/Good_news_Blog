@@ -41,7 +41,6 @@ namespace Good_news_Blog.WebAPI.Controllers
             {
                 var news = await _mediator.Send(new GetNewsByIdQuery(id));
                 var comments = await _mediator.Send(new GetCommentModelQuery(id));
-                comments = comments.OrderByDescending(o => o.PubDateTime);
 
                 var newsModel = new NewsViewModel()
                 {
@@ -72,7 +71,9 @@ namespace Good_news_Blog.WebAPI.Controllers
         {
             try
             {
-                var author = _userManager.FindByIdAsync(User.FindFirst(ClaimTypes.NameIdentifier).Value).Result;
+                var author = await  _userManager.FindByIdAsync(User.FindFirst("UserId").Value);
+                //User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value
+
 
                 var comment = new Comment()
                 {
@@ -83,7 +84,7 @@ namespace Good_news_Blog.WebAPI.Controllers
                         DateTimeKind.Utc),
                     CountDislikes = 0,
                     CountLikes = 0,
-                    News = await _mediator.Send(new GetNewsByIdQuery(id))
+                    NewsId = id
                 };
 
                 await _mediator.Send(new AddCommentCommand(comment));

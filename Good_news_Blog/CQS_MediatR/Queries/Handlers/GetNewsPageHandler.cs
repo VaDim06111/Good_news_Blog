@@ -22,7 +22,8 @@ namespace CQS_MediatR.Queries.Handlers
 
         public async Task<IEnumerable<News>> Handle(GetNewsPageQuery request, CancellationToken cancellationToken)
         {
-            var result = await _context.News.Skip((request.PageNumber - 1) * request.PageSize)
+            var result = await _context.News.OrderByDescending(r => r.DatePublication)
+                .Skip((request.PageNumber - 1) * request.PageSize)
                 .Take(request.PageSize)
                 .ToListAsync(cancellationToken);
 

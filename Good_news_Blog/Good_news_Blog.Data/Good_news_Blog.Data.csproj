@@ -251,6 +251,10 @@
     <Compile Include="Migrations\20191203165039_ChangeTypeOfIndex.designer.cs">
       <DependentUpon>20191203165039_ChangeTypeOfIndex.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\20191217071342_ChangeFieldNewsToNewsId.cs" />
+    <Compile Include="Migrations\20191217071342_ChangeFieldNewsToNewsId.designer.cs">
+      <DependentUpon>20191217071342_ChangeFieldNewsToNewsId.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\ApplicationDbContextModelSnapshot.cs" />
     <Compile Include="News.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

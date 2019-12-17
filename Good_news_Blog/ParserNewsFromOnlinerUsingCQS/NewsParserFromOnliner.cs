@@ -36,55 +36,71 @@ namespace ParserNewsFromOnlinerUsingCQS
 
         public IEnumerable<News> GetFromUrl()
         {
-            List<News> news = new List<News>();
-
-            XmlReader feedReader = XmlReader.Create(UrlOnlinerRss);
-            SyndicationFeed feed = SyndicationFeed.Load(feedReader);
-
-            if (feed != null)
+            try
             {
-                foreach (var article in feed.Items)
-                {
-                    var text = GetText(article.Links.FirstOrDefault().Uri.ToString());
-                    news.Add(new News()
-                    {
-                        Title = article.Title.Text.Replace("&nbsp;", ""),
-                        Description = Regex.Replace(article.Summary.Text, "<.*?>", string.Empty),
-                        Source = article.Links.FirstOrDefault().Uri.ToString(),
-                        DatePublication = article.PublishDate.UtcDateTime,
-                        IndexOfPositive = _lemmatization.GetIndexOfPositive(text).Result,
-                        Text = text
-                    });
-                }
-            }
+                List<News> news = new List<News>();
 
-            return news;
+                XmlReader feedReader = XmlReader.Create(UrlOnlinerRss);
+                SyndicationFeed feed = SyndicationFeed.Load(feedReader);
+
+                if (feed != null)
+                {
+                    foreach (var article in feed.Items)
+                    {
+                        var text = GetText(article.Links.FirstOrDefault().Uri.ToString());
+                        news.Add(new News()
+                        {
+                            Title = article.Title.Text.Replace("&nbsp;", ""),
+                            Description = Regex.Replace(article.Summary.Text, "<.*?>", string.Empty),
+                            Source = article.Links.FirstOrDefault().Uri.ToString(),
+                            DatePublication = article.PublishDate.UtcDateTime,
+                            IndexOfPositive = _lemmatization.GetIndexOfPositive(text).Result,
+                            Text = text
+                        });
+                    }
+                }
+
+                return news;
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+           
         }
 
         public string GetText(string url)
         {
-            var web = new HtmlWeb();
-            var doc = web.Load(url);
-
-            string text = "";
-
-            var node = doc.DocumentNode.SelectNodes("//html/body/div/div/div/div/div/div/div/div/div/div/div/div/div/div/p");
-
-            foreach (var item in node)
+            try
             {
-                if (text == "")
+                var web = new HtmlWeb();
+                var doc = web.Load(url);
+
+                string text = "";
+
+                var node = doc.DocumentNode.SelectNodes("//html/body/div/div/div/div/div/div/div/div/div/div/div/div/div/div/p");
+
+                foreach (var item in node)
                 {
-                    text = item.InnerText;
+                    if (text == "")
+                    {
+                        text = item.InnerText;
+                    }
+                    else
+                    {
+                        text += Environment.NewLine + item.InnerText;
+                    }
                 }
-                else
-                {
-                    text += Environment.NewLine + item.InnerText;
-                }
+
+                text = text.Replace("  ", "");
+
+                return text;
             }
-
-            text = text.Replace("  ", "");
-
-            return text;
+            catch (Exception ex)
+            {
+                return null;
+            }
+           
         }
     }
 }
