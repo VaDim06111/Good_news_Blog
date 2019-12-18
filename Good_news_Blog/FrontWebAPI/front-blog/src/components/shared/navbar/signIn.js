@@ -50,7 +50,7 @@ class SignIn extends React.Component {
 
 
     render() {
-        const { isAuthorize } = this.state;
+        const { isAuthorize, currentUser } = this.state;
 
         if(isAuthorize) {
             return (
@@ -58,11 +58,11 @@ class SignIn extends React.Component {
                     <MDBNavItem>
                             <MDBDropdown>
                                 <MDBDropdownToggle outline caret color="light">
-                                    authorize
+                                    {currentUser.userName}
                                 </MDBDropdownToggle>
-                                <MDBDropdownMenu basic>                             
+                                <MDBDropdownMenu  basic >                             
                                 <a href="#!" style={{margin:'0', padding:'0'}}><MDBDropdownItem>Мой профиль</MDBDropdownItem></a>
-                                <a href="#!" onClick={this.logout} style={{margin:'0', padding:'0'}}><MDBDropdownItem>Выход</MDBDropdownItem></a>
+                                <MDBDropdownItem  onClick={this.logout}>Выход</MDBDropdownItem>
                                 </MDBDropdownMenu>
                             </MDBDropdown>
                     </MDBNavItem>
