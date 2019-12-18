@@ -41,7 +41,7 @@ import { MDBContainer,
                           <br/>
                       </div>
                       <div className="col-md-2">
-                          <h5 className="text-md-right">Contact Us</h5>
+                          <h5 className="text-md-right">Напишите нам</h5>
                           <hr/>
                       </div>
                       <div className="col-md-5 pb-2">

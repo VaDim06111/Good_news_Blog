@@ -9,9 +9,9 @@ import ReadNewsPage from '../pages/readNews';
 const Routes = () => (
     <main>
       <Switch>
-        <Route exact path='/' component={App}/>
-        <Route path='/login' component={SignInPage}/>
-        <Route path='/register' component={SignUpPage}/>
+        <Route exact path='/' component={App}/>      
+        <Route path='/login' component={SignInPage}/>   
+        <Route path='/register' component={SignUpPage}/>    
         <Route path='/:id' component={ReadNewsPage} />
       </Switch>
     </main>

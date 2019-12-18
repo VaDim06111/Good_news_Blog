@@ -6,6 +6,7 @@ import NavbarComponent from './components/shared/navbar/navbar';
 import CardDeck from './components/cardDeck';
 import PaginationComponent from './components/pagination';
 import FooterComponent from './components/shared/footer/footer';
+import { authenticationService } from './services/authenticationService';
 
 import Lottie from 'react-lottie';
 import animationDataLoad from './assets/lego-loader.json';
@@ -20,7 +21,8 @@ class App extends React.Component {
           isLoaded: false,
           page: 1,
           total: null,
-          items: []
+          items: [],
+          currentUser: authenticationService.currentUser
         };
       }
 
