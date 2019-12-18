@@ -50,10 +50,11 @@ namespace Good_news_Blog.WebAPI.Controllers
         }
 
         /// <summary>
-        /// POST api/login
+        /// Post api/login
         /// </summary>
-        /// <param name="model"></param>
-        /// <returns>GenerateJwtToken(model.Email, appUser)</returns>
+        /// <param name="email"></param>
+        /// <param name="password"></param>
+        /// <returns>Ok(new{id = appUser.Id, userName = appUser.UserName, email = appUser.Email,token = GenerateJwtToken(email, appUser)})</returns>
         [HttpPost]
         public async Task<object> Post( string email, string password)
         {
@@ -61,7 +62,13 @@ namespace Good_news_Blog.WebAPI.Controllers
             {
                 var appUser = _userManager.Users.SingleOrDefault(r => r.Email == email);
                 Log.Information("Login operation was successfully");
-                return GenerateJwtToken(email, appUser);
+                return Ok(new
+                {
+                    id = appUser.Id, 
+                    userName = appUser.UserName, 
+                    email = appUser.Email,
+                    token = GenerateJwtToken(email, appUser)
+                });
             }
             catch (Exception ex)
             {

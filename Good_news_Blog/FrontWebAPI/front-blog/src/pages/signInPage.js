@@ -16,20 +16,23 @@ class SignInPage extends React.Component {
         this.state = {
             redirect: false
         }
+        this.submitHandler = this.submitHandler.bind(this);
     }
 
     submitHandler = event => {
         event.preventDefault();
         event.target.className += " was-validated";
 
-        authenticationService.login(this.loginInput.value, this.passwordInput.value)
-                            .then(
-                                user => {
-                                    this.setState({
-                                       redirect: true
-                                    })
-                                }
-                            );
+        let email = this.loginInput.state.innerValue;
+        let password = this.passwordInput.state.innerValue;
+        authenticationService.login(email, password)
+            .then(
+                user => {
+                    this.setState({
+                        redirect: true
+                    })
+                }
+            );
     };
 
     changeHandler = event => {
