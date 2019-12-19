@@ -65,7 +65,7 @@ namespace Good_news_Blog.Controllers
         public async Task<IActionResult> _GetComments(Guid id)
         {
             var news = _unitOfWork.News.Where(p => p.Id.Equals(id)).FirstOrDefault();
-            var commentModel = await _unitOfWork.Comments.Include("Author").Include("News").ToListAsync();
+            var commentModel = await _unitOfWork.Comments.Include("Author").ToListAsync();
             var comments = commentModel.Where(i => i.NewsId.Equals(id)).OrderByDescending(o => o.PubDateTime);
 
             var newsModel = new NewsViewModel()

@@ -30,7 +30,7 @@ namespace Good_news_Blog.WebAPI.Controllers
         }
 
         /// <summary>
-        /// GET api/comment
+        /// GET api/comment/id
         /// </summary>
         /// <param name="id"></param>
         /// <returns>Ok(newsModel)</returns>
@@ -67,12 +67,11 @@ namespace Good_news_Blog.WebAPI.Controllers
         /// <returns>Ok(comment)</returns>
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> Post([FromBody] string text, Guid id)
+        public async Task<IActionResult> Post( string email, Guid id, [FromBody] string text)
         {
             try
             {
-                var author = await  _userManager.FindByIdAsync(User.FindFirst("UserId").Value);
-                //User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value
+                var author = await _userManager.FindByEmailAsync(email);
 
 
                 var comment = new Comment()

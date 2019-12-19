@@ -5,6 +5,7 @@ import NavbarMain from '../components/shared/navbar/navbarMain';
 import Footer from '../components/shared/footer/footer';
 import CommentBlock from '../components/commentBlock';
 import { authenticationService } from '../services/authenticationService';
+import { handleResponse } from '../helpers/handleResponce';
 
 import Lottie from 'react-lottie';
 import animationDataLoad from '../assets/lego-loader.json';
@@ -32,37 +33,65 @@ class ReadNewsPage extends React.Component {
             isLoaded: false,
             news: null,
             comments: [],
-            currentUser: authenticationService.currentUserValue
+            currentUser: authenticationService.currentUserValue,
         }
+        this.sendComment = this.sendComment.bind(this)
     }
     
     
-    async componentDidMount() {
-        const { id } = this.props.match.params;
+    componentDidMount() {
+        this.fetchData();
+    }
 
-        await fetch(`https://localhost:44308/api/comment/${id}`)
-        .then(res => res.json())
-        .then(
-          (result) => {
-            this.setState({
-              isLoaded: true,
-              news : result.news,
-              comments: result.comments
-            });
-          },
-          (error) => {
-            this.setState({
-              isLoaded: true,
-              error
-            })
-          }
-        );
+     fetchData() {
+      const { id } = this.props.match.params;
+
+      fetch(`https://localhost:44308/api/comment/${id}`)
+      .then(res => res.json())
+      .then(
+        (result) => {
+          this.setState({
+            isLoaded: true,
+            news : result.news,
+            comments: result.comments
+          });
+        },
+        (error) => {
+          this.setState({
+            isLoaded: true,
+            error
+          })
+        }
+      );
     }
 
     updateState = (value) => {
       this.setState({
         currentUser: value
       })
+    }
+
+     sendComment() {
+      const { currentUser } = this.state;
+      const { id } = this.props.match.params;
+      const textComment = this.commentInput.state.innerValue;
+      const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json',
+                Authorization: `Bearer ${currentUser.token}`
+       },
+       body: JSON.stringify(textComment)
+    };
+      
+      fetch(`https://localhost:44308/api/comment?email=${currentUser.email}&id=${id}`, requestOptions)
+        .then(handleResponse);
+      this.commentInput.setState({
+        innerValue: ''
+      })
+
+        //----- Починить моментальное обновление(при первом обновлении не видит новый комментарий) -----
+       this.fetchData();
+       this.fetchData();
     }
 
     render() {
@@ -146,7 +175,7 @@ class ReadNewsPage extends React.Component {
                     </MDBCardHeader>
                     <CommentBlock comments={comments} />
                     <div className="form-group mt-4">
-                      <MDBInput 
+                      <MDBInput id='commentInput'
                             label="Ваше сообщение"
                             size="lg"
                             rows="1"
@@ -155,13 +184,13 @@ class ReadNewsPage extends React.Component {
                             validate
                             error="wrong"
                             success="right"
+                            ref={ref => this.commentInput = ref}
                         />
                     <div className="text-center my-4">
-                      <MDBBtn size="lg" className={currentUser ? '' : 'disabled'}>Отправить</MDBBtn>
+                      <MDBBtn onClick={() => this.sendComment()} size="lg" className={currentUser ? '' : 'disabled'}>Отправить</MDBBtn>
                     </div>
                   </div>
-                </MDBContainer> 
-                
+                </MDBContainer>          
                 <Footer />          
             </BrowserRouter>
         )

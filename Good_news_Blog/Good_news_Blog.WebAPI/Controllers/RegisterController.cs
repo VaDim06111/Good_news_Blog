@@ -5,7 +5,6 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
-using Good_news_Blog.WebAPI.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -57,24 +56,33 @@ namespace Good_news_Blog.WebAPI.Controllers
         /// <param name="model"></param>
         /// <returns>GenerateJwtToken(model.Email, user)</returns>
         [HttpPost]
-        public async Task<object> Post([FromBody] RegisterModel model)
+        public async Task<object> Post(string userName, string email, [FromBody] string password)
         {
             try
             {
                 var user = new IdentityUser
                 {
-                    UserName = model.Email,
-                    Email = model.Email
+                    UserName = userName,
+                    Email = email
                 };
-                var result = await _userManager.CreateAsync(user, model.Password);
+                var result = await _userManager.CreateAsync(user, password);
 
                 if (result.Succeeded)
                 {
+                    await _userManager.AddToRoleAsync(user, "user");
+
                     Log.Information("Create user was successfully");
 
                     Log.Information("SignInAsync was successfully");
 
-                    return GenerateJwtToken(model.Email, user);
+                    return Ok(new
+                    {
+                        id = user.Id,
+                        userName = user.UserName,
+                        email = user.Email,
+                        //roles = await _userManager.GetRolesAsync(user),
+                        token = GenerateJwtToken(email, user)
+                    });
                 }
 
                 Log.Error("SignInAsync was fail");
@@ -83,7 +91,7 @@ namespace Good_news_Blog.WebAPI.Controllers
             catch (Exception ex)
             {
                 Log.Error($"SignInAsync was fail with exception: {ex.Message}");
-                return Task.FromResult(false);
+                return null;
             }
         }
 

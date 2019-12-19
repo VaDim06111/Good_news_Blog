@@ -54,14 +54,14 @@ class SignInPage extends React.Component {
             return(
                 <BrowserRouter>
                 <NavbarMain />
-                <div className="purple lighten-2 mt-0 pt-0" style = {{height:"61.1vh"}}>
+                <div className="purple lighten-2 mt-0 pt-0" style = {{height:"64.6vh"}}>
                 <MDBContainer>
                             <MDBRow className="text-white">
                                 <MDBCol md="6" className="mx-auto" style={{marginTop:'20%'}}>
-                                <form className="needs-validation" onSubmit={this.submitHandler} noValidate>
+                                <form onSubmit={this.submitHandler} >
                                     <p className="h5 text-center mb-4">Войти</p>
                                     <div className="grey-text">
-                                    <MDBInput className={'text-white' + (error ? ' is-invalid' : '')} id="loginInput" name="login"
+                                    <MDBInput className="text-white" id='loginInput'
                                         label="Ваш email"
                                         labelClass="text-white"
                                         icon="envelope"
@@ -69,9 +69,9 @@ class SignInPage extends React.Component {
                                         group
                                         type="email"
                                         validate
-                                        required
-                                        
-                                        ref={ ref => this.loginInput = ref}
+                                        error="wrong"
+                                        success="right"
+                                        ref={ref => this.loginInput = ref}
                                     />
                                     <MDBInput className={'text-white' + (error ? ' is-invalid' : '')} id="passwordInput" name="password"
                                         label="Ваш пароль"
@@ -82,7 +82,6 @@ class SignInPage extends React.Component {
                                         type="password"
                                         validate
                                         required
-                                       
                                         ref={ ref => this.passwordInput = ref}
                                     />
                                     </div>

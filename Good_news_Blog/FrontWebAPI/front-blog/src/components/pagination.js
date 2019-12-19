@@ -49,7 +49,7 @@ import AnchorLink from 'react-anchor-link-smooth-scroll';
 
             return(
                 <MDBPagination className="justify-content-center" size='lg' color="teal">
-                    <MDBPageItem disabled>
+                    <MDBPageItem className={page > 1 ? '' : 'disabled'}>
                         <AnchorLink href='#news'>
                             <MDBPageNav onClick={() => this.props.updateData(page - 1)} aria-label="Previous">
                                 <span aria-hidden="true">&laquo;</span>
