@@ -43,6 +43,7 @@ class SignIn extends React.Component {
 
     logout() {
         authenticationService.logout();
+        this.props.updateState(authenticationService.currentUserValue);
         this.setState({
             isAuthorize: false
         })

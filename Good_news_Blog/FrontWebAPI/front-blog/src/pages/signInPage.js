@@ -3,7 +3,8 @@ import { MDBContainer,
     MDBRow, 
     MDBCol, 
     MDBInput, 
-    MDBBtn } from 'mdbreact';
+    MDBBtn, 
+    MDBAlert} from 'mdbreact';
 import { BrowserRouter, Redirect } from 'react-router-dom';
 import NavbarMain from '../components/shared/navbar/navbarMain';
 import Footer from '../components/shared/footer/footer';
@@ -14,7 +15,8 @@ class SignInPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            redirect: false
+            redirect: false,
+            error: false
         }
         this.submitHandler = this.submitHandler.bind(this);
     }
@@ -26,21 +28,25 @@ class SignInPage extends React.Component {
         let email = this.loginInput.state.innerValue;
         let password = this.passwordInput.state.innerValue;
         authenticationService.login(email, password)
-            .then(
-                user => {
-                    this.setState({
-                        redirect: true
-                    })
+            .then( 
+                (user) => {
+                    if(user !== null) {
+                        this.setState({
+                            redirect: true
+                        })
+                    } else {
+                        this.setState({
+                            error: true
+                        })
+                    }
+                   
                 }
             );
     };
 
-    changeHandler = event => {
-        this.setState({ [event.target.name]: event.target.value });
-    };
 
     render() {
-        const { redirect } = this.state;
+        const { redirect, error } = this.state;
 
         if(redirect) {
             return <Redirect to="/" />;
@@ -55,7 +61,7 @@ class SignInPage extends React.Component {
                                 <form className="needs-validation" onSubmit={this.submitHandler} noValidate>
                                     <p className="h5 text-center mb-4">Войти</p>
                                     <div className="grey-text">
-                                    <MDBInput className="text-white" id="loginInput" name="login"
+                                    <MDBInput className={'text-white' + (error ? ' is-invalid' : '')} id="loginInput" name="login"
                                         label="Ваш email"
                                         labelClass="text-white"
                                         icon="envelope"
@@ -64,10 +70,10 @@ class SignInPage extends React.Component {
                                         type="email"
                                         validate
                                         required
-                                        onChange={this.changeHandler}
+                                        
                                         ref={ ref => this.loginInput = ref}
                                     />
-                                    <MDBInput className="text-white" id="passwordInput" name="password"
+                                    <MDBInput className={'text-white' + (error ? ' is-invalid' : '')} id="passwordInput" name="password"
                                         label="Ваш пароль"
                                         labelClass="text-white"
                                         icon="lock"
@@ -76,10 +82,11 @@ class SignInPage extends React.Component {
                                         type="password"
                                         validate
                                         required
-                                        onChange={this.changeHandler}
+                                       
                                         ref={ ref => this.passwordInput = ref}
                                     />
                                     </div>
+                                    <MDBAlert  color='danger' className={error ? '' : ' sr-only'} dismiss>Проверьте правильность введённых данных</MDBAlert>
                                     <div className="text-center">
                                     <MDBBtn type="submit" >Войти</MDBBtn>
                                     </div>
@@ -92,8 +99,10 @@ class SignInPage extends React.Component {
                 </BrowserRouter>     
             )
         }
+            
+        }
         
     }
-}
+
 
 export default SignInPage;

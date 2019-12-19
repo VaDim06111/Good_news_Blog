@@ -4,6 +4,7 @@ import { BrowserRouter} from 'react-router-dom';
 import NavbarMain from '../components/shared/navbar/navbarMain';
 import Footer from '../components/shared/footer/footer';
 import CommentBlock from '../components/commentBlock';
+import { authenticationService } from '../services/authenticationService';
 
 import Lottie from 'react-lottie';
 import animationDataLoad from '../assets/lego-loader.json';
@@ -30,7 +31,8 @@ class ReadNewsPage extends React.Component {
             error: null,
             isLoaded: false,
             news: null,
-            comments: []
+            comments: [],
+            currentUser: authenticationService.currentUserValue
         }
     }
     
@@ -57,8 +59,14 @@ class ReadNewsPage extends React.Component {
         );
     }
 
+    updateState = (value) => {
+      this.setState({
+        currentUser: value
+      })
+    }
+
     render() {
-      const { error, isLoaded, news, comments } = this.state;
+      const { error, isLoaded, news, comments, currentUser } = this.state;
 
       const defaultOptionsLoad = {
         loop: true,
@@ -103,7 +111,7 @@ class ReadNewsPage extends React.Component {
     } else {
         return(
             <BrowserRouter>
-                <NavbarMain />
+                <NavbarMain updateState={this.updateState}/>
                 <MDBRow>
                   <MDBCol className="justify-content-center">
                     <MDBView hover cascade zoom>
@@ -149,7 +157,7 @@ class ReadNewsPage extends React.Component {
                             success="right"
                         />
                     <div className="text-center my-4">
-                      <MDBBtn size="lg">Отправить</MDBBtn>
+                      <MDBBtn size="lg" className={currentUser ? '' : 'disabled'}>Отправить</MDBBtn>
                     </div>
                   </div>
                 </MDBContainer> 

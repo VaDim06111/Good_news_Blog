@@ -19,12 +19,14 @@ namespace Good_news_Blog.WebAPI.Controllers
     public class LoginController : Controller
     {
         private readonly UserManager<IdentityUser> _userManager;
+        private readonly SignInManager<IdentityUser> _signInManager;
         private readonly IConfiguration _configuration;
 
-        public LoginController( UserManager<IdentityUser> userManager, IConfiguration configuration)
+        public LoginController( UserManager<IdentityUser> userManager, IConfiguration configuration, SignInManager<IdentityUser> signInManager)
         {
             _userManager = userManager;
             _configuration = configuration;
+            _signInManager = signInManager;
         }
 
         /// <summary>
@@ -60,20 +62,31 @@ namespace Good_news_Blog.WebAPI.Controllers
         {
             try
             {
-                var appUser = _userManager.Users.SingleOrDefault(r => r.Email == email);
-                Log.Information("Login operation was successfully");
-                return Ok(new
+                var user = await  _userManager.FindByEmailAsync(email);
+
+               
+                var result = await _signInManager.PasswordSignInAsync(user.UserName, password, false, true);
+
+                if (result.Succeeded)
                 {
-                    id = appUser.Id, 
-                    userName = appUser.UserName, 
-                    email = appUser.Email,
-                    token = GenerateJwtToken(email, appUser)
-                });
+                    Log.Information("Login operation was successfully");
+                    return Ok(new
+                    {
+                        id = user.Id,
+                        userName = user.UserName,
+                        email = user.Email,
+                        token = GenerateJwtToken(email, user)
+                    });
+                }
+                
+                Log.Error($"Login operation was fail: user not found");
+                return null;
+                
             }
             catch (Exception ex)
             {
                 Log.Error($"Login operation was fail with exception: {ex.Message}");
-                return Task.FromResult(false);
+                return null;
             }
         }
 

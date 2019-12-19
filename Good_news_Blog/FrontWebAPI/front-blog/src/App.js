@@ -46,8 +46,31 @@ class App extends React.Component {
         );
     }
 
+    async componentDidUpdate(props) {
+      if(this.props.page !== props.page) {
+        await fetch(`https://localhost:44308/api/home/${this.state.page}`)
+        .then(res => res.json())
+        .then(
+          (result) => {
+            this.setState({
+              isLoaded: true,
+              items : result.news,
+              total: result.countPages
+            });
+          },
+          (error) => {
+            this.setState({
+              isLoaded: true,
+              error
+            })
+          }
+        );
+      }
+    }
+
     updateData = (value) => {
-        this.setState({ page: value })
+        this.setState({ 
+          page: value })
      }
 
     render() {
