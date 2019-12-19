@@ -142,7 +142,7 @@ class ReadNewsPage extends React.Component {
                 </MDBRow> 
                 <MDBContainer className="mt-5 mb-5">             
                     <MDBCardHeader className="border-0 font-weight-bold">
-                      <p className="mr-4 mb-0">{comments.length} comments</p>
+                      <p className="mr-4 mb-0">{comments.length} комментариев</p>
                     </MDBCardHeader>
                     <CommentBlock comments={comments} />
                     <div className="form-group mt-4">

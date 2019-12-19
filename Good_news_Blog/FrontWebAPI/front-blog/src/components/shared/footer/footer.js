@@ -50,7 +50,7 @@ import { MDBContainer,
                                     label="Ваш email"
                                     labelClass="text-white"
                                     icon="at"
-                                    size="lg"
+                                    size="sm"
                                     group
                                     type="email"
                                     validate
@@ -61,7 +61,7 @@ import { MDBContainer,
                                     label="Сообщение"
                                     labelClass="text-white"
                                     icon="envelope"
-                                    size="lg"
+                                    size="sm"
                                     rows="1"
                                     group
                                     type="textarea"

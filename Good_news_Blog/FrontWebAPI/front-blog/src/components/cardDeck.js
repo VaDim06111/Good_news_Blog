@@ -17,6 +17,14 @@ class CardDeck extends React.Component {
         };
       }
 
+      componentDidUpdate(prevProps) {
+        if(this.props !== prevProps) {
+            this.setState({
+                items: this.props.items
+          })
+        }
+    }
+
     render() {
       const { items } = this.state;
         return(

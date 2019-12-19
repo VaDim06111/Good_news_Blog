@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter} from 'react-router-dom';
 
-
 import NavbarComponent from './components/shared/navbar/navbar';
 import CardDeck from './components/cardDeck';
 import PaginationComponent from './components/pagination';
@@ -24,54 +23,45 @@ class App extends React.Component {
           items: [],
           currentUser: authenticationService.currentUser
         };
+       this.updateData = this.updateData.bind(this);
       }
 
       async componentDidMount() {
-        await fetch(`https://localhost:44308/api/home/${this.state.page}`)
-        .then(res => res.json())
-        .then(
-          (result) => {
-            this.setState({
-              isLoaded: true,
-              items : result.news,
-              total: result.countPages
-            });
-          },
-          (error) => {
-            this.setState({
-              isLoaded: true,
-              error
-            })
-          }
-        );
-    }
-
-    async componentDidUpdate(props) {
-      if(this.props.page !== props.page) {
-        await fetch(`https://localhost:44308/api/home/${this.state.page}`)
-        .then(res => res.json())
-        .then(
-          (result) => {
-            this.setState({
-              isLoaded: true,
-              items : result.news,
-              total: result.countPages
-            });
-          },
-          (error) => {
-            this.setState({
-              isLoaded: true,
-              error
-            })
-          }
-        );
+        await this.fetchData(this.state.page);
       }
+
+     async fetchData(value) {
+     fetch(`https://localhost:44308/api/home/${value}`)
+      .then(res => res.json())
+      .then(
+        (result) => {
+          this.setState({
+            isLoaded: true,
+            items : result.news,
+            total: result.countPages
+          });
+        },
+        (error) => {
+          this.setState({
+            isLoaded: true,
+            error
+          })
+        }
+      );
     }
 
     updateData = (value) => {
         this.setState({ 
-          page: value })
+          page: value
+        })
+        this.fetchData(value);
      }
+
+     updateState = (value) => {
+      this.setState({
+        currentUser: value
+      })
+    }
 
     render() {
         const { error, isLoaded, items, page, total } = this.state;
@@ -106,7 +96,7 @@ class App extends React.Component {
         } else {
             return(
                 <BrowserRouter>
-                    <NavbarComponent />
+                    <NavbarComponent updateState={this.updateState}/>
                     <CardDeck items={items}/>
                     <PaginationComponent page={page} total={total} updateData={this.updateData} />
                     <FooterComponent />

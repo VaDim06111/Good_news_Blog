@@ -50,7 +50,7 @@ return (
               <a href="#!"><MDBBtn outline color="white">Панель администратора</MDBBtn></a>               
               </MDBNavItem>
             </MDBNavbarNav>
-            <SignIn />
+            <SignIn updateState={this.props.updateState}/>
           </MDBCollapse>
         </MDBContainer>
       </MDBNavbar>

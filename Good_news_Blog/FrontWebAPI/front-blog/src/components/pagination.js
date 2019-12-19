@@ -2,6 +2,7 @@ import React from "react";
 import { MDBPagination, 
     MDBPageItem, 
     MDBPageNav } from "mdbreact";
+import AnchorLink from 'react-anchor-link-smooth-scroll'; 
 
     class PaginationComponent extends React.Component {
 
@@ -13,6 +14,16 @@ import { MDBPagination,
             };
           }
  
+
+        componentDidUpdate(prevProps) {
+            if(this.props !== prevProps) {
+                this.setState({
+                    page: this.props.page,
+                    total: this.props.total
+                })
+            }
+        }
+
         render() {
             const { page, total } = this.state;
 
@@ -26,9 +37,11 @@ import { MDBPagination,
                     pageNumbers.map(number => {   
                         return (
                           <MDBPageItem key={number} active={page === number} >
-                                <MDBPageNav onClick={() => this.props.updateData(number)}>
-                                    {number}
-                                </MDBPageNav>
+                                <AnchorLink href='#news'>
+                                    <MDBPageNav onClick={() => this.props.updateData(number)}>
+                                        {number}
+                                    </MDBPageNav>
+                                </AnchorLink>
                             </MDBPageItem>
                         );
                       }));
@@ -37,16 +50,20 @@ import { MDBPagination,
             return(
                 <MDBPagination className="justify-content-center" size='lg' color="teal">
                     <MDBPageItem disabled>
-                        <MDBPageNav onClick={() => this.props.updateData(page - 1)} aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                            <span className="sr-only">Previous</span>
-                     </MDBPageNav>
+                        <AnchorLink href='#news'>
+                            <MDBPageNav onClick={() => this.props.updateData(page - 1)} aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                                <span className="sr-only">Previous</span>
+                            </MDBPageNav>
+                        </AnchorLink>
                     </MDBPageItem>
                     <RenderPages />
                     <MDBPageItem>
-                    <MDBPageNav onClick={() => this.props.updateData(page + 1)}>
-                        &raquo;
-                    </MDBPageNav>
+                        <AnchorLink href='#news'>
+                            <MDBPageNav onClick={() => this.props.updateData(page + 1)}>
+                                &raquo;
+                            </MDBPageNav>
+                        </AnchorLink>
                     </MDBPageItem>
                 </MDBPagination>
             )
