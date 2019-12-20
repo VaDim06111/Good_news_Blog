@@ -16,10 +16,12 @@ import { MDBNavbar,
 import AnchorLink from 'react-anchor-link-smooth-scroll';   
 import "./navbar.css";
 import SignIn from "./signIn";
+import { authenticationService } from '../../../services/authenticationService';
 
 class NavbarComponent extends React.Component {
 state = {
-collapseID: ""
+collapseID: "",
+currentUser: authenticationService.currentUserValue
 };
 
 toggleCollapse = collapseID => () =>
@@ -27,10 +29,20 @@ this.setState(prevState => ({
 collapseID: prevState.collapseID !== collapseID ? collapseID : ""
 }));
 
+componentDidUpdate(prevProps) {
+  if(this.props !== prevProps) {
+    this.setState({
+      currentUser: authenticationService.currentUserValue
+    })
+  }
+}
 render() {
 const overlay = (
 <div id="sidenav-overlay" style={{ backgroundColor: "transparent" }} onClick={this.toggleCollapse("navbarCollapse")} />
 );
+
+const admin = (element) => element === 'admin';
+
 return (
 <div id="videobackground">
   <BrowserRouter>
@@ -43,10 +55,7 @@ return (
           <MDBNavbarToggler onClick={this.toggleCollapse("navbarCollapse")} />
           <MDBCollapse id="navbarCollapse" isOpen={this.state.collapseID} navbar>
             <MDBNavbarNav left>
-              <MDBNavItem className="m-1">
-                <a href="/"><MDBBtn outline color="white">Новости</MDBBtn></a>             
-              </MDBNavItem>
-              <MDBNavItem className="m-1">
+              <MDBNavItem className={'m-1' + (this.state.currentUser !== null && this.state.currentUser.roles.some(admin) ? '' : ' sr-only')}>
               <a href="#!"><MDBBtn outline color="white">Панель администратора</MDBBtn></a>               
               </MDBNavItem>
             </MDBNavbarNav>

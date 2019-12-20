@@ -75,7 +75,7 @@ namespace Good_news_Blog.WebAPI.Controllers
                         id = user.Id,
                         userName = user.UserName,
                         email = user.Email,
-                        //roles = await _userManager.GetRolesAsync(user),
+                        roles = await _userManager.GetRolesAsync(user),
                         token = GenerateJwtToken(email, user)
                     });
                 }

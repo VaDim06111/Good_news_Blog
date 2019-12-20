@@ -33,7 +33,7 @@ class ReadNewsPage extends React.Component {
             isLoaded: false,
             news: null,
             comments: [],
-            currentUser: authenticationService.currentUserValue,
+            currentUser: authenticationService.currentUserValue 
         }
         this.sendComment = this.sendComment.bind(this)
     }
