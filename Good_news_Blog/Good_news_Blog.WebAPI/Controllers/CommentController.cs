@@ -90,7 +90,9 @@ namespace Good_news_Blog.WebAPI.Controllers
 
                 Log.Information("Post new comment  was successfully");
 
-                return StatusCode(201, comment);
+                var result = await _mediator.Send(new GetCommentModelQuery(id));
+
+                return StatusCode(201, result);
             }
             catch (Exception ex)
             {

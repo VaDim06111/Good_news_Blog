@@ -84,14 +84,21 @@ class ReadNewsPage extends React.Component {
     };
       
       fetch(`https://localhost:44308/api/comment?email=${currentUser.email}&id=${id}`, requestOptions)
-        .then(handleResponse);
+        .then(handleResponse)
+        .then(
+          (result) => {
+            this.setState({
+              comments: result
+            })
+          }
+        );
       this.commentInput.setState({
         innerValue: ''
       })
 
         //----- Починить моментальное обновление(при первом обновлении не видит новый комментарий) -----
-       this.fetchData();
-       this.fetchData();
+       //this.fetchData();
+       //this.fetchData();
     }
 
     render() {
