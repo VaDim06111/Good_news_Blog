@@ -16,7 +16,7 @@ function login(email, password) {
         headers: { 'Content-Type': 'application/json' }
     };
 
-    return fetch(`https://localhost:44308/api/login?email=${email}&password=${password}`, requestOptions)
+    return fetch(`https://goodnewsblog.azurewebsites.net/api/login?email=${email}&password=${password}`, requestOptions)
         .then(handleResponse)
         .then(
             (user) => {

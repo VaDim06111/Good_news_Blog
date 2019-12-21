@@ -54,10 +54,10 @@ class SignInPage extends React.Component {
             return(
                 <BrowserRouter>
                 <NavbarMain />
-                <div className="purple lighten-2 mt-0 pt-0" style = {{height:"64.6vh"}}>
+                <div className="purple lighten-2 mt-0 pt-0" style = {{height:"75vh"}}>
                 <MDBContainer>
                             <MDBRow className="text-white">
-                                <MDBCol md="6" className="mx-auto" style={{marginTop:'20%'}}>
+                                <MDBCol md="6" className="mx-auto" style={{marginTop:'10%'}}>
                                 <form onSubmit={this.submitHandler} >
                                     <p className="h5 text-center mb-4">Войти</p>
                                     <div className="grey-text">
@@ -65,7 +65,7 @@ class SignInPage extends React.Component {
                                         label="Ваш email"
                                         labelClass="text-white"
                                         icon="envelope"
-                                        size="lg"
+                                        size="sm"
                                         group
                                         type="email"
                                         validate
@@ -77,7 +77,7 @@ class SignInPage extends React.Component {
                                         label="Ваш пароль"
                                         labelClass="text-white"
                                         icon="lock"
-                                        size="lg"
+                                        size="sm"
                                         group
                                         type="password"
                                         validate

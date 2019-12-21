@@ -6,6 +6,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Net;
 using Newtonsoft.Json;
 using Core;
 
@@ -21,7 +22,7 @@ namespace IndexOfPositiveAnalysisService
             {
                 using (var httpClient = new HttpClient())
                 {
-                    using (var request = new HttpRequestMessage(new HttpMethod("POST"), "http://api.ispras.ru/texterra/v1/nlp?targetType=lemma&apikey=502d75baf06585ce1c8cb4e8184d70fe99a82756"))
+                    using (var request = new HttpRequestMessage(new HttpMethod("POST"), "http://api.ispras.ru/texterra/v1/nlp?targetType=lemma&apikey=01a8ff453a5f7542c9fc6077ebfbce520ab147d9"))
                     {
                         request.Headers.TryAddWithoutValidation("Accept", "application/json");
 
@@ -78,7 +79,8 @@ namespace IndexOfPositiveAnalysisService
         {
             try
             {
-                var fileData = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "\\.." + "\\.." + "\\.." + "\\.." + @"\IndexOfPositiveAnalysisService" + @"\AFINN-ru.json");
+                WebClient wc = new WebClient();
+                var fileData = wc.DownloadString("https://github.com/dkocich/afinn-165-multilingual/blob/master/build/AFINN-ru.json");
                 var baseDictionary = JsonConvert.DeserializeObject<Dictionary<string, string>>(fileData);
 
                 return baseDictionary;
@@ -97,7 +99,6 @@ namespace IndexOfPositiveAnalysisService
 
                 string[] masText;
                 var summResult = 0;
-                var countResult = 0;
 
                 if (text.Length > 1500)
                 {
@@ -124,7 +125,6 @@ namespace IndexOfPositiveAnalysisService
                         }
 
                         summResult += summ;
-                        countResult += count;
                     }
                 }
                 else
@@ -137,12 +137,11 @@ namespace IndexOfPositiveAnalysisService
                         if (baseDictionary.ContainsKey(word))
                         {
                             summResult += Convert.ToInt32(baseDictionary[word]) * dictionary[word];
-                            countResult += dictionary[word];
                         }
                     }
                 }
 
-                return (double)summResult / countResult;
+                return summResult;
             }
             catch (Exception ex)
             {

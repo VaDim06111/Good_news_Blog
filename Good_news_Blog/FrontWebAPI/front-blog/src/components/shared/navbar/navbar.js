@@ -56,7 +56,7 @@ return (
           <MDBCollapse id="navbarCollapse" isOpen={this.state.collapseID} navbar>
             <MDBNavbarNav left>
               <MDBNavItem className={'m-1' + (this.state.currentUser !== null && this.state.currentUser.roles.some(admin) ? '' : ' sr-only')}>
-              <a href="#!"><MDBBtn outline color="white">Панель администратора</MDBBtn></a>               
+              <a href="/admin"><MDBBtn outline color="white">Панель администратора</MDBBtn></a>               
               </MDBNavItem>
             </MDBNavbarNav>
             <SignIn updateState={this.props.updateState}/>

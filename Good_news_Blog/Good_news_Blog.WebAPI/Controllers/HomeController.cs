@@ -29,24 +29,30 @@ namespace Good_news_Blog.WebAPI.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult> Get(int id = 1)
         {
-            int pageSize = 16;
+            int pageSize = 12;
 
             try
             {
                 var countNews = await _mediator.Send(new GetCountNewsQuery());
-                var countPages = (countNews % pageSize) == 0 ? countNews / pageSize : countNews / pageSize + 1;
-
-                var news = await _mediator.Send(new GetNewsPageQuery(id, pageSize));
-
-                NewsModel model = new NewsModel()
+                if (countNews != 0)
                 {
-                    CountPages = countPages,
-                    News = news
-                };
+                    var countPages = (countNews % pageSize) == 0 ? countNews / pageSize : countNews / pageSize + 1;
 
-                Log.Information("Get news by id page was successfully");
+                    var news = await _mediator.Send(new GetNewsPageQuery(id, pageSize));
 
-                return Ok(model);
+                    NewsModel model = new NewsModel()
+                    {
+                        CountPages = countPages,
+                        News = news
+                    };
+
+                    Log.Information("Get news by id page was successfully");
+
+                    return Ok(model);
+                }
+
+                return NotFound();
+
             }
             catch (Exception ex)
             {

@@ -223,37 +223,9 @@
     <Compile Include="ApplicationDbContext.cs" />
     <Compile Include="BaseEntity.cs" />
     <Compile Include="Comment.cs" />
-    <Compile Include="Migrations\20191005113634_AddDescriptionField.cs" />
-    <Compile Include="Migrations\20191005113634_AddDescriptionField.designer.cs">
-      <DependentUpon>20191005113634_AddDescriptionField.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20191009200715_DeleteTablesUserAndRole.cs" />
-    <Compile Include="Migrations\20191009200715_DeleteTablesUserAndRole.designer.cs">
-      <DependentUpon>20191009200715_DeleteTablesUserAndRole.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20191009203006_AddIdentity.cs" />
-    <Compile Include="Migrations\20191009203006_AddIdentity.designer.cs">
-      <DependentUpon>20191009203006_AddIdentity.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20191018154006_AddTableComments.cs" />
-    <Compile Include="Migrations\20191018154006_AddTableComments.designer.cs">
-      <DependentUpon>20191018154006_AddTableComments.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20191018154849_FixTableComment.cs" />
-    <Compile Include="Migrations\20191018154849_FixTableComment.designer.cs">
-      <DependentUpon>20191018154849_FixTableComment.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20191019171837_EditTableComment.cs" />
-    <Compile Include="Migrations\20191019171837_EditTableComment.designer.cs">
-      <DependentUpon>20191019171837_EditTableComment.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20191203165039_ChangeTypeOfIndex.cs" />
-    <Compile Include="Migrations\20191203165039_ChangeTypeOfIndex.designer.cs">
-      <DependentUpon>20191203165039_ChangeTypeOfIndex.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20191217071342_ChangeFieldNewsToNewsId.cs" />
-    <Compile Include="Migrations\20191217071342_ChangeFieldNewsToNewsId.designer.cs">
-      <DependentUpon>20191217071342_ChangeFieldNewsToNewsId.cs</DependentUpon>
+    <Compile Include="Migrations\20191220113052_Initial.cs" />
+    <Compile Include="Migrations\20191220113052_Initial.designer.cs">
+      <DependentUpon>20191220113052_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\ApplicationDbContextModelSnapshot.cs" />
     <Compile Include="News.cs" />

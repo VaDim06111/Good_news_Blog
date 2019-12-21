@@ -31,7 +31,7 @@ class App extends React.Component {
       }
 
      async fetchData(value) {
-     fetch(`https://localhost:44308/api/home/${value}`)
+     fetch(`https://goodnewsblog.azurewebsites.net/api/home/${value}`)
       .then(res => res.json())
       .then(
         (result) => {

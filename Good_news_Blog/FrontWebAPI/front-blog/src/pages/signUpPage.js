@@ -37,7 +37,7 @@ class SignUpPage extends React.Component {
                     body: JSON.stringify(password)
                 };
 
-                fetch(`https://localhost:44308/api/register?userName=${userName}&email=${email}`, requestOptions)
+                fetch(`https://goodnewsblog.azurewebsites.net/api/register?userName=${userName}&email=${email}`, requestOptions)
                 .then(this.setState({
                     redirect: true
                 }));
@@ -65,10 +65,10 @@ class SignUpPage extends React.Component {
             return(
                 <BrowserRouter>
                 <NavbarMain />
-                <div className="purple lighten-2 mt-0 pt-0" style = {{height:"64.6vh"}}>
+                <div className="purple lighten-2 mt-0 pt-0" style = {{height:"85vh"}}>
                 <MDBContainer>
                     <MDBRow className="text-white">
-                        <MDBCol md="6" className="mx-auto" style={{marginTop:'13%'}}>
+                        <MDBCol md="6" className="mx-auto" style={{marginTop:'10%'}}>
                         <form onSubmit={this.submitHandler}>
                             <p className="h5 text-center mb-4">Регистрация</p>
                             <div className="grey-text">
@@ -76,6 +76,7 @@ class SignUpPage extends React.Component {
                                 label="Ваше логин (английские символы)"
                                 labelClass="text-white"
                                 icon="user"
+                                size="sm"
                                 group
                                 type="text"
                                 validate
@@ -87,6 +88,7 @@ class SignUpPage extends React.Component {
                                 label="Ваш email"
                                 labelClass="text-white"
                                 icon="envelope"
+                                size="sm"
                                 group
                                 type="email"
                                 validate
@@ -98,6 +100,7 @@ class SignUpPage extends React.Component {
                                 label="Ваш пароль"
                                 labelClass="text-white"
                                 icon="lock"
+                                size="sm"
                                 group
                                 type="password"
                                 validate
@@ -107,6 +110,7 @@ class SignUpPage extends React.Component {
                                 label="Подтвердите ваш пароль"
                                 labelClass="text-white"
                                 icon="exclamation-triangle"
+                                size="sm"
                                 group
                                 type="password"
                                 validate

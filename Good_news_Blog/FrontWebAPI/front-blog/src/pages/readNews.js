@@ -46,7 +46,7 @@ class ReadNewsPage extends React.Component {
      fetchData() {
       const { id } = this.props.match.params;
 
-      fetch(`https://localhost:44308/api/comment/${id}`)
+      fetch(`https://goodnewsblog.azurewebsites.net/api/comment/${id}`)
       .then(res => res.json())
       .then(
         (result) => {
@@ -83,7 +83,7 @@ class ReadNewsPage extends React.Component {
        body: JSON.stringify(textComment)
     };
       
-      fetch(`https://localhost:44308/api/comment?email=${currentUser.email}&id=${id}`, requestOptions)
+      fetch(`https://goodnewsblog.azurewebsites.net/api/comment?email=${currentUser.email}&id=${id}`, requestOptions)
         .then(handleResponse)
         .then(
           (result) => {
