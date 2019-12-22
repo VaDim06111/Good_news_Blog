@@ -80,8 +80,10 @@ namespace IndexOfPositiveAnalysisService
             try
             {
                 WebClient wc = new WebClient();
-                var fileData = wc.DownloadString("https://github.com/dkocich/afinn-165-multilingual/blob/master/build/AFINN-ru.json");
-                var baseDictionary = JsonConvert.DeserializeObject<Dictionary<string, string>>(fileData);
+                var fileData = wc.DownloadString("https://raw.githubusercontent.com/dkocich/afinn-165-multilingual/master/build/AFINN-ru.json");
+                byte[] result = Encoding.Default.GetBytes(fileData);
+                string str8 = Encoding.UTF8.GetString(result);
+                var baseDictionary = JsonConvert.DeserializeObject<Dictionary<string, string>>(str8);
 
                 return baseDictionary;
             }
